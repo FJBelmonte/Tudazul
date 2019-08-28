@@ -1,0 +1,13 @@
+-refatoração de signIn e signUp vai bem
+
+-redirecionamento em cadastrar
+-aviso visual de ações assíncronas para o usuário
+-adicionar mascára nos inputs de signup
+
+
+-salvar informações de signup no banco de dados
+-aviso visual para confirmação de senha
+-utilizar CRP como UID
+-retirar espaçamento em branco de campos 
+-dependência react-navigaiton android 
+-testar layout em tamanhos de tela diferente
