@@ -4,6 +4,8 @@ import {
   createStackNavigator
 } from "react-navigation";
 
+import Test from "./screens/Test";
+
 import Main from "./screens/Main";
 
 import PsicologoLogin from "./screens/01-Psicologo/Login";
@@ -15,6 +17,7 @@ import PsicologoForgotPassword from "./screens/01-Psicologo/ForgotPassword";
 import PsicologoHome from "./screens/01-Psicologo/Home";
 
 const authStack = createStackNavigator({
+  Test,
   Main,
   PsicologoLogin,
   PsicologoSignup,

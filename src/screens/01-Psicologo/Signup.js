@@ -258,7 +258,7 @@ PsicologoSignup.navigationOptions = {
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: 20
+    marginTop: layout.window.height * 0.025 //marginTop: 20,
   },
   footerText: {
     textAlign: "center",

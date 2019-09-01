@@ -123,10 +123,10 @@ PsicologoForgotPassword.navigationOptions = {
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: 20
+    marginTop: layout.window.height * 0.025 //marginTop: 20,
   },
   footerText: {
-    marginTop: 5,
+    marginTop: layout.window.height * 0.00625, //marginTop: 5,
     color: color.primary
   }
 });

@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
+import { layout } from "../constants";
+
 //onPress |> Function
 //style |> Object
 //textStyle |> Object
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     backgroundColor: "#59818b",
-    width: 250,
+    width: layout.window.width * 0.6, //width: 250,
     marginVertical: 5,
     height: 46,
     justifyContent: "center",

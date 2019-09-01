@@ -9,11 +9,13 @@ export default function Logo() {
   return (
     <View style={styles.container}>
       <Image style={styles.logoRezise} source={logo} />
-      <View style={styles.brand}>
-        <Text style={[styles.font, { color: color.primary }]}>tud</Text>
-        <Text style={[styles.font, { color: color.secondary }]}>azul</Text>
-        <Text style={[styles.font, { color: color.primary }]}>!</Text>
-      </View>
+      {!layout.isSmallDevice && (
+        <View style={styles.brand}>
+          <Text style={[styles.font, { color: color.primary }]}>tud</Text>
+          <Text style={[styles.font, { color: color.secondary }]}>azul</Text>
+          <Text style={[styles.font, { color: color.primary }]}>!</Text>
+        </View>
+      )}
     </View>
   );
 }

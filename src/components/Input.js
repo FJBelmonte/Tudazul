@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
+import { layout } from "../constants";
+
 //Label |> String
 //Placeholder |> String
 //Value |> Var
@@ -13,7 +15,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 export default function Input(props) {
   const error = props.error
     ? { backgroundColor: "rgba(255,200,200,0.95)", color: "#ff0000" }
-    : { marginTop: 20 };
+    : { marginTop: layout.window.height * 0.025 }; // marginTop 20
   return (
     <View
       style={{
@@ -33,7 +35,8 @@ export default function Input(props) {
                 style={[
                   styles.labelStyle,
                   { ...error, marginTop: 0 },
-                  { ...props.labelStyle }
+                  { ...props.labelStyle },
+                  layout.isSmallDevice && { fontSize: 10 } //TEST IT
                 ]}
               >
                 {props.label}
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     backgroundColor: "rgba(245,245,255,0.95)",
-    width: 350,
+    width: layout.window.width * 0.85, //width: 350,
     marginVertical: 5,
     height: 46,
     justifyContent: "center",
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   labelContainer: {
-    width: 120,
+    width: layout.window.width * 0.29, //width: 120,
     height: 46,
     marginHorizontal: 2,
     justifyContent: "center",

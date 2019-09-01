@@ -32,6 +32,6 @@ export default function PacienteLogin({ navigation }) {
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: 20
+    marginTop: layout.window.height * 0.025
   }
 });
