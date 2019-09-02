@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+import { layout } from "../constants";
+
 const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export default function MiniCalendar(props) {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(2018, 10, 28));
 
   function setLabel(index) {
-    if (index === 0) {
-      if (date.getDay() !== 0) {
-        return new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate() - date.getDay()
-        );
-      }
-    }
     return new Date(
       date.getFullYear(),
       date.getMonth(),
@@ -24,33 +17,40 @@ export default function MiniCalendar(props) {
   }
 
   return (
-    <View
-      style={{
-        alignItems: "center"
-      }}
-    >
-      <View style={[styles.container, { ...props.styleContainer }]}>
-        <View style={styles.contentContainer}>
-          {weekLabel.map((day, index) => {
-            return (
-              <View style={styles.labelContainer} key={index}>
-                <Text style={[styles.labelStyle, { ...props.labelStyle }]}>
+    <View style={[styles.container, { ...props.styleContainer }]}>
+      <View style={styles.contentContainer}>
+        {weekLabel.map((day, index) => {
+          return (
+            <View key={index}>
+              <View style={styles.labelContainer}>
+                <Text
+                  style={[
+                    styles.labelStyle,
+                    { fontSize: 14 },
+                    { ...props.labelStyle }
+                  ]}
+                >
                   {day}
                 </Text>
               </View>
-            );
-          })}
-        </View>
-        <View style={styles.contentContainer}>
-          {weekLabel.map((day, index) => {
-            return (
-              <View style={styles.labelContainer} key={index}>
+              <View style={styles.labelContainer}>
+                <View
+                  style={
+                    setLabel(index).getDate() === date.getDate() && {
+                      backgroundColor: "#59818b",
+                      position: "absolute",
+                      width: 40,
+                      height: 40,
+                      borderRadius: 100
+                    }
+                  }
+                />
                 <Text
                   style={[
                     styles.labelStyle,
                     { fontWeight: "bold" },
                     setLabel(index).getDate() === date.getDate() && {
-                      color: "red"
+                      color: "#ffffff"
                     },
                     { ...props.labelStyle }
                   ]}
@@ -58,9 +58,9 @@ export default function MiniCalendar(props) {
                   {setLabel(index).getDate()}
                 </Text>
               </View>
-            );
-          })}
-        </View>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     backgroundColor: "rgba(245,245,255,0.95)",
-    width: 350,
-    marginVertical: 5,
+    width: layout.window.width * 0.85,
     height: 92,
     justifyContent: "center",
     alignItems: "center",
@@ -90,9 +89,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   labelContainer: {
-    width: 48,
-    height: 46,
-    marginHorizontal: 2,
+    width: layout.window.height * 0.055,
+    height: layout.window.height * 0.055,
     justifyContent: "center",
     alignItems: "center"
   },
