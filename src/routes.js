@@ -31,7 +31,7 @@ const psicologoStack = createStackNavigator({
 
 export default createAppContainer(
   createSwitchNavigator({
-    authStack,
+    //authStack,
     psicologoStack
   })
 );

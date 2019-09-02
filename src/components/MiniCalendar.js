@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
+
 export default function MiniCalendar(props) {
+  const [date, setDate] = useState(new Date());
+
+  function setLabel(index) {
+    if (index === 0) {
+      if (date.getDay() !== 0) {
+        return new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate() - date.getDay()
+        );
+      }
+    }
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() - date.getDay() + index
+    );
+  }
+
   return (
     <View
       style={{
@@ -10,50 +31,35 @@ export default function MiniCalendar(props) {
     >
       <View style={[styles.container, { ...props.styleContainer }]}>
         <View style={styles.contentContainer}>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>D</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>S</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>T</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>Q</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>Q</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>S</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>S</Text>
-          </View>
+          {weekLabel.map((day, index) => {
+            return (
+              <View style={styles.labelContainer} key={index}>
+                <Text style={[styles.labelStyle, { ...props.labelStyle }]}>
+                  {day}
+                </Text>
+              </View>
+            );
+          })}
         </View>
         <View style={styles.contentContainer}>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>28</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>29</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>30</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>31</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>1</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>2</Text>
-          </View>
-          <View style={styles.labelContainer}>
-            <Text style={[styles.labelStyle, { ...props.labelStyle }]}>3</Text>
-          </View>
+          {weekLabel.map((day, index) => {
+            return (
+              <View style={styles.labelContainer} key={index}>
+                <Text
+                  style={[
+                    styles.labelStyle,
+                    { fontWeight: "bold" },
+                    setLabel(index).getDate() === date.getDate() && {
+                      color: "red"
+                    },
+                    { ...props.labelStyle }
+                  ]}
+                >
+                  {setLabel(index).getDate()}
+                </Text>
+              </View>
+            );
+          })}
         </View>
       </View>
     </View>
@@ -92,7 +98,6 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: "#59818b",
-    fontWeight: "bold",
     fontSize: 16,
     textAlign: "center"
   }
