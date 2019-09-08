@@ -54,6 +54,7 @@ export const signUp = ({
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       let user = firebase.auth().currentUser;
+      console.log(user);
       let db = firebase.database();
       db.ref(`psicologo/${user.uid}`)
         .set({

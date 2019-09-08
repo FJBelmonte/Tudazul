@@ -10,7 +10,14 @@ import {
 
 import { global, layout, color, linearGradient } from "../../constants";
 
-import { Logo, Input, Button, MiniCalendar } from "../../components";
+import {
+  Logo,
+  Input,
+  Button,
+  MiniCalendar,
+  NextQuery,
+  Calendar
+} from "../../components";
 
 import LinearGradient from "react-native-linear-gradient";
 
@@ -22,7 +29,10 @@ export default function PsicologoHome({ navigation }) {
       enabled={Platform.OS === "ios"}
     >
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <MiniCalendar />
+      <View style={styles.contentContainer}>
+        <Calendar />
+        <NextQuery></NextQuery>
+      </View>
     </KeyboardAvoidingView>
   );
 }
