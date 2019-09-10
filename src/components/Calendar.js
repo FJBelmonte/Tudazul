@@ -6,59 +6,7 @@ import { layout } from "../constants";
 const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export default function Calendar(props) {
-  const [date, setDate] = useState(new Date());
-
-  function getLabelMonth(date) {
-    switch (date.getMonth()) {
-      case 0:
-        return "Janeiro";
-      case 1:
-        return "Fervereiro";
-      case 2:
-        return "Março";
-      case 3:
-        return "Abril";
-      case 4:
-        return "Maio";
-      case 5:
-        return "Junho";
-      case 6:
-        return "Julho";
-      case 7:
-        return "Agosto";
-      case 8:
-        return "Setembro";
-      case 9:
-        return "Outubro";
-      case 10:
-        return "Novembro";
-      case 11:
-        return "Dezembro";
-    }
-  }
-
-  function getMaxDaysMonth(month, year) {
-    switch (month) {
-      case 0:
-      case 2:
-      case 4:
-      case 6:
-      case 7:
-      case 11:
-        return 31;
-      case 3:
-      case 5:
-      case 8:
-      case 10:
-        return 30;
-      case 1:
-        return leapYear(year) ? 29 : 28;
-    }
-  }
-
-  function leapYear(year) {
-    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-  }
+  const [date, setDate] = useState(props.Date);
 
   function setLabel(index) {
     return new Date(
@@ -67,6 +15,8 @@ export default function Calendar(props) {
       date.getDate() - date.getDay() + index
     );
   }
+
+  function setRows(index) {}
 
   function setRow(index) {
     return (
@@ -92,7 +42,7 @@ export default function Calendar(props) {
                 color: "#ffffff"
               },
             date.getMonth() !== setLabel(index).getMonth() && {
-              color: "#f0f0f0" // VERIFICAR
+              color: "#000000" // VERIFICAR
             },
             { ...props.labelStyle }
           ]}
@@ -108,7 +58,7 @@ export default function Calendar(props) {
       <Text
         style={[styles.labelStyle, { fontWeight: "bold", marginBottom: 10 }]}
       >
-        {getLabelMonth(date)} | {date.getFullYear()}
+        {getStringMonth(date)} | {date.getFullYear()}
       </Text>
       <View style={styles.contentContainer}>
         {weekLabel.map((day, index) => {
@@ -125,7 +75,7 @@ export default function Calendar(props) {
                   {day}
                 </Text>
               </View>
-
+              {setRow(index - 7)}
               {setRow(index)}
               {setRow(index + 7)}
               {setRow(index + 14)}
@@ -138,7 +88,9 @@ export default function Calendar(props) {
     </View>
   );
 }
-Calendar.defaultProps = {};
+Calendar.defaultProps = {
+  Date: new Date()
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -172,3 +124,55 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+function getStringMonth(date) {
+  switch (date.getMonth()) {
+    case 0:
+      return "Janeiro";
+    case 1:
+      return "Fervereiro";
+    case 2:
+      return "Março";
+    case 3:
+      return "Abril";
+    case 4:
+      return "Maio";
+    case 5:
+      return "Junho";
+    case 6:
+      return "Julho";
+    case 7:
+      return "Agosto";
+    case 8:
+      return "Setembro";
+    case 9:
+      return "Outubro";
+    case 10:
+      return "Novembro";
+    case 11:
+      return "Dezembro";
+  }
+}
+
+function getMaxDaysMonth(month, year) {
+  switch (month) {
+    case 0:
+    case 2:
+    case 4:
+    case 6:
+    case 7:
+    case 11:
+      return 31;
+    case 3:
+    case 5:
+    case 8:
+    case 10:
+      return 30;
+    case 1:
+      return leapYear(year) ? 29 : 28;
+  }
+}
+
+function leapYear(year) {
+  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+}
