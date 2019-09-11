@@ -15,6 +15,7 @@ import PsicologoSignup from "./screens/01-Psicologo/Signup";
 import PsicologoForgotPassword from "./screens/01-Psicologo/ForgotPassword";
 
 import PsicologoHome from "./screens/01-Psicologo/Home";
+import PsicologoCalendar from "./screens/01-Psicologo/Calendar";
 
 const authStack = createStackNavigator({
   Test,
@@ -26,7 +27,8 @@ const authStack = createStackNavigator({
 });
 
 const psicologoStack = createStackNavigator({
-  PsicologoHome
+  PsicologoHome,
+  PsicologoCalendar
 });
 
 export default createAppContainer(

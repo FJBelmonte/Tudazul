@@ -3,7 +3,7 @@ import { Text, StyleSheet, Image, View } from "react-native";
 
 import { color, layout } from "../constants";
 
-import logo from "../assets/iconequadradin-01.png";
+import logo from "../assets/logo.png";
 
 export default function Logo() {
   return (

@@ -4,52 +4,6 @@ import { View, Text, StyleSheet } from "react-native";
 import { layout, color } from "../constants";
 
 export default function NextQuery(props) {
-  function getLabelDayOfWeek(date) {
-    switch (date.getDay()) {
-      case 0:
-        return "Dom";
-      case 1:
-        return "Seg";
-      case 2:
-        return "Ter";
-      case 3:
-        return "Qua";
-      case 4:
-        return "Qui";
-      case 5:
-        return "Sex";
-      case 6:
-        return "Sab";
-    }
-  }
-  function getLabelMonth(date) {
-    switch (date.getMonth()) {
-      case 0:
-        return "Jan";
-      case 1:
-        return "Fer";
-      case 2:
-        return "Mar";
-      case 3:
-        return "Abr";
-      case 4:
-        return "Mai";
-      case 5:
-        return "Jun";
-      case 6:
-        return "Jul";
-      case 7:
-        return "Ago";
-      case 8:
-        return "Set";
-      case 9:
-        return "Out";
-      case 10:
-        return "Nov";
-      case 11:
-        return "Dez";
-    }
-  }
   return (
     <View
       style={{
@@ -161,3 +115,50 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5
   }
 });
+
+function getLabelDayOfWeek(date) {
+  switch (date.getDay()) {
+    case 0:
+      return "Dom";
+    case 1:
+      return "Seg";
+    case 2:
+      return "Ter";
+    case 3:
+      return "Qua";
+    case 4:
+      return "Qui";
+    case 5:
+      return "Sex";
+    case 6:
+      return "Sab";
+  }
+}
+function getLabelMonth(date) {
+  switch (date.getMonth()) {
+    case 0:
+      return "Jan";
+    case 1:
+      return "Fer";
+    case 2:
+      return "Mar";
+    case 3:
+      return "Abr";
+    case 4:
+      return "Mai";
+    case 5:
+      return "Jun";
+    case 6:
+      return "Jul";
+    case 7:
+      return "Ago";
+    case 8:
+      return "Set";
+    case 9:
+      return "Out";
+    case 10:
+      return "Nov";
+    case 11:
+      return "Dez";
+  }
+}

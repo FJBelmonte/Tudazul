@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import { layout } from "../constants";
 
 const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export default function MiniCalendar(props) {
-  const [date, setDate] = useState(new Date());
+  const [date] = useState(new Date());
 
   function setLabel(index) {
     return new Date(
@@ -17,55 +17,52 @@ export default function MiniCalendar(props) {
   }
 
   return (
-    <View style={[styles.container, { ...props.styleContainer }]}>
-      <View style={styles.contentContainer}>
-        {weekLabel.map((day, index) => {
-          return (
-            <View key={index}>
-              <View style={styles.labelContainer}>
-                <Text
-                  style={[
-                    styles.labelStyle,
-                    { fontSize: 14 },
-                    { ...props.labelStyle }
-                  ]}
-                >
-                  {day}
-                </Text>
-              </View>
-              <View style={styles.labelContainer}>
-                <View
-                  style={
-                    setLabel(index).getDate() === date.getDate() && {
-                      backgroundColor: "#59818b",
-                      position: "absolute",
-                      width: 40,
-                      height: 40,
-                      borderRadius: 100
+    <TouchableOpacity onPress={props.onPress}>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          {weekLabel.map((day, index) => {
+            return (
+              <View key={index}>
+                <View style={styles.labelContainer}>
+                  <Text style={[styles.labelStyle, { fontSize: 14 }]}>
+                    {day}
+                  </Text>
+                </View>
+                <View style={styles.labelContainer}>
+                  <View
+                    style={
+                      setLabel(index).getDate() === date.getDate() && {
+                        backgroundColor: "#59818b",
+                        position: "absolute",
+                        width: 40,
+                        height: 40,
+                        borderRadius: 100
+                      }
                     }
-                  }
-                />
-                <Text
-                  style={[
-                    styles.labelStyle,
-                    { fontWeight: "bold" },
-                    setLabel(index).getDate() === date.getDate() && {
-                      color: "#ffffff"
-                    },
-                    { ...props.labelStyle }
-                  ]}
-                >
-                  {setLabel(index).getDate()}
-                </Text>
+                  />
+                  <Text
+                    style={[
+                      styles.labelStyle,
+                      { fontWeight: "bold" },
+                      setLabel(index).getDate() === date.getDate() && {
+                        color: "#ffffff"
+                      }
+                    ]}
+                  >
+                    {setLabel(index).getDate()}
+                  </Text>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })}
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
-MiniCalendar.defaultProps = {};
+MiniCalendar.defaultProps = {
+  onPress: () => {}
+};
 
 const styles = StyleSheet.create({
   container: {

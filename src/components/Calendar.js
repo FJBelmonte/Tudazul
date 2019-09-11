@@ -1,55 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import { layout } from "../constants";
 
 const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export default function Calendar(props) {
-  const [date, setDate] = useState(props.Date);
+  const date = props.Date;
 
-  function setLabel(index) {
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - date.getDay() + index
-    );
+  function setLabelDate(index) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDay() + index);
   }
 
   function setRows(index) {}
 
   function setRow(index) {
+    const _date = setLabelDate(index);
     return (
-      <View style={styles.labelContainer}>
-        <View
-          style={
-            setLabel(index).getDate() === date.getDate() &&
-            date.getMonth() === setLabel(index).getMonth() && {
-              backgroundColor: "#59818b",
-              position: "absolute",
-              width: 40,
-              height: 40,
-              borderRadius: 100
+      <TouchableOpacity onPress={() => props.onPress(_date)}>
+        <View style={styles.labelContainer}>
+          <View
+            style={
+              setLabelDate(index).getDate() === date.getDate() &&
+              date.getMonth() === setLabelDate(index).getMonth() && {
+                backgroundColor: "#59818b",
+                position: "absolute",
+                width: 40,
+                height: 40,
+                borderRadius: 100
+              }
             }
-          }
-        />
-        <Text
-          style={[
-            styles.labelStyle,
-            { fontWeight: "bold" },
-            setLabel(index).getDate() === date.getDate() &&
-              date.getMonth() === setLabel(index).getMonth() && {
-                color: "#ffffff"
+          />
+          <Text
+            style={[
+              styles.labelStyle,
+              { fontWeight: "bold" },
+              setLabelDate(index).getDate() === date.getDate() &&
+                date.getMonth() === setLabelDate(index).getMonth() && {
+                  color: "#ffffff"
+                },
+              date.getMonth() !== setLabelDate(index).getMonth() && {
+                color: "#000000" // VERIFICAR
               },
-            date.getMonth() !== setLabel(index).getMonth() && {
-              color: "#000000" // VERIFICAR
-            },
-            { ...props.labelStyle }
-          ]}
-        >
-          {setLabel(index).getDate()}
-        </Text>
-      </View>
+              { ...props.labelStyle }
+            ]}
+          >
+            {setLabelDate(index).getDate()}
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 
@@ -62,6 +61,7 @@ export default function Calendar(props) {
       </Text>
       <View style={styles.contentContainer}>
         {weekLabel.map((day, index) => {
+          const i = -date.getDay() + index + 1; //VERIFICAR
           return (
             <View key={index}>
               <View style={[styles.labelContainer, { marginBottom: 10 }]}>
@@ -75,12 +75,12 @@ export default function Calendar(props) {
                   {day}
                 </Text>
               </View>
-              {setRow(index - 7)}
-              {setRow(index)}
-              {setRow(index + 7)}
-              {setRow(index + 14)}
-              {setRow(index + 21)}
-              {setRow(index + 28)}
+              {setRow(i - 7)}
+              {setRow(i)}
+              {setRow(i + 7)}
+              {setRow(i + 14)}
+              {setRow(i + 21)}
+              {setRow(i + 28)}
             </View>
           );
         })}
@@ -89,7 +89,8 @@ export default function Calendar(props) {
   );
 }
 Calendar.defaultProps = {
-  Date: new Date()
+  Date: new Date(),
+  onPress: () => {}
 };
 
 const styles = StyleSheet.create({

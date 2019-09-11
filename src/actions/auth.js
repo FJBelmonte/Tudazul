@@ -66,7 +66,10 @@ export const signUp = ({
         })
         .then(() => {
           dispatch({
-            type: CREATE_USER_SUCCESS
+            type: CREATE_USER_SUCCESS,
+            payload: {
+              user: { uid: user.uid, name, email, cellphone, crp }
+            }
           });
         })
         .catch(err => {

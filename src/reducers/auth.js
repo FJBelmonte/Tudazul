@@ -45,6 +45,7 @@ export default (state = INITIAL_STATE, action) => {
           signUp: { code: null },
           forgotPassword: { code: null }
         },
+        user: action.payload.user, //usado atualmente somente na home após o processo de autenticação
         userCreated: true
       };
     case CREATE_USER_FAIL:
