@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableOpacity
+} from "react-native";
 
 import { layout } from "../constants";
 
@@ -26,11 +33,26 @@ export default function Input(props) {
         <Text style={styles.error}>{props.error.errorMessage}</Text>
       )}
       <View
-        style={[styles.container, { ...error }, { ...props.styleContainer }]}
+        style={[
+          styles.container,
+          props.multiline && { ...styles.container, height: 46 * 4 },
+          { ...error },
+          { ...props.styleContainer }
+        ]}
       >
-        <View style={styles.contentContainer}>
+        <View style={props.multiline ? {} : styles.contentContainer}>
           {props.label && (
-            <View style={styles.labelContainer}>
+            <View
+              style={
+                props.multiline
+                  ? {
+                      ...styles.labelContainer,
+                      borderBottomWidth: 1,
+                      borderRightWidth: 0
+                    }
+                  : styles.labelContainer
+              }
+            >
               <Text
                 style={[
                   styles.labelStyle,
@@ -55,7 +77,14 @@ export default function Input(props) {
             secureTextEntry={props.secureTextEntry}
             keyboardType={props.keyboardType}
             onFocus={props.onFocus}
+            multiline={props.multiline}
+            numberOfLines={props.multiline ? 4 : 1}
           />
+          {props.icon && (
+            <TouchableOpacity style={styles.iconContainer}>
+              <Image style={{ width: 40, height: 40 }} source={props.icon} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
@@ -71,6 +100,8 @@ Input.defaultProps = {
   styleContainer: {},
   keyboardType: "default",
   error: null,
+  multiline: false,
+  icon: null,
   onFocus: () => {}
 };
 
@@ -120,5 +151,10 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 1,
     fontSize: 12
+  },
+  iconContainer: {
+    justifyContent: "center",
+    alignContent: "center",
+    padding: 2
   }
 });

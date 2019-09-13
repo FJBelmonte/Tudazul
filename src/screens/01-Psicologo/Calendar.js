@@ -24,7 +24,10 @@ export default function Calendar({ navigation }) {
           next={pickedDate ? { date: pickedDate } : { date: new Date() }}
         />
       </View>
-      <TouchableOpacity style={styles.floatButton}>
+      <TouchableOpacity
+        style={styles.floatButton}
+        onPress={() => navigation.navigate("PsicologoNewConsultation")}
+      >
         <Text style={styles.floatButtonLabel}>+</Text>
       </TouchableOpacity>
     </View>
