@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { global, layout, color, linearGradient } from "../../constants";
 import { NextQuery, Calendar as CalendarComponent } from "../../components";
@@ -24,6 +24,9 @@ export default function Calendar({ navigation }) {
           next={pickedDate ? { date: pickedDate } : { date: new Date() }}
         />
       </View>
+      <TouchableOpacity style={styles.floatButton}>
+        <Text style={styles.floatButtonLabel}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -32,7 +35,5 @@ Calendar.navigationOptions = {
 };
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025 // marginTop: 20
-  }
+  floatButtonLabel: { fontSize: 40, color: "#fff" }
 });
