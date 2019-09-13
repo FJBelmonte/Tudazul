@@ -9,12 +9,16 @@ export default function Calendar(props) {
   const date = props.Date;
 
   function setLabelDate(index) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDay() + index);
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() - date.getDay() + index
+    );
   }
 
-  function setRows(index) {}
+  function setColumns(index) {}
 
-  function setRow(index) {
+  function setColumn(index) {
     const _date = setLabelDate(index);
     return (
       <TouchableOpacity onPress={() => props.onPress(_date)}>
@@ -40,7 +44,7 @@ export default function Calendar(props) {
                   color: "#ffffff"
                 },
               date.getMonth() !== setLabelDate(index).getMonth() && {
-                color: "#000000" // VERIFICAR
+                color: "gray" // VERIFICAR
               },
               { ...props.labelStyle }
             ]}
@@ -61,7 +65,6 @@ export default function Calendar(props) {
       </Text>
       <View style={styles.contentContainer}>
         {weekLabel.map((day, index) => {
-          const i = -date.getDay() + index + 1; //VERIFICAR
           return (
             <View key={index}>
               <View style={[styles.labelContainer, { marginBottom: 10 }]}>
@@ -75,12 +78,12 @@ export default function Calendar(props) {
                   {day}
                 </Text>
               </View>
-              {setRow(i - 7)}
-              {setRow(i)}
-              {setRow(i + 7)}
-              {setRow(i + 14)}
-              {setRow(i + 21)}
-              {setRow(i + 28)}
+
+              {setColumn(index - 14)}
+              {setColumn(index - 7)}
+              {setColumn(index)}
+              {setColumn(index + 7)}
+              {setColumn(index + 14)}
             </View>
           );
         })}
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "rgba(245,245,255,0.95)",
     width: layout.window.width * 0.85,
-    height: 92 * 4,
+    height: 92 * 4.5,
     alignItems: "center",
     padding: 20,
     shadowColor: "#000",
