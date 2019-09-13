@@ -24,16 +24,24 @@ export default function Calendar(props) {
       <TouchableOpacity onPress={() => props.onPress(_date)}>
         <View style={styles.labelContainer}>
           <View
-            style={
+            style={[
               setLabelDate(index).getDate() === date.getDate() &&
-              date.getMonth() === setLabelDate(index).getMonth() && {
-                backgroundColor: "#59818b",
-                position: "absolute",
-                width: 40,
-                height: 40,
-                borderRadius: 100
-              }
-            }
+                date.getMonth() === setLabelDate(index).getMonth() && {
+                  backgroundColor: "gray",
+                  position: "absolute",
+                  width: 40,
+                  height: 40,
+                  borderRadius: 100
+                },
+              setLabelDate(index).getDate() === new Date().getDate() &&
+                setLabelDate(index).getMonth() === new Date().getMonth() && {
+                  backgroundColor: "#59818b",
+                  position: "absolute",
+                  width: 40,
+                  height: 40,
+                  borderRadius: 100
+                }
+            ]}
           />
           <Text
             style={[
@@ -44,8 +52,12 @@ export default function Calendar(props) {
                   color: "#ffffff"
                 },
               date.getMonth() !== setLabelDate(index).getMonth() && {
-                color: "gray" // VERIFICAR
+                color: "gray"
               },
+              setLabelDate(index).getDate() === new Date().getDate() &&
+                setLabelDate(index).getMonth() === new Date().getMonth() && {
+                  color: "#ffffff"
+                },
               { ...props.labelStyle }
             ]}
           >
@@ -101,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "rgba(245,245,255,0.95)",
     width: layout.window.width * 0.85,
-    height: 92 * 4.5,
+    height: 92 * 4,
     alignItems: "center",
     padding: 20,
     shadowColor: "#000",
