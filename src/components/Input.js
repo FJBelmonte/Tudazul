@@ -10,15 +10,6 @@ import {
 
 import { layout } from "../constants";
 
-//Label |> String
-//Placeholder |> String
-//Value |> Var
-//onChangeText |> Function
-//labelStyle |> Object
-//textContentType |> Enum ( same as https://facebook.github.io/react-native/docs/textinput#textcontenttype )
-//secureTextEntry |> Boolean
-//keyboardType |> Enum ( same as https://facebook.github.io/react-native/docs/textinput#keyboardtype)
-
 export default function Input(props) {
   const error = props.error
     ? { backgroundColor: "rgba(255,200,200,0.95)", color: "#ff0000" }
@@ -29,64 +20,77 @@ export default function Input(props) {
         alignItems: "center"
       }}
     >
-      {props.error && (
-        <Text style={styles.error}>{props.error.errorMessage}</Text>
-      )}
-      <View
-        style={[
-          styles.container,
-          props.multiline && { ...styles.container, height: 46 * 4 },
-          { ...error },
-          { ...props.styleContainer }
-        ]}
-      >
-        <View style={props.multiline ? {} : styles.contentContainer}>
-          {props.label && (
-            <View
-              style={
-                props.multiline
-                  ? {
-                      ...styles.labelContainer,
-                      borderBottomWidth: 1,
-                      borderRightWidth: 0
-                    }
-                  : styles.labelContainer
-              }
-            >
-              <Text
-                style={[
-                  styles.labelStyle,
-                  { ...error, marginTop: 0 },
-                  { ...props.labelStyle },
-                  layout.isSmallDevice && { fontSize: 10 } //TEST IT
-                ]}
+      <TouchableOpacity activeOpacity={1.0}>
+        {
+          //adicionar focus no input
+        }
+        {props.error && (
+          <Text style={styles.error}>{props.error.errorMessage}</Text>
+        )}
+        <View
+          style={[
+            styles.container,
+            props.multiline && { ...styles.container, height: 46 * 4 },
+            { ...error },
+            { ...props.styleContainer }
+          ]}
+        >
+          <View
+            style={
+              props.multiline
+                ? { flex: 1, alignSelf: "stretch", padding: 5 }
+                : styles.contentContainer
+            }
+          >
+            {props.label && (
+              <View
+                style={
+                  props.multiline
+                    ? {
+                        ...styles.labelContainer,
+                        borderRightWidth: 0
+                      }
+                    : styles.labelContainer
+                }
               >
-                {props.label}
-              </Text>
-            </View>
-          )}
-          <TextInput
-            textContentType={props.textContentType}
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder={props.placeholder}
-            style={styles.input}
-            placeholderTextColor="#999"
-            value={props.value}
-            onChangeText={props.onChangeText}
-            secureTextEntry={props.secureTextEntry}
-            keyboardType={props.keyboardType}
-            onFocus={props.onFocus}
-            multiline={props.multiline}
-            numberOfLines={props.multiline ? 4 : 1}
-          />
-          {props.icon && (
-            <TouchableOpacity style={styles.iconContainer}>
-              <Image style={{ width: 40, height: 40 }} source={props.icon} />
-            </TouchableOpacity>
-          )}
+                <Text
+                  style={[
+                    styles.labelStyle,
+                    { ...error, marginTop: 0 },
+                    { ...props.labelStyle },
+                    layout.isSmallDevice && { fontSize: 10 } //TEST IT
+                  ]}
+                >
+                  {props.label}
+                </Text>
+              </View>
+            )}
+            {props.type === "default" && (
+              <TextInput
+                textContentType={props.textContentType}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder={props.placeholder}
+                style={styles.input}
+                placeholderTextColor="#999"
+                value={props.value}
+                onChangeText={props.onChangeText}
+                secureTextEntry={props.secureTextEntry}
+                keyboardType={props.keyboardType}
+                onFocus={props.onFocus}
+                multiline={props.multiline}
+                numberOfLines={props.multiline ? 4 : 1}
+              />
+            )}
+
+            {props.icon && (
+              <TouchableOpacity style={styles.iconContainer}>
+                <Image style={{ width: 40, height: 40 }} source={props.icon} />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -102,6 +106,7 @@ Input.defaultProps = {
   error: null,
   multiline: false,
   icon: null,
+  type: "default",
   onFocus: () => {}
 };
 
@@ -144,6 +149,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    alignSelf: "stretch",
     paddingHorizontal: 5
   },
   error: {

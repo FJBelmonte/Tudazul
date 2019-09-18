@@ -27,8 +27,11 @@ export default function PsicologoHome({ navigation }) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const user = { name: "Maionese" };
+  const user = state.auth.user;
 
+  useEffect(() => {
+    console.log(state.auth);
+  }, [state.auth]);
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
@@ -48,6 +51,7 @@ export default function PsicologoHome({ navigation }) {
       <View style={styles.contentContainer}>
         <NavigationBox
           onPress0={() => navigation.navigate("PsicologoCalendar")}
+          onPress1={() => navigation.navigate("PsicologoPatients")}
         />
       </View>
     </View>

@@ -4,7 +4,8 @@ import {
   Platform,
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -32,25 +33,31 @@ export default function NewConsultation({ navigation }) {
   const [name, setName] = useState();
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState();
+  const [type, setType] = useState("js");
   const [anotation, setAnotation] = useState();
 
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
-        <Input label="Nome" placeholder="Nome do paciente"></Input>
-
-        <Input
-          label="Data"
-          placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
-          icon={calendarIcon}
-        ></Input>
-
-        <Input label="Hora"></Input>
-
-        <Input label="Tipo"></Input>
-
-        <Input label="Anotações" multiline></Input>
+        <View style={{ flex: 1, justifyContent: "flex-start" }}>
+          <Input label="Nome" placeholder="Nome do paciente"></Input>
+          <Input
+            label="Data"
+            placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
+            icon={calendarIcon}
+          ></Input>
+          <Input
+            label="Hora"
+            placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
+            icon={calendarIcon}
+          ></Input>
+          <Input label="Tipo"></Input>
+          <Input label="Anotações" multiline></Input>
+        </View>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <Button text="Confirmar"></Button>
       </View>
     </View>
   );

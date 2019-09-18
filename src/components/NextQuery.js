@@ -37,6 +37,10 @@ export default function NextQuery(props) {
                   {props.next.next.name}
                 </Text>
               </React.Fragment>
+            ) : props.children ? (
+              {
+                ...props.children
+              }
             ) : (
               <React.Fragment>
                 <Text style={[styles.secondaryLabelStyle, { fontSize: 18 }]}>

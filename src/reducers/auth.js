@@ -28,6 +28,7 @@ export default (state = INITIAL_STATE, action) => {
           signUp: { code: null },
           forgotPassword: { code: null }
         },
+        user: action.payload.user,
         isLoggedIn: true,
         userCreated: false,
         resetedPassword: false

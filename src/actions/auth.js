@@ -16,7 +16,19 @@ export const signIn = ({ email, password }) => async dispatch => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      dispatch({ type: LOGIN_SUCCESS });
+      let user = firebase.auth().currentUser;
+      let db = firebase.database();
+      db.ref(`psicologo/${user.uid}`)
+        .once("value")
+        .then(snapshot => {
+          const { name, email, cellphone, crp } = snapshot.val();
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: {
+              user: { uid: user.uid, name, email, cellphone, crp }
+            }
+          });
+        });
     })
     .catch(err => {
       const error = err.code;
