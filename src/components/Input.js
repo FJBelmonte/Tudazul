@@ -48,7 +48,8 @@ export default function Input(props) {
                   props.multiline
                     ? {
                         ...styles.labelContainer,
-                        borderRightWidth: 0
+                        borderRightWidth: 0,
+                        alignSelf: "center"
                       }
                     : styles.labelContainer
                 }

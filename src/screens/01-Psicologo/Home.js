@@ -29,9 +29,6 @@ export default function PsicologoHome({ navigation }) {
 
   const user = state.auth.user;
 
-  useEffect(() => {
-    console.log(state.auth);
-  }, [state.auth]);
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />

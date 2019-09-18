@@ -9,7 +9,6 @@ import {
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
 
 import { global, layout, color, linearGradient } from "../../constants";
 
@@ -25,37 +24,35 @@ import {
 
 import LinearGradient from "react-native-linear-gradient";
 
-export default function Patients({ navigation }) {
+import calendarIcon from "../../assets/icons/ico-calendario.png";
+
+export default function NewPatient({ navigation }) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(actions.fetchPatients());
-    console.log(state);
-  }, []);
 
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
-          <NextQuery>
-            <Text>teste</Text>
-          </NextQuery>
+          <Input label="Paciente" placeholder="Nome do paciente" />
+          <Input label="Idade" placeholder="00" />
+          <Input label="Gênero" placeholder="Gênero" />
+          <Input
+            label="Anotações"
+            placeholder="Anote o que achar relevante"
+            multiline
+          />
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.floatButton}
-        onPress={() => navigation.navigate("PsicologoNewPatient")}
-      >
-        <Text style={styles.floatButtonLabel}>+</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <Button text="Cadastrar"></Button>
+      </View>
     </View>
   );
 }
-Patients.navigationOptions = {
-  title: "Pacientes"
+NewPatient.navigationOptions = {
+  title: "Novo paciente"
 };
 
 const styles = StyleSheet.create({
