@@ -30,18 +30,48 @@ export default function NewPatient({ navigation }) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [anotation, setAnotation] = useState("");
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
-          <Input label="Paciente" placeholder="Nome do paciente" />
-          <Input label="Idade" placeholder="00" />
-          <Input label="Gênero" placeholder="Gênero" />
+          <Input
+            label="Paciente"
+            placeholder="Nome do paciente"
+            value={name}
+            onChangeText={value => {
+              setName(value);
+            }}
+          />
+          <Input
+            label="Idade"
+            placeholder="00"
+            value={age}
+            onChangeText={value => {
+              setAge(value);
+            }}
+          />
+          <Input
+            label="Gênero"
+            placeholder="Gênero"
+            value={gender}
+            onChangeText={value => {
+              setGender(value);
+            }}
+          />
           <Input
             label="Anotações"
             placeholder="Anote o que achar relevante"
             multiline
+            value={anotation}
+            onChangeText={value => {
+              setAnotation(value);
+            }}
           />
         </View>
       </View>

@@ -37,13 +37,14 @@ export default function PsicologoHome({ navigation }) {
           onPress={() => navigation.navigate("PsicologoCalendar")}
         />
       </View>
+     
+      <View style={styles.contentContainer}>
+        <NextQuery />
+      </View>
       <View style={styles.contentContainer}>
         <Text style={styles.welcomeLabelStyle}>
           Olá, Doutor(a) {user.name} !
         </Text>
-      </View>
-      <View style={styles.contentContainer}>
-        <NextQuery />
       </View>
       <View style={styles.contentContainer}>
         <NavigationBox

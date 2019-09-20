@@ -6,13 +6,17 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-  patients: {}
+  patients: {},
+  createdPatient: null
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_PATIENTS:
       return { ...state, patients: { ...action.payload } };
+    case CREATE_PATIENT_SUCESS:
+      console.log("SUCESS");
+      return { ...state };
     default:
       return state;
   }

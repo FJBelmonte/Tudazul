@@ -18,7 +18,7 @@ export const signIn = ({ email, password }) => async dispatch => {
     .then(() => {
       let user = firebase.auth().currentUser;
       let db = firebase.database();
-      db.ref(`psicologo/${user.uid}`)
+      db.ref(`psychologist/${user.uid}`)
         .once("value")
         .then(snapshot => {
           const { name, email, cellphone, crp } = snapshot.val();
@@ -68,13 +68,13 @@ export const signUp = ({
       let user = firebase.auth().currentUser;
       console.log(user);
       let db = firebase.database();
-      db.ref(`psicologo/${user.uid}`)
+      db.ref(`psychologist/${user.uid}`)
         .set({
           name,
           email,
           cellphone,
           crp,
-          pacientes: {}
+          patients: {}
         })
         .then(() => {
           dispatch({
