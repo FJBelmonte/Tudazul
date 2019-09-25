@@ -16,8 +16,8 @@ export default global = {
   contentContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: layout.window.height * 0.025
+    justifyContent: "center"
+    //paddingHorizontal: layout.window.height * 0.025
   },
   footer: {
     alignItems: "center",
@@ -50,5 +50,8 @@ export default global = {
     shadowRadius: 3.84,
     elevation: 5
   },
-  floatButtonLabel: { fontSize: 40, color: "#fff" }
+  floatButtonLabel: {
+    fontSize: 40,
+    color: "#fff"
+  }
 };

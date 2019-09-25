@@ -9,6 +9,8 @@ import {
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../actions";
+import _ from "lodash";
 
 import { global, layout, color, linearGradient } from "../../constants";
 
@@ -34,6 +36,32 @@ export default function NewPatient({ navigation }) {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [anotation, setAnotation] = useState("");
+  const [inputError, setInputError] = useState({
+    name: null,
+    age: null,
+    gender: null
+  });
+
+  function verifyCamps() {
+    let errorInput = { ...inputError };
+    if (name === "") {
+      errorInput.name = {
+        code: "patient/blank-name",
+        errorMessage: "Campo Paciente é obrigatório"
+      };
+    } else {
+      errorInput.name = null;
+    }
+    let nErrs = _.toArray(errorInput).length;
+    _.forEach(errorInput, err => {
+      err === null && nErrs--;
+    });
+    if (nErrs === 0) {
+      return true;
+    } else {
+      setInputError(errorInput);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -44,6 +72,11 @@ export default function NewPatient({ navigation }) {
             label="Paciente"
             placeholder="Nome do paciente"
             value={name}
+            error={inputError.name}
+            onFocus={() => {
+              setInputError({ ...inputError, name: null });
+            }}
+            textContentType="name"
             onChangeText={value => {
               setName(value);
             }}
@@ -76,7 +109,20 @@ export default function NewPatient({ navigation }) {
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button text="Cadastrar"></Button>
+        <Button
+          text="Cadastrar"
+          onPress={() => {
+            const patient = {
+              name,
+              age,
+              gender,
+              anotation
+            };
+            if (verifyCamps()) {
+              dispatch(actions.createPatient(patient));
+            }
+          }}
+        ></Button>
       </View>
     </View>
   );

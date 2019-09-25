@@ -13,34 +13,42 @@ export default function NextQuery(props) {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.primaryLabelContainer}>
-            <Text style={[styles.primaryLabelStyle, { fontSize: 36 }]}>
-              {props.next.date.getDate()}
-            </Text>
+            {props.date ? (
+              <React.Fragment>
+                <Text style={[styles.primaryLabelStyle, { fontSize: 36 }]}>
+                  {props.date.getDate()}
+                </Text>
 
-            <Text style={[styles.primaryLabelStyle, { fontSize: 32 }]}>
-              {getLabelDayOfWeek(props.next.date)}
-            </Text>
-            <Text style={[styles.primaryLabelStyle, { fontSize: 26 }]}>
-              {getLabelMonth(props.next.date)}/{props.next.date.getFullYear()}
-            </Text>
+                <Text style={[styles.primaryLabelStyle, { fontSize: 32 }]}>
+                  {getLabelDayOfWeek(props.date)}
+                </Text>
+                <Text style={[styles.primaryLabelStyle, { fontSize: 26 }]}>
+                  {getLabelMonth(props.date)}/{props.date.getFullYear()}
+                </Text>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Text style={[styles.primaryLabelStyle, { fontSize: 26 }]}>
+                  Sem nova consulta
+                </Text>
+              </React.Fragment>
+            )}
           </View>
           <View style={styles.secondaryLabelContainer}>
-            {props.next.next ? (
+            {props.next ? (
               <React.Fragment>
                 <Text style={[styles.secondaryLabelStyle, { fontSize: 26 }]}>
-                  {props.next.next.hour}
+                  {props.next.hour}
                 </Text>
                 <Text style={[styles.secondaryLabelStyle, { fontSize: 26 }]}>
-                  {props.next.next.type}
+                  {props.next.type}
                 </Text>
                 <Text style={[styles.secondaryLabelStyle, { fontSize: 26 }]}>
-                  {props.next.next.name}
+                  {props.next.name}
                 </Text>
               </React.Fragment>
             ) : props.children ? (
-              {
-                ...props.children
-              }
+              props.children
             ) : (
               <React.Fragment>
                 <Text style={[styles.secondaryLabelStyle, { fontSize: 18 }]}>
@@ -54,11 +62,7 @@ export default function NextQuery(props) {
     </View>
   );
 }
-NextQuery.defaultProps = {
-  next: {
-    date: new Date()
-  }
-};
+NextQuery.defaultProps = {};
 
 const styles = StyleSheet.create({
   container: {

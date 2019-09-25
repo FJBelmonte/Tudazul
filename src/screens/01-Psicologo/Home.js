@@ -37,9 +37,9 @@ export default function PsicologoHome({ navigation }) {
           onPress={() => navigation.navigate("PsicologoCalendar")}
         />
       </View>
-     
+
       <View style={styles.contentContainer}>
-        <NextQuery />
+        <NextQuery date={new Date()} />
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.welcomeLabelStyle}>

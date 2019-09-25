@@ -13,7 +13,7 @@ export const fetchPatients = () => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
 
-  db.ref(`psicologo/${user.uid}`)
+  db.ref(`psychologist/${user.uid}`)
     .once("value")
     .then(snapshot => {
       const { patients } = snapshot.val();
@@ -34,13 +34,21 @@ export const createPatient = ({
   let user = firebase.auth().currentUser;
   let db = firebase.database();
   const uuid = uuidv4();
-  db.ref(`psychologist/${user.uid}/patients/${uuid}`).set({
-    name,
-    age,
-    gender,
-    anotation,
-    psychologist: user.uid
-  });
+  db.ref(`psychologist/${user.uid}/patients/${uuid}`)
+    .set({
+      uid: uuid,
+      name,
+      age,
+      gender,
+      anotation,
+      psychologist: user.uid
+    })
+    .then(() => {
+      dispatch({ type: CREATE_PATIENT_SUCESS });
+    })
+    .catch(err => {
+      dispatch({ CREATE_PATIENT_FAIL });
+    });
 
   //adicionar dispatch
 };

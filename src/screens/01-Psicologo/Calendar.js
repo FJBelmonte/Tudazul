@@ -20,9 +20,7 @@ export default function Calendar({ navigation }) {
         />
       </View>
       <View style={styles.contentContainer}>
-        <NextQuery
-          next={pickedDate ? { date: pickedDate } : { date: new Date() }}
-        />
+        <NextQuery date={pickedDate ? pickedDate : new Date()} />
       </View>
       <TouchableOpacity
         style={styles.floatButton}
