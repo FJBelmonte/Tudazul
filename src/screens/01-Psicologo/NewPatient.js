@@ -52,6 +52,14 @@ export default function NewPatient({ navigation }) {
     } else {
       errorInput.name = null;
     }
+    if (age === "") {
+      errorInput.age = {
+        code: "patient/blank-age",
+        errorMessage: "Campo Idade é obrigatório"
+      };
+    } else {
+      errorInput.age = null;
+    }
     let nErrs = _.toArray(errorInput).length;
     _.forEach(errorInput, err => {
       err === null && nErrs--;
