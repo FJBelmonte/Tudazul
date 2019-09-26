@@ -44,7 +44,7 @@ export default function Patients({ navigation }) {
   }, [state.psychologistPatient.patients]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
@@ -52,7 +52,11 @@ export default function Patients({ navigation }) {
             {_.toArray(listPatient).map(patient => {
               return (
                 <View key={patient.uid}>
-                  <NextQuery>
+                  <NextQuery
+                    onPress={() =>
+                      navigation.navigate("PsicologoPatient", { patient })
+                    }
+                  >
                     <Text style={[styles.patientNameLabel]}>
                       {patient.name}
                     </Text>

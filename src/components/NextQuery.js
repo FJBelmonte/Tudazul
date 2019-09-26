@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import { layout, color } from "../constants";
 
@@ -10,7 +10,11 @@ export default function NextQuery(props) {
         alignItems: "center"
       }}
     >
-      <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        activeOpacity={1.0}
+        onPress={props.onPress}
+      >
         <View style={styles.contentContainer}>
           <View style={styles.primaryLabelContainer}>
             {props.date ? (
@@ -58,7 +62,7 @@ export default function NextQuery(props) {
             )}
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

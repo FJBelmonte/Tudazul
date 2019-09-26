@@ -66,7 +66,7 @@ export default function Input(props) {
                 </Text>
               </View>
             )}
-            {props.type === "default" && (
+            {props.type === "default" && props.editable === true && (
               <TextInput
                 textContentType={props.textContentType}
                 autoCapitalize="none"
@@ -82,6 +82,21 @@ export default function Input(props) {
                 multiline={props.multiline}
                 numberOfLines={props.multiline ? 4 : 1}
               />
+            )}
+
+            {!props.editable && (
+              <Text
+                style={[
+                  styles.input,
+                  {
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    color: "gray"
+                  }
+                ]}
+              >
+                {props.value}
+              </Text>
             )}
 
             {props.icon && (
@@ -108,7 +123,8 @@ Input.defaultProps = {
   multiline: false,
   icon: null,
   type: "default",
-  onFocus: () => {}
+  onFocus: () => {},
+  editable: true
 };
 
 const styles = StyleSheet.create({

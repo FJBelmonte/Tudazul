@@ -60,6 +60,14 @@ export default function NewPatient({ navigation }) {
     } else {
       errorInput.age = null;
     }
+    if (gender === "") {
+      errorInput.gender = {
+        code: "patient/blank-gender",
+        errorMessage: "Campo Gênero é obrigatório"
+      };
+    } else {
+      errorInput.gender = null;
+    }
     let nErrs = _.toArray(errorInput).length;
     _.forEach(errorInput, err => {
       err === null && nErrs--;
@@ -93,6 +101,10 @@ export default function NewPatient({ navigation }) {
             label="Idade"
             placeholder="00"
             value={age}
+            error={inputError.age}
+            onFocus={() => {
+              setInputError({ ...inputError, age: null });
+            }}
             onChangeText={value => {
               setAge(value);
             }}
@@ -101,6 +113,10 @@ export default function NewPatient({ navigation }) {
             label="Gênero"
             placeholder="Gênero"
             value={gender}
+            error={inputError.gender}
+            onFocus={() => {
+              setInputError({ ...inputError, gender: null });
+            }}
             onChangeText={value => {
               setGender(value);
             }}

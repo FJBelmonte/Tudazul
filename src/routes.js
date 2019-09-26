@@ -19,6 +19,7 @@ import PsicologoCalendar from "./screens/01-Psicologo/Calendar";
 import PsicologoNewConsultation from "./screens/01-Psicologo/NewConsultation";
 import PsicologoPatients from "./screens/01-Psicologo/Patients";
 import PsicologoNewPatient from "./screens/01-Psicologo/NewPatient";
+import PsicologoPatient from "./screens/01-Psicologo/Patient";
 
 const authStack = createStackNavigator({
   Test,
@@ -34,7 +35,8 @@ const psicologoStack = createStackNavigator({
   PsicologoCalendar,
   PsicologoNewConsultation,
   PsicologoPatients,
-  PsicologoNewPatient
+  PsicologoNewPatient,
+  PsicologoPatient
 });
 
 export default createAppContainer(

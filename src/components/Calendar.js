@@ -110,10 +110,11 @@ Calendar.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 15, //IPHONE 8
     borderRadius: 10,
     backgroundColor: "rgba(245,245,255,0.95)",
     width: layout.window.width * 0.85,
-    height: 92 * 4,
+    height: 92 * 3.5, //IPHONE 8 3.75 => 3.5
     alignItems: "center",
     padding: 20,
     shadowColor: "#000",
