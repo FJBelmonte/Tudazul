@@ -1,15 +1,9 @@
 -refatoração de signIn e signUp vai bem
 
 -aviso visual de ações assíncronas para o usuário
--adicionar mascára nos inputs de signup
 
 -aviso visual para confirmação de senha
 
 -retirar espaçamento em branco de campos 
 
--dependência react-navigaiton android 
-
--refatoração de miniCalendar
-
--row1 com dia atual em row2 bugando row1 ( desparece )
--refatoração de Calendar
+-dependência react-navigaiton android x
