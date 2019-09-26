@@ -9,20 +9,11 @@ import {
 
 import { global, linearGradient, layout } from "../constants";
 
-import { Button, Box, InputBox, Input } from "../components";
+import { Button, Box } from "../components";
 
 import LinearGradient from "react-native-linear-gradient";
 
 export default function Main({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [email2, setEmail2] = useState("");
-  const [inputError, setInputError] = useState({
-    email: {
-      code: "auth/blank-email",
-      errorMessage: "Campo Email é obrigatório"
-    },
-    email2: null
-  });
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -39,67 +30,17 @@ export default function Main({ navigation }) {
                 contentContainer: { flexDirection: null }
               }}
             >
-              <Text>Height: {layout.window.height}</Text>
-              <Text>Width: {layout.window.width}</Text>
-              <Text>Input width: {layout.window.width * 0.85}</Text>
-              <Text>Input label width: {layout.window.width * 0.29}</Text>
-              <Text>Button width: {layout.window.width * 0.6}</Text>
-              <Text>Padding (width): {layout.window.width * 0.075}</Text>
-              <Text>MarginTop: {layout.window.height * 0.025}</Text>
+              <View style={{ padding: 20 }}>
+                <Text>{Platform.OS === "ios" ? "IOS" : "Android"}</Text>
+                <Text>Height: {layout.window.height}</Text>
+                <Text>Width: {layout.window.width}</Text>
+                <Text>Input width: {layout.window.width * 0.85}</Text>
+                <Text>Input label width: {layout.window.width * 0.29}</Text>
+                <Text>Button width: {layout.window.width * 0.6}</Text>
+                <Text>Padding (width): {layout.window.width * 0.075}</Text>
+                <Text>MarginTop: {layout.window.height * 0.025}</Text>
+              </View>
             </Box>
-
-            <InputBox
-              label="EMAIL"
-              placeholder="E-mail"
-              value={email}
-              error={inputError.email}
-              onFocus={() => {
-                setInputError({ ...inputError, email: null });
-              }}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              onChangeText={e => setEmail(e)}
-            >
-              <Text>Tainha</Text>
-            </InputBox>
-            <Input
-              label="Email"
-              placeholder="E-mail"
-              value={email}
-              error={inputError.email}
-              onFocus={() => {
-                setInputError({ ...inputError, email: null });
-              }}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              onChangeText={e => setEmail(e)}
-            />
-            <InputBox
-              label="EMAIL2"
-              placeholder="E-mail2"
-              value={email2}
-              error={inputError.email2}
-              onFocus={() => {
-                setInputError({ ...inputError, email2: null });
-              }}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              onChangeText={e => setEmail2(e)}
-            >
-              <Text>Tainha</Text>
-            </InputBox>
-            <Input
-              label="Email2"
-              placeholder="E-mail2"
-              value={email2}
-              error={inputError.email2}
-              onFocus={() => {
-                setInputError({ ...inputError, email2: null });
-              }}
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              onChangeText={e => setEmail2(e)}
-            />
           </View>
         </View>
         <View
