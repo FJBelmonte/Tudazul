@@ -1,32 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  Picker
-} from "react-native";
-
+import { StyleSheet, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../actions";
 import _ from "lodash";
-
-import { global, layout, color, linearGradient } from "../../constants";
-
-import {
-  Logo,
-  Input,
-  Button,
-  MiniCalendar,
-  NextQuery,
-  Calendar,
-  NavigationBox
-} from "../../components";
-
+import { global, layout, linearGradient } from "../../constants";
+import { Input, Button } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
-
-import calendarIcon from "../../assets/icons/ico-calendario.png";
 
 export default function NewPatient({ navigation }) {
   const state = useSelector(state => state);

@@ -53,5 +53,8 @@ export default global = {
   floatButtonLabel: {
     fontSize: 40,
     color: "#fff"
+  },
+  buttonsContainer: {
+    marginTop: layout.window.height * 0.025 // marginTop: 20
   }
 };

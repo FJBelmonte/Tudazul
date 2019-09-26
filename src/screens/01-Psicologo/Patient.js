@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, ScrollView, Alert, Text } from "react-native";
 import { global, layout, linearGradient } from "../../constants";
-import { Button, Input } from "../../components";
+import { Button, Box } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 
 export default function Patient({ navigation }) {
@@ -22,26 +22,45 @@ export default function Patient({ navigation }) {
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
-          <Input
-            editable={false}
-            label="Paciente"
-            placeholder="Nome do paciente"
-            value={name}
-          />
-          <Input editable={false} label="Idade" placeholder="00" value={age} />
-          <Input
-            editable={false}
-            label="Gênero"
-            placeholder="Gênero"
-            value={gender}
-          />
-          <Input
-            editable={false}
-            label="Anotações"
-            placeholder="Anote o que achar relevante"
-            multiline
-            value={anotation}
-          />
+          <Box>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelStyle}>Nome</Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.textStyle}>{name}</Text>
+            </View>
+          </Box>
+          <Box>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelStyle}>Idade</Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.textStyle}>{age}</Text>
+            </View>
+          </Box>
+          <Box>
+            <View style={styles.labelContainer}>
+              <Text style={styles.labelStyle}>Gênero</Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.textStyle}>{gender}</Text>
+            </View>
+          </Box>
+          <Box
+            style={{
+              container: { flex: 1 },
+              contentContainer: { flex: 1, flexDirection: null }
+            }}
+          >
+            <View style={[styles.labelContainer, styles.multiline]}>
+              <Text style={styles.labelStyle}>Anotações</Text>
+            </View>
+            <ScrollView>
+              <View style={styles.textContainer}>
+                <Text style={styles.textStyle}>{anotation}</Text>
+              </View>
+            </ScrollView>
+          </Box>
         </View>
       </View>
       <View style={styles.buttonsContainer}>
@@ -60,7 +79,32 @@ Patient.navigationOptions = {
 };
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025 // marginTop: 20
+  labelStyle: {
+    color: "#59818b",
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center"
+  },
+  labelContainer: {
+    width: layout.window.width * 0.29, //width: 120,
+    height: 46,
+    marginHorizontal: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRightWidth: 1,
+    borderColor: "rgba(0,0,0,0.5)"
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 5
+  },
+  textStyle: {
+    color: "#000000",
+    fontSize: 16
+  },
+  multiline: {
+    alignSelf: "center",
+    borderRightWidth: 0
   }
 });

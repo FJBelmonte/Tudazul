@@ -6,4 +6,13 @@
 
 -retirar espaçamento em branco de campos 
 
--dependência react-navigaiton android x
+-dependência react-navigaiton android 
+
+
+
+
+
+- por hora adicionada o component Picker na tela NewConsultation... posteriormente
+remover da tela e criar component separado 
+
+- Refatorar o Input serparando-o da Box

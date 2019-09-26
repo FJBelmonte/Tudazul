@@ -66,7 +66,7 @@ export default function Input(props) {
                 </Text>
               </View>
             )}
-            {props.type === "default" && props.editable === true && (
+            {props.type === "default" && (
               <TextInput
                 textContentType={props.textContentType}
                 autoCapitalize="none"
@@ -84,23 +84,11 @@ export default function Input(props) {
               />
             )}
 
-            {!props.editable && (
-              <Text
-                style={[
-                  styles.input,
-                  {
-                    alignSelf: "center",
-                    justifyContent: "center",
-                    color: "gray"
-                  }
-                ]}
-              >
-                {props.value}
-              </Text>
-            )}
-
             {props.icon && (
-              <TouchableOpacity style={styles.iconContainer}>
+              <TouchableOpacity
+                style={styles.iconContainer}
+                onPress={props.onPressIcon}
+              >
                 <Image style={{ width: 40, height: 40 }} source={props.icon} />
               </TouchableOpacity>
             )}
@@ -124,7 +112,7 @@ Input.defaultProps = {
   icon: null,
   type: "default",
   onFocus: () => {},
-  editable: true
+  onPressIcon: () => {}
 };
 
 const styles = StyleSheet.create({
