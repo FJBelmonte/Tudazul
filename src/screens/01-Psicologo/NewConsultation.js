@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../actions";
 import { global, layout, color, linearGradient } from "../../constants";
-import DateTimePicker from "@react-native-community/datetimepicker";
+//import DateTimePicker from "@react-native-community/datetimepicker";
 import { Input, Button, Box } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 import calendarIcon from "../../assets/icons/ico-calendario.png";
@@ -48,36 +48,36 @@ export default function NewConsultation({ navigation }) {
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
           <Input
-            label="Nome"
+            label='Nome'
             value={patient.name}
-            placeholder="Nome do paciente"
+            placeholder='Nome do paciente'
             icon={calendarIcon}
             onPressIcon={() => {
               setModal("patients");
             }}
-          ></Input>
+          />
           <Input
-            label="Data"
+            label='Data'
             placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
             icon={calendarIcon}
             onPressIcon={() => {
               setModal("date");
             }}
-          ></Input>
+          />
           <Input
-            label="Hora"
+            label='Hora'
             placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
             icon={calendarIcon}
             onPressIcon={() => {
               setModal("time");
             }}
-          ></Input>
-          <Input label="Tipo"></Input>
-          <Input label="Anotações" multiline></Input>
+          />
+          <Input label='Tipo' />
+          <Input label='Anotações' multiline />
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button text="CONFIRMAR"></Button>
+        <Button text='CONFIRMAR'></Button>
       </View>
       {modal === "patients" && (
         <View style={styles.modal}>
@@ -94,52 +94,43 @@ export default function NewConsultation({ navigation }) {
             style={{
               container: { height: null },
               contentContainer: { flexDirection: null }
-            }}
-          >
+            }}>
             <Picker
               selectedValue={uid}
               style={{ height: 300, width: 300 }}
-              onValueChange={(itemValue, itemIndex) => setUid(itemValue)}
-            >
+              onValueChange={(itemValue, itemIndex) => setUid(itemValue)}>
               {_.toArray(listPatient).map((patient, index) => {
                 return (
                   <Picker.Item
                     label={patient.name}
                     value={patient.uid}
                     key={index}
-                  ></Picker.Item>
+                  />
                 );
               })}
             </Picker>
           </Box>
 
-          <Button
-            text="Selecionar"
-            onPress={() => {
-              setModal("");
-            }}
-          ></Button>
+          <Button text='Selecionar' onPress={() => setModal("")} />
         </View>
       )}
       {modal === "date" && (
         <View style={styles.modal}>
           <LinearGradient colors={linearGradient} style={styles.background} />
 
+          <DateTimePicker value={date} onChange={date => setDate(date)} />
           <Box
             style={{
               container: { height: null },
               contentContainer: { flexDirection: null }
-            }}
-          >
-            <DateTimePicker value={date} onChange={date => setDate(date)} />
-          </Box>
+            }}></Box>
 
           <Button
-            text="Selecionar"
+            text='Selecionar'
             onPress={() => {
               setModal("");
             }}
-          ></Button>
+          />
         </View>
       )}
     </View>
