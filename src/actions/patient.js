@@ -6,7 +6,6 @@ import {
   EDIT_PATIENT_SUCESS,
   EDIT_PATIENT_FAIL
 } from "./types";
-
 import firebase from "../services/firebase";
 
 export const fetchPatients = () => async dispatch => {
@@ -24,7 +23,6 @@ export const fetchPatients = () => async dispatch => {
     })
     .catch(err => console.log(err));
 };
-
 export const createPatient = ({
   name,
   age,
@@ -49,10 +47,7 @@ export const createPatient = ({
     .catch(err => {
       dispatch({ CREATE_PATIENT_FAIL });
     });
-
-  //adicionar dispatch
 };
-
 // generate uid
 function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {

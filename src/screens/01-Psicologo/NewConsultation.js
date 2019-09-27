@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  Picker
-} from "react-native";
-
+import { StyleSheet, View, Text, Picker } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../actions";
 import { global, layout, color, linearGradient } from "../../constants";
-
-import {
-  Logo,
-  Input,
-  Button,
-  MiniCalendar,
-  NextQuery,
-  Calendar,
-  NavigationBox
-} from "../../components";
-
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Input, Button, Box } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
-
 import calendarIcon from "../../assets/icons/ico-calendario.png";
 
 export default function NewConsultation({ navigation }) {
@@ -32,7 +14,6 @@ export default function NewConsultation({ navigation }) {
   const dispatch = useDispatch();
 
   const [listPatient, setListPatient] = useState();
-
   const [patient, setPatient] = useState({
     name: "Paciente",
     uid: "",
@@ -43,7 +24,7 @@ export default function NewConsultation({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState();
   const [anotation, setAnotation] = useState();
-  const [modalPatients, setModalPatients] = useState(false);
+  const [modal, setModal] = useState("");
 
   useEffect(() => {
     dispatch(actions.fetchPatients());
@@ -64,7 +45,6 @@ export default function NewConsultation({ navigation }) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
           <Input
@@ -73,55 +53,91 @@ export default function NewConsultation({ navigation }) {
             placeholder="Nome do paciente"
             icon={calendarIcon}
             onPressIcon={() => {
-              setModalPatients(!modalPatients);
+              setModal("patients");
             }}
           ></Input>
           <Input
             label="Data"
             placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
             icon={calendarIcon}
+            onPressIcon={() => {
+              setModal("date");
+            }}
           ></Input>
           <Input
             label="Hora"
             placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
             icon={calendarIcon}
+            onPressIcon={() => {
+              setModal("time");
+            }}
           ></Input>
           <Input label="Tipo"></Input>
           <Input label="Anotações" multiline></Input>
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button text="Confirmar"></Button>
+        <Button text="CONFIRMAR"></Button>
       </View>
-      {modalPatients && (
+      {modal === "patients" && (
         <View style={styles.modal}>
+          <LinearGradient colors={linearGradient} style={styles.background} />
           <View style={styles.patientCard}>
-            <Text style={[styles.patientCardText, { fontSize: 16 }]}>
+            <Text style={[styles.patientCardText, { fontSize: 24 }]}>
               {patient.name}
             </Text>
             <Text style={styles.patientCardText}>
               {patient.age} anos/{patient.gender}
             </Text>
           </View>
-          <Picker
-            selectedValue={uid}
-            style={{ height: 300, width: 300 }}
-            onValueChange={(itemValue, itemIndex) => setUid(itemValue)}
+          <Box
+            style={{
+              container: { height: null },
+              contentContainer: { flexDirection: null }
+            }}
           >
-            {_.toArray(listPatient).map((patient, index) => {
-              return (
-                <Picker.Item
-                  label={patient.name}
-                  value={patient.uid}
-                  key={index}
-                ></Picker.Item>
-              );
-            })}
-          </Picker>
+            <Picker
+              selectedValue={uid}
+              style={{ height: 300, width: 300 }}
+              onValueChange={(itemValue, itemIndex) => setUid(itemValue)}
+            >
+              {_.toArray(listPatient).map((patient, index) => {
+                return (
+                  <Picker.Item
+                    label={patient.name}
+                    value={patient.uid}
+                    key={index}
+                  ></Picker.Item>
+                );
+              })}
+            </Picker>
+          </Box>
+
           <Button
             text="Selecionar"
             onPress={() => {
-              setModalPatients(!modalPatients);
+              setModal("");
+            }}
+          ></Button>
+        </View>
+      )}
+      {modal === "date" && (
+        <View style={styles.modal}>
+          <LinearGradient colors={linearGradient} style={styles.background} />
+
+          <Box
+            style={{
+              container: { height: null },
+              contentContainer: { flexDirection: null }
+            }}
+          >
+            <DateTimePicker value={date} onChange={date => setDate(date)} />
+          </Box>
+
+          <Button
+            text="Selecionar"
+            onPress={() => {
+              setModal("");
             }}
           ></Button>
         </View>
@@ -145,17 +161,17 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   patientCard: {
-    width: layout.window.width * 0.7, //width: 120,
+    width: layout.window.width * 0.85,
     height: layout.window.width * 0.35,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: color.primary,
+    backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 10
   },
   patientCardText: {
     color: "#ffffff",
     fontWeight: "bold",
-    fontSize: 12,
+    fontSize: 16,
     textAlign: "center"
   }
 });
