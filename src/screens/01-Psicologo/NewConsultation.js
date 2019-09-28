@@ -15,10 +15,10 @@ export default function NewConsultation({ navigation }) {
 
   const [listPatient, setListPatient] = useState();
   const [patient, setPatient] = useState({
-    name: "Paciente",
+    name: "",
     uid: "",
-    age: "Idade",
-    gender: "Gênero"
+    age: "",
+    gender: ""
   });
   const [uid, setUid] = useState();
   const [date, setDate] = useState(new Date());
@@ -91,10 +91,11 @@ export default function NewConsultation({ navigation }) {
               }}>
               <View style={styles.patientCard}>
                 <Text style={[styles.patientCardText, { fontSize: 24 }]}>
-                  {patient.name}
+                  {patient.name ? patient.name : "Paciente"}
                 </Text>
                 <Text style={styles.patientCardText}>
-                  {patient.age} anos - {patient.gender}
+                  {patient.age ? patient.age : "Idade"} anos -
+                  {patient.gender ? patient.gender : "Gênero"}
                 </Text>
               </View>
               <View style={styles.center}>
