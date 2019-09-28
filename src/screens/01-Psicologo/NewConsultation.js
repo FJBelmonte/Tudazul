@@ -94,7 +94,7 @@ export default function NewConsultation({ navigation }) {
                   {patient.name}
                 </Text>
                 <Text style={styles.patientCardText}>
-                  {patient.age} anos/{patient.gender}
+                  {patient.age} anos - {patient.gender}
                 </Text>
               </View>
               <View style={styles.center}>
