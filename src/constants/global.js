@@ -56,5 +56,9 @@ export default global = {
   },
   buttonsContainer: {
     marginTop: layout.window.height * 0.025 // marginTop: 20
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 };

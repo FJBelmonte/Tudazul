@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Picker } from "react-native";
+import { StyleSheet, View, Text, Picker, DatePickerIOS } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../actions";
 import { global, layout, color, linearGradient } from "../../constants";
-//import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { Input, Button, Box } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 import calendarIcon from "../../assets/icons/ico-calendario.png";
@@ -82,55 +82,87 @@ export default function NewConsultation({ navigation }) {
       {modal === "patients" && (
         <View style={styles.modal}>
           <LinearGradient colors={linearGradient} style={styles.background} />
-          <View style={styles.patientCard}>
-            <Text style={[styles.patientCardText, { fontSize: 24 }]}>
-              {patient.name}
-            </Text>
-            <Text style={styles.patientCardText}>
-              {patient.age} anos/{patient.gender}
-            </Text>
-          </View>
-          <Box
-            style={{
-              container: { height: null },
-              contentContainer: { flexDirection: null }
-            }}>
-            <Picker
-              selectedValue={uid}
-              style={{ height: 300, width: 300 }}
-              onValueChange={(itemValue, itemIndex) => setUid(itemValue)}>
-              {_.toArray(listPatient).map((patient, index) => {
-                return (
-                  <Picker.Item
-                    label={patient.name}
-                    value={patient.uid}
-                    key={index}
-                  />
-                );
-              })}
-            </Picker>
-          </Box>
 
-          <Button text='Selecionar' onPress={() => setModal("")} />
+          <View style={styles.contentContainer}>
+            <Box
+              style={{
+                container: { height: null },
+                contentContainer: { flexDirection: null }
+              }}>
+              <View style={styles.patientCard}>
+                <Text style={[styles.patientCardText, { fontSize: 24 }]}>
+                  {patient.name}
+                </Text>
+                <Text style={styles.patientCardText}>
+                  {patient.age} anos/{patient.gender}
+                </Text>
+              </View>
+              <View style={styles.center}>
+                <Picker
+                  selectedValue={uid}
+                  style={{ width: 300 }}
+                  onValueChange={(itemValue, itemIndex) => setUid(itemValue)}>
+                  {_.toArray(listPatient).map((patient, index) => {
+                    return (
+                      <Picker.Item
+                        label={patient.name}
+                        value={patient.uid}
+                        key={index}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+            </Box>
+          </View>
+          <View style={styles.footer}>
+            <View style={styles.buttonsContainer}>
+              <Button
+                text='Selecionar'
+                onPress={() => {
+                  setModal("");
+                }}
+              />
+            </View>
+          </View>
         </View>
       )}
       {modal === "date" && (
         <View style={styles.modal}>
           <LinearGradient colors={linearGradient} style={styles.background} />
 
-          <DateTimePicker value={date} onChange={date => setDate(date)} />
-          <Box
-            style={{
-              container: { height: null },
-              contentContainer: { flexDirection: null }
-            }}></Box>
+          <View style={styles.contentContainer}>
+            <Box
+              style={{
+                container: { height: null },
+                contentContainer: { flexDirection: null }
+              }}>
+              <View style={styles.patientCard}>
+                <Text style={[styles.patientCardText, { fontSize: 16 }]}>
+                  Selecione a data para consulta
+                </Text>
+              </View>
+              <View style={styles.center}>
+                <DateTimePicker
+                  style={{ width: 300 }}
+                  date={date}
+                  value={date}
+                  onChangeDate={date => setDate(date)}
+                />
+              </View>
+            </Box>
+          </View>
 
-          <Button
-            text='Selecionar'
-            onPress={() => {
-              setModal("");
-            }}
-          />
+          <View style={styles.footer}>
+            <View style={styles.buttonsContainer}>
+              <Button
+                text='Selecionar'
+                onPress={() => {
+                  setModal("");
+                }}
+              />
+            </View>
+          </View>
         </View>
       )}
     </View>
@@ -156,7 +188,7 @@ const styles = StyleSheet.create({
     height: layout.window.width * 0.35,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: color.primary,
     borderRadius: 10
   },
   patientCardText: {
