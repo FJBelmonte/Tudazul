@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Picker, DatePickerIOS } from "react-native";
+import { StyleSheet, View, Text, Picker } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../actions";
@@ -94,7 +94,7 @@ export default function NewConsultation({ navigation }) {
                   {patient.name ? patient.name : "Paciente"}
                 </Text>
                 <Text style={styles.patientCardText}>
-                  {patient.age ? patient.age : "Idade"} anos -
+                  {patient.age ? `${patient.age} anos` : "Idade"} -
                   {patient.gender ? patient.gender : "Gênero"}
                 </Text>
               </View>

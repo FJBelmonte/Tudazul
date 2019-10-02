@@ -17,9 +17,8 @@ export default function Main({ navigation }) {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior="padding"
-      enabled={Platform.OS === "ios"}
-    >
+      behavior='padding'
+      enabled={Platform.OS === "ios"}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1, justifyContent: "center" }}>
@@ -28,10 +27,15 @@ export default function Main({ navigation }) {
               style={{
                 container: { height: null },
                 contentContainer: { flexDirection: null }
-              }}
-            >
+              }}>
               <View style={{ padding: 20 }}>
                 <Text>{Platform.OS === "ios" ? "IOS" : "Android"}</Text>
+
+                <Text>
+                  {layout.isSmallDevice
+                    ? "WARNING SMALL DEVICE"
+                    : "Default Device"}
+                </Text>
                 <Text>Height: {layout.window.height}</Text>
                 <Text>Width: {layout.window.width}</Text>
                 <Text>Input width: {layout.window.width * 0.85}</Text>
@@ -44,10 +48,9 @@ export default function Main({ navigation }) {
           </View>
         </View>
         <View
-          style={[styles.footer, { marginTop: layout.window.height * 0.025 }]}
-        >
+          style={[styles.footer, { marginTop: layout.window.height * 0.025 }]}>
           <Button
-            text="Continuar"
+            text='Continuar'
             onPress={() => navigation.navigate("Main")}
           />
         </View>
