@@ -5,7 +5,7 @@ import _ from "lodash";
 import * as actions from "../../actions";
 import { global, layout, color, linearGradient } from "../../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Input, Button, Box } from "../../components";
+import { Input, Button, Box, DateTime } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 import calendarIcon from "../../assets/icons/ico-calendario.png";
 
@@ -129,42 +129,14 @@ export default function NewConsultation({ navigation }) {
         </View>
       )}
       {modal === "date" && (
-        <View style={styles.modal}>
-          <LinearGradient colors={linearGradient} style={styles.background} />
-
-          <View style={styles.contentContainer}>
-            <Box
-              style={{
-                container: { height: null },
-                contentContainer: { flexDirection: null }
-              }}>
-              <View style={styles.patientCard}>
-                <Text style={[styles.patientCardText, { fontSize: 16 }]}>
-                  Selecione a data para consulta
-                </Text>
-              </View>
-              <View style={styles.center}>
-                <DateTimePicker
-                  style={{ width: 300 }}
-                  date={date}
-                  value={date}
-                  onChangeDate={date => setDate(date)}
-                />
-              </View>
-            </Box>
-          </View>
-
-          <View style={styles.footer}>
-            <View style={styles.buttonsContainer}>
-              <Button
-                text='Selecionar'
-                onPress={() => {
-                  setModal("");
-                }}
-              />
-            </View>
-          </View>
-        </View>
+        <DateTime
+          mode='date'
+          text='Selecione a data para a consulta'
+          datetime={date}
+          value={date}
+          onChangeDate={() => {}}
+          onButtonPress={() => setModal("")}
+        />
       )}
     </View>
   );

@@ -6,6 +6,7 @@ import NextQuery from "./NextQuery";
 import Calendar from "./Calendar";
 import NavigationBox from "./NavigationBox";
 import Box from "./Box";
+import DateTime from "./DateTime";
 
 export {
   Input,
@@ -15,5 +16,6 @@ export {
   NextQuery,
   Calendar,
   NavigationBox,
-  Box
+  Box,
+  DateTime
 };
