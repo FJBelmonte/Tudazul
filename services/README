@@ -1,4 +1,6 @@
-PUT FIREBASE CONNECTION HERE
+PUT FIREBASE CONNECTION IN THIS FOLDER
+
+example of firebase connection : 
 
 import * as firebase from "firebase";
 
