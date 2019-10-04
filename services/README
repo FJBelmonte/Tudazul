@@ -1,0 +1,17 @@
+PUT FIREBASE CONNECTION HERE
+
+import * as firebase from "firebase";
+
+const config = {
+  apiKey: "xxxxxxxxxxxxx",
+  authDomain: "xxxxxxxx.firebaseapp.com",
+  databaseURL: "xxxxxxxx.firebaseio.com",
+  projectId: "xxxx",
+  storageBucket: "",
+  messagingSenderId: "xxxx",
+  appId: "xxxxxx"
+};
+
+firebase.initializeApp(config);
+
+export default firebase;
