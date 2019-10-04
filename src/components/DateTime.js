@@ -8,7 +8,6 @@ import LinearGradient from "react-native-linear-gradient";
 export default function Datetime(props) {
   return (
     <View style={styles.modal}>
-      <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <Box
           style={{
@@ -34,7 +33,7 @@ export default function Datetime(props) {
 
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
-          <Button text='Selecionar' onPress={props.onButtonPress} />
+          <Button text='SELECIONAR' onPress={props.onButtonPress} />
         </View>
       </View>
     </View>
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(255,255,255,1.0)",
+    backgroundColor: "rgba(0,0,0,0.3)",
     justifyContent: "center",
     alignItems: "center"
   },
