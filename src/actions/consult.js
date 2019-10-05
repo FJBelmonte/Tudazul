@@ -1,22 +1,29 @@
-import { CREATE_CONSULT_SUCESS, CREATE_CONSULT_FAIL } from "./types";
-import firebase from "../services/firebase";
+import {CREATE_CONSULT_FAIL, CREATE_CONSULT_SUCCESS} from './types';
+
+import firebase from '../services/firebase';
 
 export const createConsult = ({
   patient,
   date,
   time,
   type,
-  anotation
+  anotation,
 }) => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
 
   db.ref(`psychologist/${user.uid}/patients/${patient}/consultations`)
-    .set({})
+    .set({
+      uid: `${date.getUTCFullYear()}${date.getMonth()}${date.getDate()}`,
+      date: `${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`,
+      time: `${time.getHours()}:${time.getMinutes()}`,
+      type,
+      anotation,
+    })
     .then(() => {
-      //sucess
+      dispatch({type: CREATE_CONSULT_SUCCESS});
     })
     .catch(err => {
-      //fail
+      dispatch({type: CREATE_CONSULT_FAIL});
     });
 };
