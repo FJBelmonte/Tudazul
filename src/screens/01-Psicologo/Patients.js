@@ -33,15 +33,14 @@ export default function Patients({ navigation }) {
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <View style={{ flex: 1, justifyContent: "flex-start" }}>
-          <ScrollView pagingEnabled style={{ width: layout.window.width }}>
+          <ScrollView style={{ width: layout.window.width }}>
             {_.toArray(listPatient).map(patient => {
               return (
                 <View key={patient.uid}>
                   <NextQuery
                     onPress={() =>
                       navigation.navigate("PsicologoPatient", { patient })
-                    }
-                  >
+                    }>
                     <Text style={[styles.patientNameLabel]}>
                       {patient.name}
                     </Text>
@@ -51,9 +50,8 @@ export default function Patients({ navigation }) {
                     <Button
                       style={{ width: 120 }}
                       textStyle={{ fontSize: 14 }}
-                      text="GERAR CÓDIGO"
-                      onPress={() => Alert.alert(patient.uid)}
-                    ></Button>
+                      text='GERAR CÓDIGO'
+                      onPress={() => Alert.alert(patient.uid)}></Button>
                   </NextQuery>
                 </View>
               );
@@ -63,8 +61,7 @@ export default function Patients({ navigation }) {
       </View>
       <TouchableOpacity
         style={styles.floatButton}
-        onPress={() => navigation.navigate("PsicologoNewPatient")}
-      >
+        onPress={() => navigation.navigate("PsicologoNewPatient")}>
         <Text style={styles.floatButtonLabel}>+</Text>
       </TouchableOpacity>
     </View>

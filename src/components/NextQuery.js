@@ -8,13 +8,11 @@ export default function NextQuery(props) {
     <View
       style={{
         alignItems: "center"
-      }}
-    >
+      }}>
       <TouchableOpacity
         style={styles.container}
         activeOpacity={1.0}
-        onPress={props.onPress}
-      >
+        onPress={props.onPress}>
         <View style={styles.contentContainer}>
           <View style={styles.primaryLabelContainer}>
             {props.date ? (
@@ -74,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(245,245,255,0.95)",
     width: layout.window.width * 0.85, //width: 350,
     marginVertical: 5,
-    height: 150,
+    height: layout.window.width * 0.35,
     justifyContent: "center",
     alignItems: "center",
 

@@ -20,7 +20,7 @@ export default function Input(props) {
       style={{
         alignItems: "center"
       }}
-    >
+      onPress={props.button && props.onPressIcon}>
       {props.error && (
         <Text style={styles.error}>{props.error.errorMessage}</Text>
       )}
@@ -30,15 +30,13 @@ export default function Input(props) {
           props.multiline && { ...styles.container, height: 46 * 4 },
           { ...error },
           { ...props.styleContainer }
-        ]}
-      >
+        ]}>
         <View
           style={
             props.multiline
               ? { flex: 1, alignSelf: "stretch", padding: 5 }
               : styles.contentContainer
-          }
-        >
+          }>
           {props.label && (
             <View
               style={
@@ -49,16 +47,14 @@ export default function Input(props) {
                       alignSelf: "center"
                     }
                   : styles.labelContainer
-              }
-            >
+              }>
               <Text
                 style={[
                   styles.labelStyle,
                   { ...error, marginTop: 0 },
                   { ...props.labelStyle },
                   layout.isSmallDevice && { fontSize: 10 } //TEST IT
-                ]}
-              >
+                ]}>
                 {props.label}
               </Text>
             </View>
@@ -66,11 +62,11 @@ export default function Input(props) {
           {props.type === "default" && (
             <TextInput
               textContentType={props.textContentType}
-              autoCapitalize="none"
+              autoCapitalize='none'
               autoCorrect={false}
               placeholder={props.placeholder}
               style={styles.input}
-              placeholderTextColor="#999"
+              placeholderTextColor='#999'
               value={props.value}
               onChangeText={props.onChangeText}
               secureTextEntry={props.secureTextEntry}
@@ -78,14 +74,14 @@ export default function Input(props) {
               onFocus={props.onFocus}
               multiline={props.multiline}
               numberOfLines={props.multiline ? 4 : 1}
+              editable={props.button ? false : true}
             />
           )}
 
           {props.icon && (
             <TouchableOpacity
               style={styles.iconContainer}
-              onPress={props.onPressIcon}
-            >
+              onPress={props.onPressIcon}>
               <Image style={{ width: 40, height: 40 }} source={props.icon} />
             </TouchableOpacity>
           )}

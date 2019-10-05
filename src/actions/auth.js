@@ -6,10 +6,7 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL
 } from "./types";
-
 import firebase from "../services/firebase";
-
-//armazenar User em caso de LOGIN_SUCESS
 
 export const signIn = ({ email, password }) => async dispatch => {
   firebase
@@ -53,7 +50,6 @@ export const signIn = ({ email, password }) => async dispatch => {
       });
     });
 };
-
 export const signUp = ({
   name,
   email,
@@ -114,7 +110,6 @@ export const signUp = ({
       });
     });
 };
-
 export const forgotPasswordEmail = ({ email }) => async dispatch => {
   firebase
     .auth()

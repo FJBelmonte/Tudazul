@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity
-} from "react-native";
-
-import { useSelector, useDispatch } from "react-redux";
-
-import { global, layout, color, linearGradient } from "../../constants";
-
-import {
-  Logo,
-  Input,
   Button,
-  MiniCalendar,
-  NextQuery,
   Calendar,
-  NavigationBox
-} from "../../components";
+  Input,
+  Logo,
+  MiniCalendar,
+  NavigationBox,
+  NextQuery,
+} from '../../components';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {color, global, layout, linearGradient} from '../../constants';
+import {useDispatch, useSelector} from 'react-redux';
 
-import LinearGradient from "react-native-linear-gradient";
+import LinearGradient from 'react-native-linear-gradient';
 
-export default function PsicologoHome({ navigation }) {
+export default function PsicologoHome({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -34,7 +25,7 @@ export default function PsicologoHome({ navigation }) {
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <MiniCalendar
-          onPress={() => navigation.navigate("PsicologoCalendar")}
+          onPress={() => navigation.navigate('PsicologoCalendar')}
         />
       </View>
 
@@ -48,26 +39,26 @@ export default function PsicologoHome({ navigation }) {
       </View>
       <View style={styles.contentContainer}>
         <NavigationBox
-          onPress0={() => navigation.navigate("PsicologoCalendar")}
-          onPress1={() => navigation.navigate("PsicologoPatients")}
+          onPress0={() => navigation.navigate('PsicologoCalendar')}
+          onPress1={() => navigation.navigate('PsicologoPatients')}
         />
       </View>
     </View>
   );
 }
 PsicologoHome.navigationOptions = {
-  title: "Psicólogo"
+  title: 'Psicólogo',
 };
 
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: layout.window.height * 0.025 // marginTop: 20
+    marginTop: layout.window.height * 0.025, // marginTop: 20
   },
   welcomeLabelStyle: {
     color: color.primary,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 22,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });

@@ -35,8 +35,8 @@ export default global = {
     position: "absolute",
     bottom: 20,
     right: 20,
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     backgroundColor: "#59818b",
     borderRadius: 100,
     alignItems: "center",
@@ -56,5 +56,9 @@ export default global = {
   },
   buttonsContainer: {
     marginTop: layout.window.height * 0.025 // marginTop: 20
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 };

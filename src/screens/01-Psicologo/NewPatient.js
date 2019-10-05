@@ -113,7 +113,7 @@ export default function NewPatient({ navigation }) {
       </View>
       <View style={styles.buttonsContainer}>
         <Button
-          text="Cadastrar"
+          text="CADASTRAR"
           onPress={() => {
             const patient = {
               name,
