@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../actions";
 import { global, layout, color, linearGradient } from "../../constants";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { Input, Button, Box, DateTime } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 import calendarIcon from "../../assets/icons/ico-calendario.png";
@@ -12,7 +11,9 @@ import calendarIcon from "../../assets/icons/ico-calendario.png";
 export default function NewConsultation({ navigation }) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
+  const labelDateTime = new Date();
 
+  const [consultation, setConsultation] = useState({ date: "", time: "" });
   const [listPatient, setListPatient] = useState();
   const [patient, setPatient] = useState({
     name: "",
@@ -21,9 +22,10 @@ export default function NewConsultation({ navigation }) {
     gender: ""
   });
   const [uid, setUid] = useState();
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState();
-  const [anotation, setAnotation] = useState();
+  const [date, setDate] = useState(labelDateTime);
+  const [time, setTime] = useState(labelDateTime);
+  const [type, setType] = useState("");
+  const [anotation, setAnotation] = useState("");
   const [modal, setModal] = useState("");
 
   useEffect(() => {
@@ -55,25 +57,51 @@ export default function NewConsultation({ navigation }) {
             onPressIcon={() => {
               setModal("patients");
             }}
+            button
           />
           <Input
             label='Data'
+            value={
+              consultation.date
+                ? `${consultation.date.getDate()}/${consultation.date.getMonth()}/${consultation.date.getUTCFullYear()}`
+                : null
+            }
             placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
             icon={calendarIcon}
             onPressIcon={() => {
               setModal("date");
             }}
+            button
           />
           <Input
             label='Hora'
+            value={
+              consultation.time
+                ? `${consultation.date.getHours()}:${consultation.date.getMinutes()}`
+                : null
+            }
             placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
             icon={calendarIcon}
             onPressIcon={() => {
               setModal("time");
             }}
+            button
           />
-          <Input label='Tipo' />
-          <Input label='Anotações' multiline />
+          <Input
+            label='Tipo'
+            placeholder='Tipo de consulta'
+            value={type}
+            onChangeText={value => setType(value)}
+          />
+          <Input
+            label='Anotações'
+            placeholder='Anote o que achar relevante'
+            multiline
+            value={anotation}
+            onChangeText={value => {
+              setAnotation(value);
+            }}
+          />
         </View>
       </View>
       <View style={styles.buttonsContainer}>
@@ -134,8 +162,24 @@ export default function NewConsultation({ navigation }) {
           text='Selecione a data para a consulta'
           datetime={date}
           value={date}
-          onChangeDate={() => {}}
-          onButtonPress={() => setModal("")}
+          onChangeDate={(e, value) => setDate(value)}
+          onButtonPress={() => {
+            setConsultation({ ...consultation, date });
+            setModal("");
+          }}
+        />
+      )}
+      {modal === "time" && (
+        <DateTime
+          mode='time'
+          text='Selecione a hora para a consulta'
+          datetime={time}
+          value={time}
+          onChangeDate={(e, value) => setTime(value)}
+          onButtonPress={() => {
+            setConsultation({ ...consultation, time });
+            setModal("");
+          }}
         />
       )}
     </View>

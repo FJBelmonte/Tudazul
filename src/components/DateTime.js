@@ -25,7 +25,7 @@ export default function Datetime(props) {
               mode={props.mode ? props.mode : null}
               date={props.datetime}
               value={props.datetime}
-              onChangeDate={props.onChangeDate}
+              onChange={(e, value) => props.onChangeDate(e, value)}
             />
           </View>
         </Box>
