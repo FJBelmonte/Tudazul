@@ -11,10 +11,10 @@ export const createConsult = ({
 }) => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
-
-  db.ref(`psychologist/${user.uid}/patients/${patient}/consultations`)
+  const uid = `${date.getUTCFullYear()}${date.getMonth()}${date.getDate()}`;
+  db.ref(`psychologist/${user.uid}/patients/${patient}/consultations/${uid}`)
     .set({
-      uid: `${date.getUTCFullYear()}${date.getMonth()}${date.getDate()}`,
+      uid,
       date: `${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`,
       time: `${time.getHours()}:${time.getMinutes()}`,
       type,

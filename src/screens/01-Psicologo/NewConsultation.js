@@ -55,7 +55,7 @@ export default function NewConsultation({navigation}) {
   // BEGIN ALTERAR
   function verifyCamps() {
     let errorInput = {...inputError};
-    if (name === '') {
+    if (patient.uid === '') {
       errorInput.name = {
         code: 'patient/blank-name',
         errorMessage: 'Campo Paciente é obrigatório',
@@ -63,21 +63,21 @@ export default function NewConsultation({navigation}) {
     } else {
       errorInput.name = null;
     }
-    if (age === '') {
-      errorInput.age = {
-        code: 'patient/blank-age',
-        errorMessage: 'Campo Idade é obrigatório',
+    if (date === '') {
+      errorInput.date = {
+        code: 'patient/blank-date',
+        errorMessage: 'Campo data é obrigatório',
       };
     } else {
-      errorInput.age = null;
+      errorInput.date = null;
     }
-    if (gender === '') {
-      errorInput.gender = {
-        code: 'patient/blank-gender',
-        errorMessage: 'Campo Gênero é obrigatório',
+    if (time === '') {
+      errorInput.time = {
+        code: 'patient/blank-time',
+        errorMessage: 'Campo hora é obrigatório',
       };
     } else {
-      errorInput.gender = null;
+      errorInput.time = null;
     }
     let nErrs = _.toArray(errorInput).length;
     _.forEach(errorInput, err => {
@@ -98,6 +98,10 @@ export default function NewConsultation({navigation}) {
           <Input
             label="Nome"
             value={patient.name}
+            error={inputError.name}
+            onFocus={() => {
+              setInputError({...inputError, name: null});
+            }}
             placeholder="Nome do paciente"
             icon={calendarIcon}
             onPressIcon={() => {
@@ -113,6 +117,10 @@ export default function NewConsultation({navigation}) {
                 : null
             }
             placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
+            error={inputError.date}
+            onFocus={() => {
+              setInputError({...inputError, date: null});
+            }}
             icon={calendarIcon}
             onPressIcon={() => {
               setModal('date');
@@ -127,6 +135,10 @@ export default function NewConsultation({navigation}) {
                 : null
             }
             placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
+            error={inputError.time}
+            onFocus={() => {
+              setInputError({...inputError, time: null});
+            }}
             icon={calendarIcon}
             onPressIcon={() => {
               setModal('time');
@@ -151,7 +163,20 @@ export default function NewConsultation({navigation}) {
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button text="CONFIRMAR"></Button>
+        <Button
+          text="CONFIRMAR"
+          onPress={() => {
+            const consult = {
+              patient: uid,
+              date,
+              time,
+              type,
+              anotation,
+            };
+            if (verifyCamps()) {
+              dispatch(actions.createConsult(consult));
+            }
+          }}></Button>
       </View>
       {modal === 'patients' && (
         <View style={styles.modal}>

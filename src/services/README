@@ -1,19 +1,22 @@
-PUT FIREBASE CONNECTION IN THIS FOLDER
+PUT FIREBASE CONNECTION IN THIS FOLDER AS "firebase.js"
+THIS PROJECT USES EMAIL AUTH AND REALTIME DATABASE
 
-example of firebase connection : 
+example of firebase connection (firebase.js): 
 
+// BEGIN EXAMPLE
 import * as firebase from "firebase";
 
 const config = {
   apiKey: "xxxxxxxxxxxxx",
-  authDomain: "xxxxxxxx.firebaseapp.com",
-  databaseURL: "xxxxxxxx.firebaseio.com",
-  projectId: "xxxx",
+  authDomain: "xxxxxxxxxxxxx.firebaseapp.com",
+  databaseURL: "xxxxxxxxxxxxx.firebaseio.com",
+  projectId: "xxxxxxxxxxxxx",
   storageBucket: "",
-  messagingSenderId: "xxxx",
-  appId: "xxxxxx"
+  messagingSenderId: "xxxxxxxxxxxxx",
+  appId: "xxxxxxxxxxxxx"
 };
 
 firebase.initializeApp(config);
 
 export default firebase;
+// END EXAMPLE
