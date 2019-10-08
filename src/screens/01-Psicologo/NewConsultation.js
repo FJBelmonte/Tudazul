@@ -113,10 +113,16 @@ export default function NewConsultation({navigation}) {
             label="Data"
             value={
               consultation.date
-                ? `${consultation.date.getDate()}/${consultation.date.getMonth()}/${consultation.date.getUTCFullYear()}`
+                ? `${('00' + consultation.date.getDate()).slice(-2)}/` +
+                  `${('00' + (consultation.date.getMonth() + 1)).slice(-2)}/` +
+                  `${('0000' + consultation.date.getUTCFullYear()).slice(-4)}`
                 : null
             }
-            placeholder={`${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`}
+            placeholder={
+              `${('00' + date.getDate()).slice(-2)}/` +
+              `${('00' + (date.getMonth() + 1)).slice(-2)}/` +
+              `${('0000' + date.getUTCFullYear()).slice(-4)}`
+            }
             error={inputError.date}
             onFocus={() => {
               setInputError({...inputError, date: null});
@@ -131,10 +137,14 @@ export default function NewConsultation({navigation}) {
             label="Hora"
             value={
               consultation.time
-                ? `${consultation.date.getHours()}:${consultation.date.getMinutes()}`
+                ? `${('00' + consultation.time.getHours()).slice(-2)}:` +
+                  `${('00' + consultation.time.getMinutes()).slice(-2)}`
                 : null
             }
-            placeholder={`${date.getHours()}:${date.getMinutes()}`} //bug visual ex 0:8
+            placeholder={
+              `${('00' + date.getHours()).slice(-2)}:` +
+              `${('00' + date.getMinutes()).slice(-2)}`
+            } //bug visual ex 0:8
             error={inputError.time}
             onFocus={() => {
               setInputError({...inputError, time: null});

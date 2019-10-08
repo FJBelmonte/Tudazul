@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
-import _ from "lodash";
-import { global, layout, linearGradient } from "../../constants";
-import { Input, Button } from "../../components";
-import LinearGradient from "react-native-linear-gradient";
+import * as actions from '../../actions';
 
-export default function NewPatient({ navigation }) {
+import {Button, Input} from '../../components';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {global, layout, linearGradient} from '../../constants';
+import {useDispatch, useSelector} from 'react-redux';
+
+import LinearGradient from 'react-native-linear-gradient';
+import _ from 'lodash';
+
+export default function NewPatient({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [anotation, setAnotation] = useState("");
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [anotation, setAnotation] = useState('');
   const [inputError, setInputError] = useState({
     name: null,
     age: null,
-    gender: null
+    gender: null,
   });
 
   function verifyCamps() {
-    let errorInput = { ...inputError };
-    if (name === "") {
+    let errorInput = {...inputError};
+    if (name === '') {
       errorInput.name = {
-        code: "patient/blank-name",
-        errorMessage: "Campo Paciente é obrigatório"
+        code: 'patient/blank-name',
+        errorMessage: 'Campo Paciente é obrigatório',
       };
     } else {
       errorInput.name = null;
     }
-    if (age === "") {
+    if (age === '') {
       errorInput.age = {
-        code: "patient/blank-age",
-        errorMessage: "Campo Idade é obrigatório"
+        code: 'patient/blank-age',
+        errorMessage: 'Campo Idade é obrigatório',
       };
     } else {
       errorInput.age = null;
     }
-    if (gender === "") {
+    if (gender === '') {
       errorInput.gender = {
-        code: "patient/blank-gender",
-        errorMessage: "Campo Gênero é obrigatório"
+        code: 'patient/blank-gender',
+        errorMessage: 'Campo Gênero é obrigatório',
       };
     } else {
       errorInput.gender = null;
@@ -62,14 +64,14 @@ export default function NewPatient({ navigation }) {
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
-        <View style={{ flex: 1, justifyContent: "flex-start" }}>
+        <View style={{flex: 1, justifyContent: 'flex-start'}}>
           <Input
             label="Paciente"
             placeholder="Nome do paciente"
             value={name}
             error={inputError.name}
             onFocus={() => {
-              setInputError({ ...inputError, name: null });
+              setInputError({...inputError, name: null});
             }}
             textContentType="name"
             onChangeText={value => {
@@ -78,11 +80,11 @@ export default function NewPatient({ navigation }) {
           />
           <Input
             label="Idade"
-            placeholder="00"
+            placeholder="Idade"
             value={age}
             error={inputError.age}
             onFocus={() => {
-              setInputError({ ...inputError, age: null });
+              setInputError({...inputError, age: null});
             }}
             onChangeText={value => {
               setAge(value);
@@ -94,7 +96,7 @@ export default function NewPatient({ navigation }) {
             value={gender}
             error={inputError.gender}
             onFocus={() => {
-              setInputError({ ...inputError, gender: null });
+              setInputError({...inputError, gender: null});
             }}
             onChangeText={value => {
               setGender(value);
@@ -119,24 +121,23 @@ export default function NewPatient({ navigation }) {
               name,
               age,
               gender,
-              anotation
+              anotation,
             };
             if (verifyCamps()) {
               dispatch(actions.createPatient(patient));
             }
-          }}
-        ></Button>
+          }}></Button>
       </View>
     </View>
   );
 }
 NewPatient.navigationOptions = {
-  title: "Novo paciente"
+  title: 'Novo paciente',
 };
 
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: layout.window.height * 0.025 // marginTop: 20
-  }
+    marginTop: layout.window.height * 0.025, // marginTop: 20
+  },
 });

@@ -1,17 +1,14 @@
-import React from "react";
+import {PersistGate} from 'redux-persist/lib/integration/react';
+import {Provider} from 'react-redux';
+import React from 'react';
+import Routes from './routes';
+import {YellowBox} from 'react-native';
+import configureStore from './store';
+import firebase from './services/firebase';
 
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/lib/integration/react";
-import configureStore from "./store";
+YellowBox.ignoreWarnings(['Remote debugger']);
 
-import { YellowBox } from "react-native";
-YellowBox.ignoreWarnings(["Remote debugger"]);
-
-import firebase from "./services/firebase";
-
-import Routes from "./routes";
-
-const { store, persistor } = configureStore();
+const {store, persistor} = configureStore();
 
 // com o Persistor é possível verificar se o usuário está autenticado a partir daqui. lógica não implementada para fins de desenvolvimento
 
