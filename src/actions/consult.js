@@ -8,6 +8,7 @@ export const createConsult = ({
   time,
   type,
   anotation,
+  dateTime,
 }) => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
@@ -16,13 +17,20 @@ export const createConsult = ({
     `${('0000' + date.getUTCFullYear()).slice(-4)}` +
     `${('00' + date.getMonth()).slice(-2)}` +
     `${('00' + date.getDate()).slice(-2)}`;
-  db.ref(`psychologist/${user.uid}/patients/${patient}/consultations/${uid}`)
+  db.ref(`psychologist/${user.uid}/patients/${patient}/consultation/`)
     .set({
       uid,
-      date: `${date.getDate()}/${date.getMonth()}/${date.getUTCFullYear()}`,
-      time: `${time.getHours()}:${time.getMinutes()}`,
+      date:
+        `${('00' + date.getDate()).slice(-2)}/` +
+        `${('00' + (date.getMonth() + 1)).slice(-2)}/` +
+        `${('0000' + date.getUTCFullYear()).slice(-4)}`,
+      time:
+        `${('00' + time.getHours()).slice(-2)}:` +
+        `${('00' + time.getMinutes()).slice(-2)}`,
+
       type,
       anotation,
+      dateTime,
     })
     .then(() => {
       dispatch({type: CREATE_CONSULT_SUCCESS});

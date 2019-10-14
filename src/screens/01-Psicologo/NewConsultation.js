@@ -182,6 +182,15 @@ export default function NewConsultation({navigation}) {
               time,
               type,
               anotation,
+              dateTime: new Date(
+                consultation.date.getUTCFullYear(),
+                consultation.date.getMonth(),
+                consultation.date.getDate(),
+                consultation.time.getHours(),
+                consultation.time.getMinutes(),
+                0,
+                0,
+              ).getTime(),
             };
             if (verifyCamps()) {
               dispatch(actions.createConsult(consult));

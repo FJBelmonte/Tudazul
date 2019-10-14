@@ -30,15 +30,6 @@ export default function Patients({navigation}) {
     setListPatient(state.psychologistPatient.patients);
   }, [state.psychologistPatient.patients]);
 
-  useEffect(() => {
-    _.toArray(listPatient).forEach(patient => {
-      if (patient.consultations) {
-        console.log(patient);
-      }
-    });
-    //REALIZAR REQUISIÇÃO DAS CONSULTAS
-  }, [listPatient]);
-
   return (
     <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />
@@ -49,6 +40,10 @@ export default function Patients({navigation}) {
               return (
                 <View key={patient.uid}>
                   <NextQuery
+                    date={
+                      patient.consultation &&
+                      new Date(patient.consultation.dateTime)
+                    }
                     onPress={() =>
                       navigation.navigate('PsicologoPatient', {patient})
                     }>
