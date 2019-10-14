@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.5)',
   },
   box: {
-    marginTop: 20,
+    marginTop: 18,
   },
   checkboxText: {
     color: color.primary,
