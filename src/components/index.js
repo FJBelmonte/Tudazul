@@ -1,12 +1,13 @@
-import Input from "./Input";
-import Logo from "./Logo";
-import Button from "./Button";
-import MiniCalendar from "./MiniCalendar";
-import NextQuery from "./NextQuery";
-import Calendar from "./Calendar";
-import NavigationBox from "./NavigationBox";
-import Box from "./Box";
-import DateTime from "./DateTime";
+import Box from './Box';
+import Button from './Button';
+import Calendar from './Calendar';
+import CheckBox from './Checkbox';
+import DateTime from './DateTime';
+import Input from './Input';
+import Logo from './Logo';
+import MiniCalendar from './MiniCalendar';
+import NavigationBox from './NavigationBox';
+import NextQuery from './NextQuery';
 
 export {
   Input,
@@ -17,5 +18,6 @@ export {
   Calendar,
   NavigationBox,
   Box,
-  DateTime
+  DateTime,
+  CheckBox,
 };

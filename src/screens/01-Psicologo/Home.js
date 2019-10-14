@@ -41,6 +41,7 @@ export default function PsicologoHome({navigation}) {
         <NavigationBox
           onPress0={() => navigation.navigate('PsicologoCalendar')}
           onPress1={() => navigation.navigate('PsicologoPatients')}
+          onPress2={() => navigation.navigate('PsicologoExercises')}
         />
       </View>
     </View>
