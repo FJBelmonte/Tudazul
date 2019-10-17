@@ -122,6 +122,7 @@ export default function NewPatient({navigation}) {
               age,
               gender,
               anotation,
+              createdAt: new Date().getTime(),
             };
             if (verifyCamps()) {
               dispatch(actions.createPatient(patient));

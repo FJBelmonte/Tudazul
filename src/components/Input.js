@@ -1,24 +1,24 @@
-import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
   Image,
-  TouchableOpacity
-} from "react-native";
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import { layout } from "../constants";
+import React from 'react';
+import {layout} from '../constants';
 
 export default function Input(props) {
   const error = props.error
-    ? { backgroundColor: "rgba(255,200,200,0.95)", color: "#ff0000" }
-    : { marginTop: layout.window.height * 0.025 }; // marginTop 20
+    ? {backgroundColor: 'rgba(255,200,200,0.95)', color: '#ff0000'}
+    : {marginTop: layout.window.height * 0.025}; // marginTop 20
   return (
     <TouchableOpacity
       activeOpacity={1.0}
       style={{
-        alignItems: "center"
+        alignItems: 'center',
       }}
       onPress={props.button && props.onPressIcon}>
       {props.error && (
@@ -27,14 +27,14 @@ export default function Input(props) {
       <View
         style={[
           styles.container,
-          props.multiline && { ...styles.container, height: 46 * 4 },
-          { ...error },
-          { ...props.styleContainer }
+          props.multiline && {...styles.container, height: 46 * 4},
+          {...error},
+          {...props.styleContainer},
         ]}>
         <View
           style={
             props.multiline
-              ? { flex: 1, alignSelf: "stretch", padding: 5 }
+              ? {flex: 1, alignSelf: 'stretch', padding: 5}
               : styles.contentContainer
           }>
           {props.label && (
@@ -44,29 +44,29 @@ export default function Input(props) {
                   ? {
                       ...styles.labelContainer,
                       borderRightWidth: 0,
-                      alignSelf: "center"
+                      alignSelf: 'center',
                     }
                   : styles.labelContainer
               }>
               <Text
                 style={[
                   styles.labelStyle,
-                  { ...error, marginTop: 0 },
-                  { ...props.labelStyle },
-                  layout.isSmallDevice && { fontSize: 10 } //TEST IT
+                  {...error, marginTop: 0},
+                  {...props.labelStyle},
+                  layout.isSmallDevice && {fontSize: 10}, //TEST IT
                 ]}>
                 {props.label}
               </Text>
             </View>
           )}
-          {props.type === "default" && (
+          {props.type === 'default' && (
             <TextInput
               textContentType={props.textContentType}
-              autoCapitalize='none'
+              autoCapitalize="none"
               autoCorrect={false}
               placeholder={props.placeholder}
               style={styles.input}
-              placeholderTextColor='#999'
+              placeholderTextColor="#999"
               value={props.value}
               onChangeText={props.onChangeText}
               secureTextEntry={props.secureTextEntry}
@@ -82,7 +82,7 @@ export default function Input(props) {
             <TouchableOpacity
               style={styles.iconContainer}
               onPress={props.onPressIcon}>
-              <Image style={{ width: 40, height: 40 }} source={props.icon} />
+              <Image style={{width: 40, height: 40}} source={props.icon} />
             </TouchableOpacity>
           )}
         </View>
@@ -93,71 +93,71 @@ export default function Input(props) {
 Input.defaultProps = {
   value: null,
   onChangeText: () => {},
-  placeholder: "",
+  placeholder: '',
   labelStyle: {},
-  textContentType: "none",
+  textContentType: 'none',
   secureTextEntry: false,
   styleContainer: {},
-  keyboardType: "default",
+  keyboardType: 'default',
   error: null,
   multiline: false,
   icon: null,
-  type: "default",
+  type: 'default',
   onFocus: () => {},
-  onPressIcon: () => {}
+  onPressIcon: () => {},
 };
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    backgroundColor: "rgba(245,245,255,0.95)",
+    backgroundColor: 'rgba(245,245,255,0.95)',
     width: layout.window.width * 0.85, //width: 350,
     marginVertical: 5,
     height: 46,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
 
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   contentContainer: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   labelContainer: {
     width: layout.window.width * 0.29, //width: 120,
     height: 46,
     marginHorizontal: 2,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRightWidth: 1,
-    borderColor: "rgba(0,0,0,0.5)"
+    borderColor: 'rgba(0,0,0,0.5)',
   },
   labelStyle: {
-    color: "#59818b",
-    fontWeight: "bold",
+    color: '#59818b',
+    fontWeight: 'bold',
     fontSize: 16,
-    textAlign: "center"
+    textAlign: 'center',
   },
   input: {
     flex: 1,
-    alignSelf: "stretch",
-    paddingHorizontal: 5
+    alignSelf: 'stretch',
+    paddingHorizontal: 5,
   },
   error: {
-    color: "#ff0000",
+    color: '#ff0000',
     marginTop: 1,
     marginBottom: 1,
-    fontSize: 12
+    fontSize: 12,
   },
   iconContainer: {
-    justifyContent: "center",
-    alignContent: "center",
-    padding: 2
-  }
+    justifyContent: 'center',
+    alignContent: 'center',
+    padding: 2,
+  },
 });

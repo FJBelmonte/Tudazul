@@ -29,6 +29,7 @@ export const createPatient = ({
   age,
   gender,
   anotation,
+  createdAt,
 }) => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
@@ -41,9 +42,10 @@ export const createPatient = ({
       gender,
       anotation,
       psychologist: user.uid,
+      createdAt,
     })
     .then(() => {
-      dispatch({type: CREATE_PATIENT_SUCCESS});
+      dispatch({type: CREATE_PATIENT_SUCCESS, payload: {createdAt}});
     })
     .catch(err => {
       dispatch({CREATE_PATIENT_FAIL});

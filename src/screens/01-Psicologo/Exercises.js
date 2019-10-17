@@ -3,9 +3,10 @@ import * as actions from '../../actions';
 import {Box, Button, CheckBox, Input} from '../../components';
 import {Picker, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {global, layout, linearGradient} from '../../constants';
+import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import calendarIcon from '../../assets/icons/ico-calendario.png';
@@ -48,7 +49,7 @@ export default function Exercises({navigation}) {
 
   function verifyCamps() {
     let errorInput = {...inputError};
-    if (patient.uid === '') {
+    if (patient.uid === '' && checkBoxNPatients) {
       errorInput.name = {
         code: 'patient/blank-name',
         errorMessage: 'Campo Paciente é obrigatório neste caso (1 Paciente)',
@@ -125,12 +126,14 @@ export default function Exercises({navigation}) {
             <Input
               label="Paciente"
               value={!checkBoxNPatients ? 'Todos' : patient.name}
+              placeholder="Selecione o paciente"
               error={inputError.name}
               onFocus={() => {
                 setInputError({name: null});
               }}
               icon={calendarIcon}
               onPressIcon={() => {
+                setInputError({name: null});
                 setModal('patients');
               }}
               button
@@ -152,7 +155,30 @@ export default function Exercises({navigation}) {
         <Button
           text="CONFIRMAR"
           onPress={() => {
-            verifyCamps();
+            if (verifyCamps()) {
+              if (checkBoxNPatients) {
+                const exerciseReminder = {
+                  type: checkBoxReminderExercise ? 'reminder' : 'exercises',
+                  note: reminder,
+                  patient: uid,
+                  createdAt: new Date().getTime(),
+                };
+                dispatch(actions.createExerciseOne(exerciseReminder));
+                console.log('ONE');
+                console.log(exerciseReminder);
+                //1 paciente
+              } else {
+                const exerciseReminder = {
+                  type: checkBoxReminderExercise ? 'reminder' : 'exercises',
+                  note: reminder,
+                  createdAt: new Date().getTime(),
+                };
+                dispatch(actions.createExerciseAll(exerciseReminder));
+                console.log('ALL');
+                console.log(exerciseReminder);
+                //todos
+              }
+            }
           }}></Button>
       </View>
       {modal === 'patients' && (

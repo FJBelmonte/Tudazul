@@ -9,6 +9,7 @@ export const createConsult = ({
   type,
   anotation,
   dateTime,
+  createdAt,
 }) => async dispatch => {
   let user = firebase.auth().currentUser;
   let db = firebase.database();
@@ -31,11 +32,15 @@ export const createConsult = ({
       type,
       anotation,
       dateTime,
+      createdAt,
     })
     .then(() => {
-      dispatch({type: CREATE_CONSULT_SUCCESS});
+      dispatch({
+        type: CREATE_CONSULT_SUCCESS,
+        payload: {createdAt},
+      });
     })
     .catch(err => {
-      dispatch({type: CREATE_CONSULT_FAIL});
+      dispatch({type: CREATE_CONSULT_FAIL, payload: {err}});
     });
 };

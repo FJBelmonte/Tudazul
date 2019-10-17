@@ -191,6 +191,7 @@ export default function NewConsultation({navigation}) {
                 0,
                 0,
               ).getTime(),
+              createdAt: new Date().getTime(),
             };
             if (verifyCamps()) {
               dispatch(actions.createConsult(consult));
