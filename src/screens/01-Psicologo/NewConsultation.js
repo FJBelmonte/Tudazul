@@ -15,8 +15,6 @@ export default function NewConsultation({navigation}) {
   const dispatch = useDispatch();
 
   const labelDateTime = new Date();
-  const platform = Platform.OS === 'ios' ? 'IOS' : 'Android'; //UTILIZAR PARA RETIRAR BUG VISUAL NO ANDROID
-
   const [consultation, setConsultation] = useState({date: '', time: ''});
   const [listPatient, setListPatient] = useState();
   const [patient, setPatient] = useState({
@@ -36,6 +34,7 @@ export default function NewConsultation({navigation}) {
     data: null,
     time: null,
   });
+  const [lastActionId, setLastActionId] = useState(null);
 
   useEffect(() => {
     dispatch(actions.fetchPatients());
@@ -52,7 +51,18 @@ export default function NewConsultation({navigation}) {
       }
     });
   });
-  // BEGIN ALTERAR
+
+  // BEGIN - REDIRECT TO HOME SCREEN WITH PARAMS
+  useEffect(() => {
+    if (state.consult.lastCreated) {
+      if (state.consult.lastCreated === lastActionId) {
+        navigation.navigate('PsicologoHome', {consultationCreated: true});
+      }
+    }
+  }, [state.consult.lastCreated]);
+  // END
+
+  // BEGIN - VERIFY CAMPS (verify inputs, set state of obj inputError and returns true if has been founded errors)
   function verifyCamps() {
     let errorInput = {...inputError};
     if (patient.uid === '') {
@@ -89,7 +99,8 @@ export default function NewConsultation({navigation}) {
       setInputError(errorInput);
     }
   }
-  //END ALTERAR
+  //END
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
@@ -176,6 +187,7 @@ export default function NewConsultation({navigation}) {
         <Button
           text="CONFIRMAR"
           onPress={() => {
+            const actionId = `${uuidv4()}`;
             const consult = {
               patient: uid,
               date,
@@ -192,8 +204,10 @@ export default function NewConsultation({navigation}) {
                 0,
               ).getTime(),
               createdAt: new Date().getTime(),
+              actionId,
             };
             if (verifyCamps()) {
+              setLastActionId(actionId);
               dispatch(actions.createConsult(consult));
             }
           }}></Button>
@@ -310,3 +324,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+// BEGIN - GENERATE UID (for use in lastActionId)
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+// END

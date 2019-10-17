@@ -11,7 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import calendarIcon from '../../assets/icons/ico-calendario.png';
 
-export default function Exercises({navigation}) {
+export default function NewExercise({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -30,6 +30,7 @@ export default function Exercises({navigation}) {
   });
   const [reminder, setReminder] = useState('');
   const [modal, setModal] = useState('');
+  const [lastActionId, setLastActionId] = useState(null);
 
   useEffect(() => {
     dispatch(actions.fetchPatients());
@@ -46,6 +47,16 @@ export default function Exercises({navigation}) {
       }
     });
   });
+
+  // BEGIN - REDIRECT TO HOME SCREEN WITH PARAMS
+  useEffect(() => {
+    if (state.exercise.lastCreated) {
+      if (state.exercise.lastCreated === lastActionId) {
+        navigation.navigate('PsicologoHome', {exerciseCreated: true});
+      }
+    }
+  }, [state.exercise.lastCreated]);
+  // END
 
   function verifyCamps() {
     let errorInput = {...inputError};
@@ -155,6 +166,7 @@ export default function Exercises({navigation}) {
         <Button
           text="CONFIRMAR"
           onPress={() => {
+            const actionId = `${uuidv4()}`;
             if (verifyCamps()) {
               if (checkBoxNPatients) {
                 const exerciseReminder = {
@@ -162,21 +174,19 @@ export default function Exercises({navigation}) {
                   note: reminder,
                   patient: uid,
                   createdAt: new Date().getTime(),
+                  actionId: actionId,
                 };
+                setLastActionId(actionId);
                 dispatch(actions.createExerciseOne(exerciseReminder));
-                console.log('ONE');
-                console.log(exerciseReminder);
-                //1 paciente
               } else {
                 const exerciseReminder = {
                   type: checkBoxReminderExercise ? 'reminder' : 'exercises',
                   note: reminder,
                   createdAt: new Date().getTime(),
+                  actionId: actionId,
                 };
+                setLastActionId(actionId);
                 dispatch(actions.createExerciseAll(exerciseReminder));
-                console.log('ALL');
-                console.log(exerciseReminder);
-                //todos
               }
             }
           }}></Button>
@@ -233,7 +243,7 @@ export default function Exercises({navigation}) {
     </View>
   );
 }
-Exercises.navigationOptions = {
+NewExercise.navigationOptions = {
   title: 'Exercícios',
 };
 
@@ -280,3 +290,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+// generate uid
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}

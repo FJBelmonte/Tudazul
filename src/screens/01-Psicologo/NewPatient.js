@@ -22,6 +22,17 @@ export default function NewPatient({navigation}) {
     age: null,
     gender: null,
   });
+  const [lastActionId, setLastActionId] = useState(null);
+
+  // BEGIN - REDIRECT TO HOME SCREEN WITH PARAMS
+  useEffect(() => {
+    if (state.psychologistPatient.lastCreated) {
+      if (state.psychologistPatient.lastCreated === lastActionId) {
+        navigation.navigate('PsicologoHome', {patientCreated: true});
+      }
+    }
+  }, [state.psychologistPatient.lastCreated]);
+  // END
 
   function verifyCamps() {
     let errorInput = {...inputError};
@@ -117,14 +128,17 @@ export default function NewPatient({navigation}) {
         <Button
           text="CADASTRAR"
           onPress={() => {
+            const actionId = `${uuidv4()}`;
             const patient = {
               name,
               age,
               gender,
               anotation,
               createdAt: new Date().getTime(),
+              actionId,
             };
             if (verifyCamps()) {
+              setLastActionId(actionId);
               dispatch(actions.createPatient(patient));
             }
           }}></Button>
@@ -142,3 +156,12 @@ const styles = StyleSheet.create({
     marginTop: layout.window.height * 0.025, // marginTop: 20
   },
 });
+
+// generate uid
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}

@@ -7,12 +7,13 @@ import {
 import Main from './screens/Main';
 import PacienteLogin from './screens/02-Paciente/Login';
 import PsicologoCalendar from './screens/01-Psicologo/Calendar';
-import PsicologoExercises from './screens/01-Psicologo/Exercises';
 import PsicologoForgotPassword from './screens/01-Psicologo/ForgotPassword';
 import PsicologoHome from './screens/01-Psicologo/Home';
 import PsicologoLogin from './screens/01-Psicologo/Login';
 import PsicologoNewConsultation from './screens/01-Psicologo/NewConsultation';
+import PsicologoNewExercise from './screens/01-Psicologo/NewExercise';
 import PsicologoNewPatient from './screens/01-Psicologo/NewPatient';
+import PsicologoNewQuestion from './screens/01-Psicologo/NewQuestion';
 import PsicologoPatient from './screens/01-Psicologo/Patient';
 import PsicologoPatients from './screens/01-Psicologo/Patients';
 import PsicologoSignup from './screens/01-Psicologo/Signup';
@@ -34,7 +35,8 @@ const psicologoStack = createStackNavigator({
   PsicologoPatients,
   PsicologoNewPatient,
   PsicologoPatient,
-  PsicologoExercises,
+  PsicologoNewExercise,
+  PsicologoNewQuestion,
 });
 
 export default createAppContainer(

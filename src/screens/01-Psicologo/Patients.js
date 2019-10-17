@@ -16,15 +16,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 
+//ADICIONAR AVISO DE LISTA VAZIA
+
 export default function Patients({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const [listPatient, setListPatient] = useState();
+  const [listPatient, setListPatient] = useState(null);
 
+  //BEGIN - ==================>
   useEffect(() => {
     dispatch(actions.fetchPatients());
   }, []);
+  // END
 
   useEffect(() => {
     setListPatient(state.psychologistPatient.patients);

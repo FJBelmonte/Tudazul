@@ -1,13 +1,13 @@
 import {
-  CREATE_EXERCISE_ALL_FAIL,
-  CREATE_EXERCISE_ALL_SUCCESS,
-  CREATE_EXERCISE_ONE_FAIL,
-  CREATE_EXERCISE_ONE_SUCCESS,
+  CREATE_QUESTION_ALL_FAIL,
+  CREATE_QUESTION_ALL_SUCCESS,
+  CREATE_QUESTION_ONE_FAIL,
+  CREATE_QUESTION_ONE_SUCCESS,
 } from './types';
 
 import firebase from '../services/firebase';
 
-export const createExerciseAll = ({
+export const createQuestionAll = ({
   type,
   note,
   createdAt,
@@ -24,16 +24,16 @@ export const createExerciseAll = ({
     })
     .then(() => {
       dispatch({
-        type: CREATE_EXERCISE_ALL_SUCCESS,
+        type: CREATE_QUESTION_ALL_SUCCESS,
         payload: {lastCreated: actionId},
       });
     })
     .catch(err => {
-      dispatch({type: CREATE_EXERCISE_ALL_FAIL, payload: {err}});
+      dispatch({type: CREATE_QUESTION_ALL_FAIL, payload: {err}});
     });
 };
 
-export const createExerciseOne = ({
+export const createQuestionOne = ({
   patient,
   type,
   note,
@@ -53,12 +53,12 @@ export const createExerciseOne = ({
     })
     .then(() => {
       dispatch({
-        type: CREATE_EXERCISE_ONE_SUCCESS,
+        type: CREATE_QUESTION_ONE_SUCCESS,
         payload: {lastCreated: actionId},
       });
     })
     .catch(err => {
-      dispatch({type: CREATE_EXERCISE_ONE_FAIL, payload: {err}});
+      dispatch({type: CREATE_QUESTION_ONE_FAIL, payload: {err}});
     });
 };
 // generate uid
