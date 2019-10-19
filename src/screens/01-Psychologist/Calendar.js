@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { global, layout, color, linearGradient } from "../../constants";
-import { NextQuery, Calendar as CalendarComponent } from "../../components";
-import LinearGradient from "react-native-linear-gradient";
+import {Calendar as CalendarComponent, NextQuery} from '../../components';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {color, global, layout, linearGradient} from '../../constants';
+import {useDispatch, useSelector} from 'react-redux';
 
-export default function Calendar({ navigation }) {
+import LinearGradient from 'react-native-linear-gradient';
+
+export default function Calendar({navigation}) {
   const [pickedDate, setPickedDate] = useState();
   const state = useSelector(state => state);
   const dispatch = useDispatch();
@@ -24,16 +25,15 @@ export default function Calendar({ navigation }) {
       </View>
       <TouchableOpacity
         style={styles.floatButton}
-        onPress={() => navigation.navigate("PsicologoNewConsultation")}
-      >
+        onPress={() => navigation.navigate('PsychologistNewConsultation')}>
         <Text style={styles.floatButtonLabel}>+</Text>
       </TouchableOpacity>
     </View>
   );
 }
 Calendar.navigationOptions = {
-  title: "Calendário"
+  title: 'Calendário',
 };
 const styles = StyleSheet.create({
-  ...global
+  ...global,
 });

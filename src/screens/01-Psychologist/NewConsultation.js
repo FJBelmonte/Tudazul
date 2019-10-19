@@ -56,7 +56,7 @@ export default function NewConsultation({navigation}) {
   useEffect(() => {
     if (state.consult.lastCreated) {
       if (state.consult.lastCreated === lastActionId) {
-        navigation.navigate('PsicologoHome', {consultationCreated: true});
+        navigation.navigate('PsychologistHome', {consultationCreated: true});
       }
     }
   }, [state.consult.lastCreated]);

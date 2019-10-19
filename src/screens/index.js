@@ -18,11 +18,11 @@ export default function Main({navigation}) {
       <View style={[styles.footer, {marginTop: 20}]}>
         <Button
           text="SOU PACIENTE"
-          onPress={() => navigation.navigate('PacienteLogin')}
+          onPress={() => navigation.navigate('PatientLogin')}
         />
         <Button
           text="SOU PSICÓLOGO"
-          onPress={() => navigation.navigate('PsicologoLogin')}
+          onPress={() => navigation.navigate('PsychologistLogin')}
         />
       </View>
     </View>

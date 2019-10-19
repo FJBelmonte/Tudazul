@@ -52,7 +52,7 @@ export default function NewExercise({navigation}) {
   useEffect(() => {
     if (state.exercise.lastCreated) {
       if (state.exercise.lastCreated === lastActionId) {
-        navigation.navigate('PsicologoHome', {exerciseCreated: true});
+        navigation.navigate('PsychologistHome', {exerciseCreated: true});
       }
     }
   }, [state.exercise.lastCreated]);

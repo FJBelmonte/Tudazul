@@ -1,4 +1,6 @@
 import {
+  CREATE_PATIENT_CODE_FAIL,
+  CREATE_PATIENT_CODE_SUCCESS,
   CREATE_PATIENT_FAIL,
   CREATE_PATIENT_SUCCESS,
   EDIT_PATIENT_FAIL,
@@ -55,6 +57,22 @@ export const createPatient = ({
       dispatch({CREATE_PATIENT_FAIL});
     });
 };
+export const createPatientCode = patient => async dispatch => {
+  let db = firebase.database();
+  db.ref(`patients/${patient.uid}`)
+    .set({uid: patient.uid, psychologist: patient.psychologist})
+    .then(() => {
+      console.log('SUCESSO');
+      dispatch({
+        type: CREATE_PATIENT_CODE_SUCCESS,
+      });
+    })
+    .catch(err => {
+      console.log('FALHA');
+      dispatch({CREATE_PATIENT_CODE_FAIL});
+    });
+};
+
 // generate uid
 function uuidv4() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

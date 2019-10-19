@@ -52,7 +52,7 @@ export default function NewQuestion({navigation}) {
   useEffect(() => {
     if (state.question.lastCreated) {
       if (state.question.lastCreated === lastActionId) {
-        navigation.navigate('PsicologoHome', {questionCreated: true});
+        navigation.navigate('PsychologistHome', {questionCreated: true});
       }
     }
   }, [state.question.lastCreated]);

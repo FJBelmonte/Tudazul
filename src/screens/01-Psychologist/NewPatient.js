@@ -28,7 +28,7 @@ export default function NewPatient({navigation}) {
   useEffect(() => {
     if (state.psychologistPatient.lastCreated) {
       if (state.psychologistPatient.lastCreated === lastActionId) {
-        navigation.navigate('PsicologoHome', {patientCreated: true});
+        navigation.navigate('PsychologistHome', {patientCreated: true});
       }
     }
   }, [state.psychologistPatient.lastCreated]);
