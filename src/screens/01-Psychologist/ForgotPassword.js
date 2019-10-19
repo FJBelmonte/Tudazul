@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from "react";
+import * as actions from '../../actions';
+
 import {
+  Alert,
   KeyboardAvoidingView,
-  StyleSheet,
   Platform,
-  View,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  Alert
-} from "react-native";
-import _ from "lodash";
-import LinearGradient from "react-native-linear-gradient";
-import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
-import { global, layout, color, linearGradient } from "../../constants";
-import { Logo, Input, Button } from "../../components";
+  View,
+} from 'react-native';
+import {Button, Input, Logo} from '../../components';
+import React, {useEffect, useState} from 'react';
+import {color, global, layout, linearGradient} from '../../constants';
+import {useDispatch, useSelector} from 'react-redux';
 
-export default function PsicologoForgotPassword({ navigation }) {
+import LinearGradient from 'react-native-linear-gradient';
+import _ from 'lodash';
+
+export default function PsychologistForgotPassword({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [inputError, setInputError] = useState({
-    email: null
+    email: null,
   });
   const [authErrorFirebase, setAuthErrorFirebase] = useState({
-    code: "",
-    errorMessage: ""
+    code: '',
+    errorMessage: '',
   });
   useEffect(() => {
     if (
-      authErrorFirebase.code !== "" &&
+      authErrorFirebase.code !== '' &&
       authErrorFirebase.code !== state.auth.authError.forgotPassword.code
     )
       verifyCamps();
@@ -37,15 +39,15 @@ export default function PsicologoForgotPassword({ navigation }) {
 
   useEffect(() => {
     if (state.auth.resetedPassword) {
-      navigation.navigate("PsicologoLogin");
+      navigation.navigate('PsychologistLogin');
     }
   });
   function verifyCamps() {
-    let errorInput = { ...inputError };
-    if (email === "") {
+    let errorInput = {...inputError};
+    if (email === '') {
       errorInput.email = {
-        code: "auth/blank-email",
-        errorMessage: "Campo Email não pode ficar em branco"
+        code: 'auth/blank-email',
+        errorMessage: 'Campo Email não pode ficar em branco',
       };
     } else {
       errorInput.email = null;
@@ -57,11 +59,11 @@ export default function PsicologoForgotPassword({ navigation }) {
       setAuthErrorFirebase(state.auth.authError.forgotPassword);
     }
 
-    if (authErrorFirebase.code !== "") {
-      if (state.auth.authError.forgotPassword.code === "auth/invalid-email") {
+    if (authErrorFirebase.code !== '') {
+      if (state.auth.authError.forgotPassword.code === 'auth/invalid-email') {
         errorInput.email = {
-          code: "auth/blank-email",
-          errorMessage: "Formatação do email inválida"
+          code: 'auth/blank-email',
+          errorMessage: 'Formatação do email inválida',
         };
       }
     }
@@ -80,8 +82,7 @@ export default function PsicologoForgotPassword({ navigation }) {
     <KeyboardAvoidingView
       style={styles.container}
       behavior="padding"
-      enabled={Platform.OS === "ios"}
-    >
+      enabled={Platform.OS === 'ios'}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.logoContainer}>
         <Logo />
@@ -92,7 +93,7 @@ export default function PsicologoForgotPassword({ navigation }) {
           value={email}
           error={inputError.email}
           onFocus={() => {
-            setInputError({ ...inputError, email: null });
+            setInputError({...inputError, email: null});
           }}
           textContentType="emailAddress"
           keyboardType="email-address"
@@ -104,7 +105,7 @@ export default function PsicologoForgotPassword({ navigation }) {
             <Button
               text="Enviar"
               onPress={() => {
-                const credentials = { email };
+                const credentials = {email};
                 verifyCamps() === true &&
                   dispatch(actions.forgotPasswordEmail(credentials));
               }}
@@ -116,17 +117,17 @@ export default function PsicologoForgotPassword({ navigation }) {
   );
 }
 
-PsicologoForgotPassword.navigationOptions = {
-  title: "Redefinir senha"
+PsychologistForgotPassword.navigationOptions = {
+  title: 'Redefinir senha',
 };
 
 const styles = StyleSheet.create({
   ...global,
   buttonsContainer: {
-    marginTop: layout.window.height * 0.025 //marginTop: 20,
+    marginTop: layout.window.height * 0.025, //marginTop: 20,
   },
   footerText: {
     marginTop: layout.window.height * 0.00625, //marginTop: 5,
-    color: color.primary
-  }
+    color: color.primary,
+  },
 });

@@ -49,7 +49,7 @@ export default function Patients({navigation}) {
                       new Date(patient.consultation.dateTime)
                     }
                     onPress={() =>
-                      navigation.navigate('PsicologoPatient', {patient})
+                      navigation.navigate('PsychologistPatient', {patient})
                     }>
                     <Text style={[styles.patientNameLabel]}>
                       {patient.name}
@@ -61,7 +61,10 @@ export default function Patients({navigation}) {
                       style={{width: 120}}
                       textStyle={{fontSize: 14}}
                       text="GERAR CÓDIGO"
-                      onPress={() => Alert.alert(patient.uid)}></Button>
+                      onPress={() => {
+                        dispatch(actions.createPatientCode(patient));
+                        Alert.alert(patient.uid);
+                      }}></Button>
                   </NextQuery>
                 </View>
               );
@@ -71,7 +74,7 @@ export default function Patients({navigation}) {
       </View>
       <TouchableOpacity
         style={styles.floatButton}
-        onPress={() => navigation.navigate('PsicologoNewPatient')}>
+        onPress={() => navigation.navigate('PsychologistNewPatient')}>
         <Text style={styles.floatButtonLabel}>+</Text>
       </TouchableOpacity>
     </View>

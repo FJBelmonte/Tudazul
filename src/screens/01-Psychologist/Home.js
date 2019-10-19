@@ -21,7 +21,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
 
-export default function PsicologoHome({navigation}) {
+export default function PsychologistHome({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -61,7 +61,7 @@ export default function PsicologoHome({navigation}) {
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
         <MiniCalendar
-          onPress={() => navigation.navigate('PsicologoCalendar')}
+          onPress={() => navigation.navigate('PsychologistCalendar')}
         />
       </View>
 
@@ -75,16 +75,16 @@ export default function PsicologoHome({navigation}) {
       </View>
       <View style={styles.contentContainer}>
         <NavigationBox
-          onPress0={() => navigation.navigate('PsicologoCalendar')}
-          onPress1={() => navigation.navigate('PsicologoPatients')}
-          onPress2={() => navigation.navigate('PsicologoNewExercise')}
-          onPress3={() => navigation.navigate('PsicologoNewQuestion')}
+          onPress0={() => navigation.navigate('PsychologistCalendar')}
+          onPress1={() => navigation.navigate('PsychologistPatients')}
+          onPress2={() => navigation.navigate('PsychologistNewExercise')}
+          onPress3={() => navigation.navigate('PsychologistNewQuestion')}
         />
       </View>
     </View>
   );
 }
-PsicologoHome.navigationOptions = {
+PsychologistHome.navigationOptions = {
   title: 'Psicólogo',
 };
 

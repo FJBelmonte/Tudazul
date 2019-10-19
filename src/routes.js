@@ -4,44 +4,44 @@ import {
   createSwitchNavigator,
 } from 'react-navigation';
 
-import Main from './screens/Main';
-import PacienteLogin from './screens/02-Paciente/Login';
-import PsicologoCalendar from './screens/01-Psicologo/Calendar';
-import PsicologoForgotPassword from './screens/01-Psicologo/ForgotPassword';
-import PsicologoHome from './screens/01-Psicologo/Home';
-import PsicologoLogin from './screens/01-Psicologo/Login';
-import PsicologoNewConsultation from './screens/01-Psicologo/NewConsultation';
-import PsicologoNewExercise from './screens/01-Psicologo/NewExercise';
-import PsicologoNewPatient from './screens/01-Psicologo/NewPatient';
-import PsicologoNewQuestion from './screens/01-Psicologo/NewQuestion';
-import PsicologoPatient from './screens/01-Psicologo/Patient';
-import PsicologoPatients from './screens/01-Psicologo/Patients';
-import PsicologoSignup from './screens/01-Psicologo/Signup';
+import Main from './screens';
+import PatientLogin from './screens/02-Patient/Login';
+import PsychologistCalendar from './screens/01-Psychologist/Calendar';
+import PsychologistForgotPassword from './screens/01-Psychologist/ForgotPassword';
+import PsychologistHome from './screens/01-Psychologist/Home';
+import PsychologistLogin from './screens/01-Psychologist/Login';
+import PsychologistNewConsultation from './screens/01-Psychologist/NewConsultation';
+import PsychologistNewExercise from './screens/01-Psychologist/NewExercise';
+import PsychologistNewPatient from './screens/01-Psychologist/NewPatient';
+import PsychologistNewQuestion from './screens/01-Psychologist/NewQuestion';
+import PsychologistPatient from './screens/01-Psychologist/Patient';
+import PsychologistPatients from './screens/01-Psychologist/Patients';
+import PsychologistSignup from './screens/01-Psychologist/Signup';
 import Test from './screens/Test';
 
 const authStack = createStackNavigator({
   Test,
   Main,
-  PsicologoLogin,
-  PsicologoSignup,
-  PsicologoForgotPassword,
-  PacienteLogin,
+  PsychologistLogin,
+  PsychologistSignup,
+  PsychologistForgotPassword,
+  PatientLogin,
 });
 
-const psicologoStack = createStackNavigator({
-  PsicologoHome,
-  PsicologoCalendar,
-  PsicologoNewConsultation,
-  PsicologoPatients,
-  PsicologoNewPatient,
-  PsicologoPatient,
-  PsicologoNewExercise,
-  PsicologoNewQuestion,
+const psychologistStack = createStackNavigator({
+  PsychologistHome,
+  PsychologistCalendar,
+  PsychologistNewConsultation,
+  PsychologistPatients,
+  PsychologistNewPatient,
+  PsychologistPatient,
+  PsychologistNewExercise,
+  PsychologistNewQuestion,
 });
 
 export default createAppContainer(
   createSwitchNavigator({
     authStack,
-    psicologoStack,
+    psychologistStack,
   }),
 );

@@ -1,5 +1,3 @@
--refatoração de signIn e signUp vai bem
-
 -aviso visual de ações assíncronas para o usuário
 
 -aviso visual para confirmação de senha
@@ -7,14 +5,3 @@
 -retirar espaçamento em branco de campos 
 
 -dependência react-navigaiton android 
-
-- PASSAR CREATED_AT para usar para a realização do encaminhamento em Exercises E NewConsultation
-
-
-
-
-
-- por hora adicionada o component Picker na tela NewConsultation... posteriormente
-remover da tela e criar component separado 
-
-- Refatorar o Input serparando-o da Box
