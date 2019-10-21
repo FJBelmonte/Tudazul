@@ -4,11 +4,11 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_FAIL,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAIL
-} from "./types";
-import firebase from "../services/firebase";
+  RESET_PASSWORD_FAIL,
+} from '../types';
+import firebase from '../../services/firebase';
 
-export const signIn = ({ email, password }) => async dispatch => {
+export const signIn = ({email, password}) => async dispatch => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -16,37 +16,37 @@ export const signIn = ({ email, password }) => async dispatch => {
       let user = firebase.auth().currentUser;
       let db = firebase.database();
       db.ref(`psychologist/${user.uid}`)
-        .once("value")
+        .once('value')
         .then(snapshot => {
-          const { name, email, cellphone, crp } = snapshot.val();
+          const {name, email, cellphone, crp} = snapshot.val();
           dispatch({
             type: LOGIN_SUCCESS,
             payload: {
-              user: { uid: user.uid, name, email, cellphone, crp }
-            }
+              user: {uid: user.uid, name, email, cellphone, crp},
+            },
           });
         });
     })
     .catch(err => {
       const error = err.code;
-      let { errorMessage } = "";
+      let {errorMessage} = '';
       switch (error) {
-        case "auth/invalid-email":
-          errorMessage = "Formatação do email inválida";
+        case 'auth/invalid-email':
+          errorMessage = 'Formatação do email inválida';
           break;
-        case "auth/user-disabled":
-          errorMessage = "Este usuário foi desativado";
+        case 'auth/user-disabled':
+          errorMessage = 'Este usuário foi desativado';
           break;
-        case "auth/user-not-found":
-          errorMessage = "Email não encontrado";
+        case 'auth/user-not-found':
+          errorMessage = 'Email não encontrado';
           break;
-        case "auth/wrong-password":
-          errorMessage = "Senha inválida";
+        case 'auth/wrong-password':
+          errorMessage = 'Senha inválida';
           break;
       }
       dispatch({
         type: LOGIN_FAIL,
-        payload: { err: { ...err, errorMessage } }
+        payload: {err: {...err, errorMessage}},
       });
     });
 };
@@ -55,7 +55,7 @@ export const signUp = ({
   email,
   password,
   cellphone,
-  crp
+  crp,
 }) => async dispatch => {
   firebase
     .auth()
@@ -70,20 +70,20 @@ export const signUp = ({
           email,
           cellphone,
           crp,
-          patients: {}
+          patients: {},
         })
         .then(() => {
           dispatch({
             type: CREATE_USER_SUCCESS,
             payload: {
-              user: { uid: user.uid, name, email, cellphone, crp }
-            }
+              user: {uid: user.uid, name, email, cellphone, crp},
+            },
           });
         })
         .catch(err => {
           dispatch({
             type: CREATE_USER_FAIL,
-            payload: { err }
+            payload: {err},
           });
         });
       //USUARIO ESTÁ AUTENTICADO NESSE PONTO
@@ -92,35 +92,35 @@ export const signUp = ({
     })
     .catch(err => {
       const error = err.code;
-      let { errorMessage } = "";
+      let {errorMessage} = '';
       switch (error) {
-        case "auth/invalid-email":
-          errorMessage = "Formatação do email inválida";
+        case 'auth/invalid-email':
+          errorMessage = 'Formatação do email inválida';
           break;
-        case "auth/email-already-in-use":
-          errorMessage = "E-mail já está em uso";
+        case 'auth/email-already-in-use':
+          errorMessage = 'E-mail já está em uso';
           break;
-        case "auth/weak-password":
-          errorMessage = "Senha fraca";
+        case 'auth/weak-password':
+          errorMessage = 'Senha fraca';
           break;
       }
       dispatch({
         type: CREATE_USER_FAIL,
-        payload: { err: { ...err, errorMessage } }
+        payload: {err: {...err, errorMessage}},
       });
     });
 };
-export const forgotPasswordEmail = ({ email }) => async dispatch => {
+export const forgotPasswordEmail = ({email}) => async dispatch => {
   firebase
     .auth()
     .sendPasswordResetEmail(email)
     .then(() => {
-      console.log("SUCESS");
-      dispatch({ type: RESET_PASSWORD_SUCCESS });
+      console.log('SUCESS');
+      dispatch({type: RESET_PASSWORD_SUCCESS});
     })
     .catch(err => {
       console.log(err);
-      dispatch({ type: RESET_PASSWORD_FAIL, payload: { err } });
+      dispatch({type: RESET_PASSWORD_FAIL, payload: {err}});
     });
 };
 

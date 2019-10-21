@@ -1,4 +1,4 @@
-import {CREATE_CONSULT_FAIL, CREATE_CONSULT_SUCCESS} from '../actions/types';
+import {CREATE_CONSULT_FAIL, CREATE_CONSULT_SUCCESS} from '../../actions/types';
 
 import _ from 'lodash';
 

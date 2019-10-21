@@ -5,8 +5,6 @@ import {Picker, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import calendarIcon from '../../assets/icons/ico-calendario.png';
@@ -37,8 +35,8 @@ export default function NewExercise({navigation}) {
   }, []);
 
   useEffect(() => {
-    setListPatient(state.psychologistPatient.patients);
-  }, [state.psychologistPatient.patients]);
+    setListPatient(state.patient.patients);
+  }, [state.patient.patients]);
 
   useEffect(() => {
     _.toArray(listPatient).map((p, index) => {

@@ -7,9 +7,9 @@ import {
   EDIT_PATIENT_SUCESS,
   FETCH_PATIENT,
   FETCH_PATIENTS,
-} from './types';
+} from '../types';
 
-import firebase from '../services/firebase';
+import firebase from '../../services/firebase';
 
 export const fetchPatients = () => async dispatch => {
   let user = firebase.auth().currentUser;

@@ -1,6 +1,11 @@
-export * from './auth';
-export * from './patient';
-export * from './consult';
-export * from './exercise';
-export * from './question';
-export * from './authPatient';
+// PSYCHOLOGIST
+export * from './psychologist/auth';
+export * from './psychologist/patient';
+export * from './psychologist/consult';
+export * from './psychologist/exercise';
+export * from './psychologist/question';
+// END
+
+// PATIENT
+export * from './patient/auth';
+// END

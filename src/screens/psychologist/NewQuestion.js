@@ -37,8 +37,8 @@ export default function NewQuestion({navigation}) {
   }, []);
 
   useEffect(() => {
-    setListPatient(state.psychologistPatient.patients);
-  }, [state.psychologistPatient.patients]);
+    setListPatient(state.patient.patients);
+  }, [state.patient.patients]);
 
   useEffect(() => {
     _.toArray(listPatient).map((p, index) => {

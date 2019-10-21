@@ -1,14 +1,22 @@
-import auth from './auth';
 import {combineReducers} from 'redux';
-import consult from './consult';
-import exercise from './exercise';
-import psychologistPatient from './patient';
-import question from './question';
+
+// PSYCHOLOGIST
+import auth from './psychologist/auth';
+import consult from './psychologist/consult';
+import exercise from './psychologist/exercise';
+import patient from './psychologist/patient';
+import question from './psychologist/question';
+// END
+
+// PATIENT
+import authPatient from './patient/auth';
+// END
 
 export default combineReducers({
   auth,
-  psychologistPatient,
+  patient,
   consult,
   exercise,
   question,
+  authPatient,
 });

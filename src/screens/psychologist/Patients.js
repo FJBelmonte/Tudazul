@@ -31,8 +31,8 @@ export default function Patients({navigation}) {
   // END
 
   useEffect(() => {
-    setListPatient(state.psychologistPatient.patients);
-  }, [state.psychologistPatient.patients]);
+    setListPatient(state.patient.patients);
+  }, [state.patient.patients]);
 
   return (
     <View style={[styles.container]}>

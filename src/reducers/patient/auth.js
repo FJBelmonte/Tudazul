@@ -1,9 +1,7 @@
-import {LOGIN_PATIENT_FAIL, LOGIN_PATIENT_SUCCESS} from '../actions/types';
-
-import _ from 'lodash';
+import {LOGIN_PATIENT_FAIL, LOGIN_PATIENT_SUCCESS} from '../../actions/types';
 
 const INITIAL_STATE = {
-  ref: {},
+  ref: null,
   lastCreated: null,
 };
 

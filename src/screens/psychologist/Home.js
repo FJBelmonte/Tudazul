@@ -32,7 +32,7 @@ export default function PsychologistHome({navigation}) {
     if (navigation.getParam('patientCreated')) {
       Alert.alert('Paciente criado com sucesso');
     }
-  }, [state.psychologistPatient.lastCreated]);
+  }, [state.patient.lastCreated]);
   //
   //
   useEffect(() => {

@@ -3,9 +3,9 @@ import {
   CREATE_QUESTION_ALL_SUCCESS,
   CREATE_QUESTION_ONE_FAIL,
   CREATE_QUESTION_ONE_SUCCESS,
-} from './types';
+} from '../types';
 
-import firebase from '../services/firebase';
+import firebase from '../../services/firebase';
 
 export const createQuestionAll = ({
   type,

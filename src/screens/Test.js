@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from "react";
+import {Box, Button} from '../components';
 import {
   KeyboardAvoidingView,
-  StyleSheet,
   Platform,
+  StyleSheet,
+  Text,
   View,
-  Text
-} from "react-native";
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {global, layout, linearGradient} from '../constants';
 
-import { global, linearGradient, layout } from "../constants";
+import LinearGradient from 'react-native-linear-gradient';
 
-import { Button, Box } from "../components";
-
-import LinearGradient from "react-native-linear-gradient";
-
-export default function Main({ navigation }) {
+export default function Main({navigation}) {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior='padding'
-      enabled={Platform.OS === "ios"}>
+      behavior="padding"
+      enabled={Platform.OS === 'ios'}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <View style={{ marginTop: layout.window.height * 0.025 }}>
+      <View style={{flex: 1}}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <View style={{marginTop: layout.window.height * 0.025}}>
             <Box
               style={{
-                container: { height: null },
-                contentContainer: { flexDirection: null }
+                container: {height: null},
+                contentContainer: {flexDirection: null},
               }}>
-              <View style={{ padding: 20 }}>
-                <Text>{Platform.OS === "ios" ? "IOS" : "Android"}</Text>
+              <View style={{padding: 20}}>
+                <Text>{Platform.OS === 'ios' ? 'IOS' : 'Android'}</Text>
 
                 <Text>
                   {layout.isSmallDevice
-                    ? "WARNING SMALL DEVICE"
-                    : "Default Device"}
+                    ? 'WARNING SMALL DEVICE'
+                    : 'Default Device'}
                 </Text>
                 <Text>Height: {layout.window.height}</Text>
                 <Text>Width: {layout.window.width}</Text>
@@ -48,10 +46,10 @@ export default function Main({ navigation }) {
           </View>
         </View>
         <View
-          style={[styles.footer, { marginTop: layout.window.height * 0.025 }]}>
+          style={[styles.footer, {marginTop: layout.window.height * 0.025}]}>
           <Button
-            text='Continuar'
-            onPress={() => navigation.navigate("Main")}
+            text="Continuar"
+            onPress={() => navigation.navigate('Main')}
           />
         </View>
       </View>
@@ -61,9 +59,9 @@ export default function Main({ navigation }) {
 
 Main.navigationOptions = {
   header: null,
-  title: "TEST"
+  title: 'TEST',
 };
 
 const styles = StyleSheet.create({
-  ...global
+  ...global,
 });

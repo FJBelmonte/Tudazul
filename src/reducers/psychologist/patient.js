@@ -3,7 +3,7 @@ import {
   CREATE_PATIENT_SUCCESS,
   FETCH_PATIENT,
   FETCH_PATIENTS,
-} from '../actions/types';
+} from '../../actions/types';
 
 import _ from 'lodash';
 

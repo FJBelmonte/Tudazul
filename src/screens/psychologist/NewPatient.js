@@ -26,12 +26,12 @@ export default function NewPatient({navigation}) {
 
   // BEGIN - REDIRECT TO HOME SCREEN WITH PARAMS
   useEffect(() => {
-    if (state.psychologistPatient.lastCreated) {
-      if (state.psychologistPatient.lastCreated === lastActionId) {
+    if (state.patient.lastCreated) {
+      if (state.patient.lastCreated === lastActionId) {
         navigation.navigate('PsychologistHome', {patientCreated: true});
       }
     }
-  }, [state.psychologistPatient.lastCreated]);
+  }, [state.patient.lastCreated]);
   // END
 
   function verifyCamps() {

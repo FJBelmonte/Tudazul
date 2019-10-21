@@ -1,6 +1,6 @@
-import {CREATE_CONSULT_FAIL, CREATE_CONSULT_SUCCESS} from './types';
+import {CREATE_CONSULT_FAIL, CREATE_CONSULT_SUCCESS} from '../types';
 
-import firebase from '../services/firebase';
+import firebase from '../../services/firebase';
 
 export const createConsult = ({
   patient,
