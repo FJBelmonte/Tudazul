@@ -5,10 +5,10 @@ import {KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
-import _ from 'lodash';
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
-import {statement} from '@babel/template';
+import _ from 'lodash';
 
 export default function PacienteLogin({navigation}) {
   const state = useSelector(state => state);
@@ -23,23 +23,31 @@ export default function PacienteLogin({navigation}) {
   }, [state.authPatient]);
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding"
-      enabled={Platform.OS === 'ios'}>
+    <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
-      <View style={styles.contentContainer}>
-        <Input
-          placeholder="Código de acesso"
-          value={code}
-          onChangeText={value => {
-            setCode(value);
-          }}
-        />
-
+      <KeyboardAwareScrollView
+        contentContainerStyle={{flex: 1}}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
+          <View style={styles.logoContainer}>
+            <Logo />
+          </View>
+          <Input
+            placeholder="Código de acesso"
+            value={code}
+            onChangeText={value => {
+              setCode(value);
+            }}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
             text="ENTRAR"
@@ -49,13 +57,10 @@ export default function PacienteLogin({navigation}) {
           />
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025,
-  },
 });

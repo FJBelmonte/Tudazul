@@ -15,6 +15,7 @@ import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 
@@ -156,14 +157,18 @@ export default function PsychologistSignup({navigation}) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={[styles.container, {padding: 0}]}
-      behavior="padding"
-      enabled={Platform.OS === 'ios'}>
+    <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-
-      <View style={{flex: 3, marginTop: 10}}>
-        <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={null}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={[styles.contentContainer, {justifyContent: 'flex-start'}]}>
           <Input
             label="Nome"
             value={name}
@@ -226,11 +231,10 @@ export default function PsychologistSignup({navigation}) {
             secureTextEntry={true}
             onChangeText={e => setRePassword(e)}
           />
-        </ScrollView>
-      </View>
-
-      <View style={styles.contentContainer}>
-        <View style={styles.footer}>
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
           <Button
             text="Enviar"
             onPress={() => {
@@ -248,7 +252,7 @@ export default function PsychologistSignup({navigation}) {
           />
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -258,9 +262,6 @@ PsychologistSignup.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, //marginTop: 20,
-  },
   footerText: {
     textAlign: 'center',
     color: color.primary,

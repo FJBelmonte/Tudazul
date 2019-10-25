@@ -14,6 +14,7 @@ import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 
@@ -79,41 +80,48 @@ export default function PsychologistForgotPassword({navigation}) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding"
-      enabled={Platform.OS === 'ios'}>
+    <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
-      <View style={styles.contentContainer}>
-        <Input
-          placeholder="E-mail"
-          value={email}
-          error={inputError.email}
-          onFocus={() => {
-            setInputError({...inputError, email: null});
-          }}
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          onChangeText={e => setEmail(e)}
-        />
 
-        <View style={styles.footer}>
-          <View style={styles.buttonsContainer}>
-            <Button
-              text="Enviar"
-              onPress={() => {
-                const credentials = {email};
-                verifyCamps() === true &&
-                  dispatch(actions.forgotPasswordEmail(credentials));
-              }}
-            />
+      <KeyboardAwareScrollView
+        contentContainerStyle={null}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
+          <View style={styles.logoContainer}>
+            <Logo />
           </View>
+          <Input
+            placeholder="E-mail"
+            value={email}
+            error={inputError.email}
+            onFocus={() => {
+              setInputError({...inputError, email: null});
+            }}
+            textContentType="emailAddress"
+            keyboardType="email-address"
+            onChangeText={e => setEmail(e)}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="Enviar"
+            onPress={() => {
+              const credentials = {email};
+              verifyCamps() === true &&
+                dispatch(actions.forgotPasswordEmail(credentials));
+            }}
+          />
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -123,9 +131,6 @@ PsychologistForgotPassword.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, //marginTop: 20,
-  },
   footerText: {
     marginTop: layout.window.height * 0.00625, //marginTop: 5,
     color: color.primary,

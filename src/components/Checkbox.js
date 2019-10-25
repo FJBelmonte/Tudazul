@@ -20,7 +20,15 @@ const CheckBox = ({
     <Icon
       size={size}
       color={color}
-      name={selected ? 'radio-button-checked' : 'radio-button-unchecked'}
+      name={
+        selected
+          ? !props.icon
+            ? 'radio-button-checked'
+            : props.icon.selected
+          : !props.icon
+          ? 'radio-button-unchecked'
+          : props.icon.unselected
+      }
     />
 
     <Text style={textStyle}> {text} </Text>

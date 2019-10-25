@@ -82,7 +82,7 @@ export default function Input(props) {
             <TouchableOpacity
               style={styles.iconContainer}
               onPress={props.onPressIcon}>
-              <Image style={{width: 40, height: 40}} source={props.icon} />
+              <Image style={{width: 35, height: 35}} source={props.icon} />
             </TouchableOpacity>
           )}
         </View>

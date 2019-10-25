@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-import { layout } from "../constants";
+import {layout} from '../constants';
 
-const weekLabel = ["D", "S", "T", "Q", "Q", "S", "S"];
+const weekLabel = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
 export default function Calendar(props) {
   const date = props.Date;
@@ -12,7 +12,7 @@ export default function Calendar(props) {
     return new Date(
       date.getFullYear(),
       date.getMonth(),
-      date.getDate() - date.getDay() + index
+      date.getDate() - date.getDay() + index,
     );
   }
 
@@ -27,40 +27,39 @@ export default function Calendar(props) {
             style={[
               setLabelDate(index).getDate() === date.getDate() &&
                 date.getMonth() === setLabelDate(index).getMonth() && {
-                  backgroundColor: "gray",
-                  position: "absolute",
+                  backgroundColor: 'gray',
+                  position: 'absolute',
                   width: 40,
                   height: 40,
-                  borderRadius: 100
+                  borderRadius: 100,
                 },
               setLabelDate(index).getDate() === new Date().getDate() &&
                 setLabelDate(index).getMonth() === new Date().getMonth() && {
-                  backgroundColor: "#59818b",
-                  position: "absolute",
+                  backgroundColor: '#59818b',
+                  position: 'absolute',
                   width: 40,
                   height: 40,
-                  borderRadius: 100
-                }
+                  borderRadius: 100,
+                },
             ]}
           />
           <Text
             style={[
               styles.labelStyle,
-              { fontWeight: "bold" },
+              {fontWeight: 'bold'},
               setLabelDate(index).getDate() === date.getDate() &&
                 date.getMonth() === setLabelDate(index).getMonth() && {
-                  color: "#ffffff"
+                  color: '#ffffff',
                 },
               date.getMonth() !== setLabelDate(index).getMonth() && {
-                color: "gray"
+                color: 'gray',
               },
               setLabelDate(index).getDate() === new Date().getDate() &&
                 setLabelDate(index).getMonth() === new Date().getMonth() && {
-                  color: "#ffffff"
+                  color: '#ffffff',
                 },
-              { ...props.labelStyle }
-            ]}
-          >
+              {...props.labelStyle},
+            ]}>
             {setLabelDate(index).getDate()}
           </Text>
         </View>
@@ -69,24 +68,21 @@ export default function Calendar(props) {
   }
 
   return (
-    <View style={[styles.container, { ...props.styleContainer }]}>
-      <Text
-        style={[styles.labelStyle, { fontWeight: "bold", marginBottom: 10 }]}
-      >
+    <View style={[styles.container, {...props.styleContainer}]}>
+      <Text style={[styles.labelStyle, {fontWeight: 'bold', marginBottom: 5}]}>
         {getStringMonth(date)} | {date.getFullYear()}
       </Text>
       <View style={styles.contentContainer}>
         {weekLabel.map((day, index) => {
           return (
             <View key={index}>
-              <View style={[styles.labelContainer, { marginBottom: 10 }]}>
+              <View style={[styles.labelContainer, {marginBottom: 10}]}>
                 <Text
                   style={[
                     styles.labelStyle,
-                    { fontSize: 14 },
-                    { ...props.labelStyle }
-                  ]}
-                >
+                    {fontSize: 14},
+                    {...props.labelStyle},
+                  ]}>
                   {day}
                 </Text>
               </View>
@@ -105,69 +101,69 @@ export default function Calendar(props) {
 }
 Calendar.defaultProps = {
   Date: new Date(),
-  onPress: () => {}
+  onPress: () => {},
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 15, //IPHONE 8
+    marginTop: 10, //IPHONE 8
     borderRadius: 10,
-    backgroundColor: "rgba(245,245,255,0.95)",
+    backgroundColor: 'rgba(245,245,255,0.95)',
     width: layout.window.width * 0.85,
-    height: 92 * 3.5, //IPHONE 8 3.75 => 3.5
-    alignItems: "center",
+    //height: 100 * 3.5, //IPHONE 8 3.75 => 3.5
+    alignItems: 'center',
     padding: 20,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
   },
   contentContainer: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   labelContainer: {
-    width: layout.window.height * 0.055,
-    height: layout.window.height * 0.055,
-    justifyContent: "center",
-    alignItems: "center"
+    width: layout.window.height * 0.05,
+    height: layout.window.height * 0.05,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   labelStyle: {
-    color: "#59818b",
-    fontSize: 16,
-    textAlign: "center"
-  }
+    color: '#59818b',
+    fontSize: 14, //163
+    textAlign: 'center',
+  },
 });
 
 function getStringMonth(date) {
   switch (date.getMonth()) {
     case 0:
-      return "Janeiro";
+      return 'Janeiro';
     case 1:
-      return "Fervereiro";
+      return 'Fervereiro';
     case 2:
-      return "Março";
+      return 'Março';
     case 3:
-      return "Abril";
+      return 'Abril';
     case 4:
-      return "Maio";
+      return 'Maio';
     case 5:
-      return "Junho";
+      return 'Junho';
     case 6:
-      return "Julho";
+      return 'Julho';
     case 7:
-      return "Agosto";
+      return 'Agosto';
     case 8:
-      return "Setembro";
+      return 'Setembro';
     case 9:
-      return "Outubro";
+      return 'Outubro';
     case 10:
-      return "Novembro";
+      return 'Novembro';
     case 11:
-      return "Dezembro";
+      return 'Dezembro';
   }
 }
 

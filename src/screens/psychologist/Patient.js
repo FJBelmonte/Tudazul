@@ -68,13 +68,15 @@ export default function Patient({navigation}) {
           </Box>
         </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <Button
-          text="GERAR CÓDIGO"
-          onPress={() => {
-            dispatch(actions.createPatientCode(patient));
-            Alert.alert(uid);
-          }}></Button>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="GERAR CÓDIGO"
+            onPress={() => {
+              dispatch(actions.createPatientCode(patient));
+              Alert.alert(uid);
+            }}></Button>
+        </View>
       </View>
     </View>
   );

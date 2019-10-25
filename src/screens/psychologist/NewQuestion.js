@@ -1,15 +1,16 @@
 import * as actions from '../../actions';
 
-import {Box, Button, CheckBox, Input} from '../../components';
+import {Box, Button, CheckBox, Input, Modal} from '../../components';
 import {Picker, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
-import calendarIcon from '../../assets/icons/ico-calendario.png';
+import dropDownIcon from '../../assets/icons/ico-drop-arrow.png';
 
 export default function NewQuestion({navigation}) {
   const state = useSelector(state => state);
@@ -82,8 +83,16 @@ export default function NewQuestion({navigation}) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.contentContainer}>
-        <View style={{flex: 1, justifyContent: 'flex-start'}}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={null}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
           <View style={styles.box}>
             <Box>
               <View style={styles.box1Container}>
@@ -142,7 +151,7 @@ export default function NewQuestion({navigation}) {
               onFocus={() => {
                 setInputError({name: null});
               }}
-              icon={calendarIcon}
+              icon={dropDownIcon}
               onPressIcon={() => {
                 setInputError({name: null});
                 setModal('patients');
@@ -160,41 +169,41 @@ export default function NewQuestion({navigation}) {
             />
           </View>
         </View>
-      </View>
-
-      <View style={styles.buttonsContainer}>
-        <Button
-          text="CONFIRMAR"
-          onPress={() => {
-            const actionId = `${uuidv4()}`;
-            if (verifyCamps()) {
-              if (checkBoxNPatients) {
-                const questionReminder = {
-                  type: checkBoxReminderQuestion ? 'phrase' : 'question',
-                  note: reminder,
-                  patient: uid,
-                  createdAt: new Date().getTime(),
-                  actionId: actionId,
-                };
-                setLastActionId(actionId);
-                dispatch(actions.createQuestionOne(questionReminder));
-              } else {
-                const questionReminder = {
-                  type: checkBoxReminderQuestion ? 'phrase' : 'question',
-                  note: reminder,
-                  createdAt: new Date().getTime(),
-                  actionId: actionId,
-                };
-                setLastActionId(actionId);
-                dispatch(actions.createQuestionAll(questionReminder));
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="CONFIRMAR"
+            onPress={() => {
+              const actionId = `${uuidv4()}`;
+              if (verifyCamps()) {
+                if (checkBoxNPatients) {
+                  const questionReminder = {
+                    type: checkBoxReminderQuestion ? 'phrase' : 'question',
+                    note: reminder,
+                    patient: uid,
+                    createdAt: new Date().getTime(),
+                    actionId: actionId,
+                  };
+                  setLastActionId(actionId);
+                  dispatch(actions.createQuestionOne(questionReminder));
+                } else {
+                  const questionReminder = {
+                    type: checkBoxReminderQuestion ? 'phrase' : 'question',
+                    note: reminder,
+                    createdAt: new Date().getTime(),
+                    actionId: actionId,
+                  };
+                  setLastActionId(actionId);
+                  dispatch(actions.createQuestionAll(questionReminder));
+                }
               }
-            }
-          }}></Button>
+            }}></Button>
+        </View>
       </View>
-      {modal === 'patients' && (
-        <View style={styles.modal}>
-          <LinearGradient colors={linearGradient} style={styles.background} />
 
+      {modal === 'patients' && (
+        <Modal>
           <View style={styles.contentContainer}>
             <Box
               style={{
@@ -233,12 +242,15 @@ export default function NewQuestion({navigation}) {
               <Button
                 text="Selecionar"
                 onPress={() => {
+                  if (uid === '') {
+                    setUid(_.toArray(listPatient)[0].uid);
+                  }
                   setModal('');
                 }}
               />
             </View>
           </View>
-        </View>
+        </Modal>
       )}
     </View>
   );
@@ -249,9 +261,6 @@ NewQuestion.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, // marginTop: 20
-  },
   box1Container: {
     width: '50%', //width: 120,
     height: 46,

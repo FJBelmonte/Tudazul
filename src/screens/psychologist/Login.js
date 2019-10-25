@@ -1,19 +1,12 @@
 import * as actions from '../../actions';
 
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, Input, Logo} from '../../components';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 
@@ -115,59 +108,71 @@ export default function PsychologistLogin({navigation}) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding"
-      enabled={Platform.OS === 'ios'}>
+    <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
-      <View style={styles.contentContainer}>
-        <Input
-          placeholder="E-mail"
-          value={email}
-          error={inputError.email}
-          onFocus={() => {
-            setInputError({...inputError, email: null});
-          }}
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          onChangeText={e => setEmail(e)}
-        />
-        <Input
-          placeholder="Senha"
-          value={password}
-          error={inputError.password}
-          onFocus={() => {
-            setInputError({...inputError, password: null});
-          }}
-          textContentType="password"
-          secureTextEntry={true}
-          onChangeText={e => setPassword(e)}
-        />
-
-        <View style={styles.footer}>
-          <View style={styles.buttonsContainer}>
-            <Button
-              text="ENTRAR"
-              onPress={() => {
-                console.log('Login - ButtonEntrar PRESSED');
-                const credentials = {email, password};
-                if (verifyCamps()) {
-                  dispatch(actions.signIn(credentials));
-                }
-              }}
-            />
-            <Button
-              text="CADASTRAR"
-              style={{backgroundColor: '#d5d5d5'}}
-              onPress={() => {
-                console.log('Login - ButtonCadastrar PRESSED');
-                navigation.navigate('PsychologistSignup');
-              }}
-            />
+      <KeyboardAwareScrollView
+        contentContainerStyle={{flex: 1}}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
+          <View style={styles.logoContainer}>
+            <Logo />
           </View>
+          <Input
+            placeholder="E-mail"
+            value={email}
+            error={inputError.email}
+            onFocus={() => {
+              setInputError({...inputError, email: null});
+            }}
+            textContentType="emailAddress"
+            keyboardType="email-address"
+            onChangeText={e => {
+              setInputError({...inputError, email: null});
+              setEmail(e);
+            }}
+          />
+          <Input
+            placeholder="Senha"
+            value={password}
+            error={inputError.password}
+            onFocus={() => {
+              setInputError({...inputError, password: null});
+            }}
+            textContentType="password"
+            secureTextEntry={true}
+            onChangeText={e => {
+              setInputError({...inputError, password: null});
+              setPassword(e);
+            }}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="ENTRAR"
+            onPress={() => {
+              console.log('Login - ButtonEntrar PRESSED');
+              const credentials = {email, password};
+              if (verifyCamps()) {
+                dispatch(actions.signIn(credentials));
+              }
+            }}
+          />
+          <Button
+            text="CADASTRAR"
+            style={{backgroundColor: '#d5d5d5'}}
+            onPress={() => {
+              console.log('Login - ButtonCadastrar PRESSED');
+              navigation.navigate('PsychologistSignup');
+            }}
+          />
           <TouchableOpacity
             onPress={() => {
               console.log('Login - TouchableOpacityForgotPassword PRESSED');
@@ -177,7 +182,7 @@ export default function PsychologistLogin({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -187,11 +192,7 @@ PsychologistLogin.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, //marginTop: 20
-  },
   footerText: {
-    marginTop: layout.window.height * 0.00625, //marginTop: 5,
     color: color.primary,
   },
 });

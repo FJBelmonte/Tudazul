@@ -1,14 +1,17 @@
 import * as actions from '../../actions';
 
-import {Box, Button, DateTime, Input} from '../../components';
+import {Box, Button, DateTime, Input, Modal} from '../../components';
 import {Picker, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import calendarIcon from '../../assets/icons/ico-calendario.png';
+import clockIcon from '../../assets/icons/ico-relogio.png';
+import dropDownIcon from '../../assets/icons/ico-drop-arrow.png';
 
 export default function NewConsultation({navigation}) {
   const state = useSelector(state => state);
@@ -23,7 +26,7 @@ export default function NewConsultation({navigation}) {
     age: '',
     gender: '',
   });
-  const [uid, setUid] = useState();
+  const [uid, setUid] = useState('');
   const [date, setDate] = useState(labelDateTime);
   const [time, setTime] = useState(labelDateTime);
   const [type, setType] = useState('');
@@ -104,118 +107,132 @@ export default function NewConsultation({navigation}) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.contentContainer}>
-        <View style={{flex: 1, justifyContent: 'flex-start'}}>
-          <Input
-            label="Nome"
-            value={patient.name}
-            error={inputError.name}
-            onFocus={() => {
-              setInputError({...inputError, name: null});
-            }}
-            placeholder="Nome do paciente"
-            icon={calendarIcon}
-            onPressIcon={() => {
-              setModal('patients');
-            }}
-            button
-          />
-          <Input
-            label="Data"
-            value={
-              consultation.date
-                ? `${('00' + consultation.date.getDate()).slice(-2)}/` +
-                  `${('00' + (consultation.date.getMonth() + 1)).slice(-2)}/` +
-                  `${('0000' + consultation.date.getUTCFullYear()).slice(-4)}`
-                : null
-            }
-            placeholder={
-              `${('00' + date.getDate()).slice(-2)}/` +
-              `${('00' + (date.getMonth() + 1)).slice(-2)}/` +
-              `${('0000' + date.getUTCFullYear()).slice(-4)}`
-            }
-            error={inputError.date}
-            onFocus={() => {
-              setInputError({...inputError, date: null});
-            }}
-            icon={calendarIcon}
-            onPressIcon={() => {
-              setModal('date');
-            }}
-            button
-          />
-          <Input
-            label="Hora"
-            value={
-              consultation.time
-                ? `${('00' + consultation.time.getHours()).slice(-2)}:` +
-                  `${('00' + consultation.time.getMinutes()).slice(-2)}`
-                : null
-            }
-            placeholder={
-              `${('00' + date.getHours()).slice(-2)}:` +
-              `${('00' + date.getMinutes()).slice(-2)}`
-            } //bug visual ex 0:8
-            error={inputError.time}
-            onFocus={() => {
-              setInputError({...inputError, time: null});
-            }}
-            icon={calendarIcon}
-            onPressIcon={() => {
-              setModal('time');
-            }}
-            button
-          />
-          <Input
-            label="Tipo"
-            placeholder="Tipo de consulta"
-            value={type}
-            onChangeText={value => setType(value)}
-          />
-          <Input
-            label="Anotações"
-            placeholder="Anote o que achar relevante"
-            multiline
-            value={anotation}
-            onChangeText={value => {
-              setAnotation(value);
+      <KeyboardAwareScrollView
+        contentContainerStyle={null}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
+          <View style={{flex: 1, justifyContent: 'flex-start'}}>
+            <Input
+              label="Nome"
+              value={patient.name}
+              error={inputError.name}
+              onFocus={() => {
+                setInputError({...inputError, name: null});
+              }}
+              placeholder="Nome do paciente"
+              icon={dropDownIcon}
+              onPressIcon={() => {
+                setModal('patients');
+              }}
+              button
+            />
+            <Input
+              label="Data"
+              value={
+                consultation.date
+                  ? `${('00' + consultation.date.getDate()).slice(-2)}/` +
+                    `${('00' + (consultation.date.getMonth() + 1)).slice(
+                      -2,
+                    )}/` +
+                    `${('0000' + consultation.date.getUTCFullYear()).slice(-4)}`
+                  : null
+              }
+              placeholder={
+                `${('00' + date.getDate()).slice(-2)}/` +
+                `${('00' + (date.getMonth() + 1)).slice(-2)}/` +
+                `${('0000' + date.getUTCFullYear()).slice(-4)}`
+              }
+              error={inputError.date}
+              onFocus={() => {
+                setInputError({...inputError, date: null});
+              }}
+              icon={calendarIcon}
+              onPressIcon={() => {
+                setModal('date');
+              }}
+              button
+            />
+            <Input
+              label="Hora"
+              value={
+                consultation.time
+                  ? `${('00' + consultation.time.getHours()).slice(-2)}:` +
+                    `${('00' + consultation.time.getMinutes()).slice(-2)}`
+                  : null
+              }
+              placeholder={
+                `${('00' + date.getHours()).slice(-2)}:` +
+                `${('00' + date.getMinutes()).slice(-2)}`
+              } //bug visual ex 0:8
+              error={inputError.time}
+              onFocus={() => {
+                setInputError({...inputError, time: null});
+              }}
+              icon={clockIcon}
+              onPressIcon={() => {
+                setModal('time');
+              }}
+              button
+            />
+            <Input
+              label="Tipo"
+              placeholder="Tipo de consulta"
+              value={type}
+              onChangeText={value => setType(value)}
+            />
+            <Input
+              label="Anotações"
+              placeholder="Anote o que achar relevante"
+              multiline
+              value={anotation}
+              onChangeText={value => {
+                setAnotation(value);
+              }}
+            />
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="CONFIRMAR"
+            onPress={() => {
+              const actionId = `${uuidv4()}`;
+              const consult = {
+                patient: uid,
+                date,
+                time,
+                type,
+                anotation,
+                dateTime: new Date(
+                  consultation.date.getUTCFullYear(),
+                  consultation.date.getMonth(),
+                  consultation.date.getDate(),
+                  consultation.time.getHours(),
+                  consultation.time.getMinutes(),
+                  0,
+                  0,
+                ).getTime(),
+                createdAt: new Date().getTime(),
+                actionId,
+              };
+              if (verifyCamps()) {
+                setLastActionId(actionId);
+                dispatch(actions.createConsult(consult));
+              }
             }}
           />
         </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <Button
-          text="CONFIRMAR"
-          onPress={() => {
-            const actionId = `${uuidv4()}`;
-            const consult = {
-              patient: uid,
-              date,
-              time,
-              type,
-              anotation,
-              dateTime: new Date(
-                consultation.date.getUTCFullYear(),
-                consultation.date.getMonth(),
-                consultation.date.getDate(),
-                consultation.time.getHours(),
-                consultation.time.getMinutes(),
-                0,
-                0,
-              ).getTime(),
-              createdAt: new Date().getTime(),
-              actionId,
-            };
-            if (verifyCamps()) {
-              setLastActionId(actionId);
-              dispatch(actions.createConsult(consult));
-            }
-          }}></Button>
-      </View>
-      {modal === 'patients' && (
-        <View style={styles.modal}>
-          <LinearGradient colors={linearGradient} style={styles.background} />
 
+      {modal === 'patients' && (
+        <Modal>
           <View style={styles.contentContainer}>
             <Box
               style={{
@@ -254,12 +271,15 @@ export default function NewConsultation({navigation}) {
               <Button
                 text="Selecionar"
                 onPress={() => {
+                  if (uid === '') {
+                    setUid(_.toArray(listPatient)[0].uid);
+                  }
                   setModal('');
                 }}
               />
             </View>
           </View>
-        </View>
+        </Modal>
       )}
       {modal === 'date' && (
         <DateTime
@@ -300,9 +320,6 @@ NewConsultation.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, // marginTop: 20
-  },
   modal: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(255,255,255,1.0)',

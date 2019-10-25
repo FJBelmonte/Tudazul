@@ -1,64 +1,73 @@
+import * as actions from '../../actions';
+
 import {
   Alert,
+  KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
 import {
+  Box,
   Button,
   Calendar,
+  Feeling,
+  Humor,
   Input,
   Logo,
   MiniCalendar,
   NavigationBox,
   NextQuery,
-  Box,
 } from '../../components';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient';
+
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function PatientHome({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const [reason, setReason] = useState('');
-  const [thought, setThought] = useState('');
-  const [action, setAction] = useState('');
+  const [patient, setPatient] = useState({consultation: ''});
+  const [modal, setModal] = useState('');
+
+  useEffect(() => {
+    if (state.authPatient) {
+      dispatch(actions.fetchPatient(state.authPatient.ref));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (state.authPatient.user) {
+      setPatient(state.authPatient.user);
+    }
+  }, [state.authPatient]);
 
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <KeyboardAwareScrollView>
-        <View style={styles.contentContainer}>
-          <View style={styles.contentContainer}>
-            <MiniCalendar onPress={() => {}} />
-          </View>
-          <View style={styles.contentContainer}>
-            <Box
-              style={{
-                container: {height: layout.window.width * 0.35},
-                contentContainer: {flexDirection: null},
-              }}>
-              <View style={{flex: 1}}></View>
-            </Box>
-          </View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.welcomeLabelStyle}>
+          Olá {patient ? patient.name : 'Paciente'}
+        </Text>
+      </View>
+      <View style={styles.contentContainer}>
+        <NextQuery
+          date={
+            patient.consultation && new Date(patient.consultation.dateTime)
+          }>
+          <Text style={null}>{patient.consultation.time}</Text>
+          <Text style={null}>Sua próxima consulta</Text>
+          <Text style={null}>Sua próxima consulta</Text>
+        </NextQuery>
+      </View>
 
-          <View style={styles.contentContainer}>
-            <Text style={{textAlign: 'center'}}>
-              Ajude a organizar suas emoções descrevendo o que aconteceu
-            </Text>
-            <Input label="Razão"></Input>
-            <Input label="Pensamento"></Input>
-            <Input label="Ações"></Input>
-          </View>
-        </View>
-      </KeyboardAwareScrollView>
+      {modal === 'humor' && <Humor />}
+      {modal === 'feeling' && <Feeling />}
     </View>
   );
 }
@@ -68,12 +77,8 @@ PatientHome.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, // marginTop: 20
-  },
   welcomeLabelStyle: {
     color: color.primary,
-    fontWeight: 'bold',
     fontSize: 22,
     textAlign: 'center',
   },

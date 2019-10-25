@@ -1,13 +1,15 @@
 import * as actions from '../../actions';
 
-import {Box, Button, CheckBox, Input} from '../../components';
+import {Box, Button, CheckBox, Input, Modal} from '../../components';
 import {Picker, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
+
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
-import calendarIcon from '../../assets/icons/ico-calendario.png';
+import dropDownIcon from '../../assets/icons/ico-drop-arrow.png';
 
 export default function NewExercise({navigation}) {
   const state = useSelector(state => state);
@@ -80,119 +82,129 @@ export default function NewExercise({navigation}) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.contentContainer}>
-        <View style={{flex: 1, justifyContent: 'flex-start'}}>
-          <View style={styles.box}>
-            <Box>
-              <View style={styles.box1Container}>
-                <CheckBox
-                  textStyle={styles.checkboxText}
-                  selected={checkBoxReminderExercise}
-                  onPress={() => {
-                    setCheckBoxReminderExercise(!checkBoxReminderExercise);
-                  }}
-                  text="Lembrete"
-                />
-              </View>
-              <View style={[styles.box1Container, {borderRightWidth: 0}]}>
-                <CheckBox
-                  textStyle={styles.checkboxText}
-                  selected={!checkBoxReminderExercise}
-                  onPress={() => {
-                    setCheckBoxReminderExercise(!checkBoxReminderExercise);
-                  }}
-                  text="Exercício"
-                />
-              </View>
-            </Box>
+      <KeyboardAwareScrollView
+        contentContainerStyle={null}
+        onKeyboardWillShow={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        onKeyboardWillHide={frames => {
+          console.log('Keyboard event', frames);
+        }}
+        enableOnAndroid>
+        <View style={styles.contentContainer}>
+          <View style={{flex: 1, justifyContent: 'flex-start'}}>
+            <View style={styles.box}>
+              <Box>
+                <View style={styles.box1Container}>
+                  <CheckBox
+                    textStyle={styles.checkboxText}
+                    selected={checkBoxReminderExercise}
+                    onPress={() => {
+                      setCheckBoxReminderExercise(!checkBoxReminderExercise);
+                    }}
+                    text="Lembrete"
+                  />
+                </View>
+                <View style={[styles.box1Container, {borderRightWidth: 0}]}>
+                  <CheckBox
+                    textStyle={styles.checkboxText}
+                    selected={!checkBoxReminderExercise}
+                    onPress={() => {
+                      setCheckBoxReminderExercise(!checkBoxReminderExercise);
+                    }}
+                    text="Exercício"
+                  />
+                </View>
+              </Box>
+            </View>
+            <View style={styles.box}>
+              <Box>
+                <View style={styles.box1Container}>
+                  <CheckBox
+                    textStyle={styles.checkboxText}
+                    selected={checkBoxNPatients}
+                    onPress={() => {
+                      setCheckBoxNPatients(!checkBoxNPatients);
+                    }}
+                    text="1 Paciente"
+                  />
+                </View>
+                <View style={[styles.box1Container, {borderRightWidth: 0}]}>
+                  <CheckBox
+                    textStyle={styles.checkboxText}
+                    selected={!checkBoxNPatients}
+                    onPress={() => {
+                      setInputError({name: null});
+                      setCheckBoxNPatients(!checkBoxNPatients);
+                    }}
+                    text="Todos"
+                  />
+                </View>
+              </Box>
+            </View>
+            <View>
+              <Input
+                label="Paciente"
+                value={!checkBoxNPatients ? 'Todos' : patient.name}
+                placeholder="Selecione o paciente"
+                error={inputError.name}
+                onFocus={() => {
+                  setInputError({name: null});
+                }}
+                icon={dropDownIcon}
+                onPressIcon={() => {
+                  setInputError({name: null});
+                  setModal('patients');
+                }}
+                button
+              />
+              <Input
+                label="Lembrete"
+                placeholder="Escreva o lembrete que será mostrada ao seu paciente (ex: lembre-se de procurar sobre mindfulness, pesquise exercício, etc.)"
+                multiline
+                value={reminder}
+                onChangeText={value => {
+                  setReminder(value);
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.box}>
-            <Box>
-              <View style={styles.box1Container}>
-                <CheckBox
-                  textStyle={styles.checkboxText}
-                  selected={checkBoxNPatients}
-                  onPress={() => {
-                    setCheckBoxNPatients(!checkBoxNPatients);
-                  }}
-                  text="1 Paciente"
-                />
-              </View>
-              <View style={[styles.box1Container, {borderRightWidth: 0}]}>
-                <CheckBox
-                  textStyle={styles.checkboxText}
-                  selected={!checkBoxNPatients}
-                  onPress={() => {
-                    setInputError({name: null});
-                    setCheckBoxNPatients(!checkBoxNPatients);
-                  }}
-                  text="Todos"
-                />
-              </View>
-            </Box>
-          </View>
-          <View>
-            <Input
-              label="Paciente"
-              value={!checkBoxNPatients ? 'Todos' : patient.name}
-              placeholder="Selecione o paciente"
-              error={inputError.name}
-              onFocus={() => {
-                setInputError({name: null});
-              }}
-              icon={calendarIcon}
-              onPressIcon={() => {
-                setInputError({name: null});
-                setModal('patients');
-              }}
-              button
-            />
-            <Input
-              label="Lembrete"
-              placeholder="Escreva o lembrete que será mostrada ao seu paciente (ex: lembre-se de procurar sobre mindfulness, pesquise exercício, etc.)"
-              multiline
-              value={reminder}
-              onChangeText={value => {
-                setReminder(value);
-              }}
-            />
-          </View>
+        </View>
+      </KeyboardAwareScrollView>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="CONFIRMAR"
+            onPress={() => {
+              const actionId = `${uuidv4()}`;
+              if (verifyCamps()) {
+                if (checkBoxNPatients) {
+                  const exerciseReminder = {
+                    type: checkBoxReminderExercise ? 'reminder' : 'exercises',
+                    note: reminder,
+                    patient: uid,
+                    createdAt: new Date().getTime(),
+                    actionId: actionId,
+                  };
+                  setLastActionId(actionId);
+                  dispatch(actions.createExerciseOne(exerciseReminder));
+                } else {
+                  const exerciseReminder = {
+                    type: checkBoxReminderExercise ? 'reminder' : 'exercises',
+                    note: reminder,
+                    createdAt: new Date().getTime(),
+                    actionId: actionId,
+                  };
+                  setLastActionId(actionId);
+                  dispatch(actions.createExerciseAll(exerciseReminder));
+                }
+              }
+            }}></Button>
         </View>
       </View>
 
-      <View style={styles.buttonsContainer}>
-        <Button
-          text="CONFIRMAR"
-          onPress={() => {
-            const actionId = `${uuidv4()}`;
-            if (verifyCamps()) {
-              if (checkBoxNPatients) {
-                const exerciseReminder = {
-                  type: checkBoxReminderExercise ? 'reminder' : 'exercises',
-                  note: reminder,
-                  patient: uid,
-                  createdAt: new Date().getTime(),
-                  actionId: actionId,
-                };
-                setLastActionId(actionId);
-                dispatch(actions.createExerciseOne(exerciseReminder));
-              } else {
-                const exerciseReminder = {
-                  type: checkBoxReminderExercise ? 'reminder' : 'exercises',
-                  note: reminder,
-                  createdAt: new Date().getTime(),
-                  actionId: actionId,
-                };
-                setLastActionId(actionId);
-                dispatch(actions.createExerciseAll(exerciseReminder));
-              }
-            }
-          }}></Button>
-      </View>
       {modal === 'patients' && (
-        <View style={styles.modal}>
-          <LinearGradient colors={linearGradient} style={styles.background} />
-
+        <Modal>
           <View style={styles.contentContainer}>
             <Box
               style={{
@@ -231,12 +243,15 @@ export default function NewExercise({navigation}) {
               <Button
                 text="Selecionar"
                 onPress={() => {
+                  if (uid === '') {
+                    setUid(_.toArray(listPatient)[0].uid);
+                  }
                   setModal('');
                 }}
               />
             </View>
           </View>
-        </View>
+        </Modal>
       )}
     </View>
   );
@@ -247,9 +262,6 @@ NewExercise.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  buttonsContainer: {
-    marginTop: layout.window.height * 0.025, // marginTop: 20
-  },
   box1Container: {
     width: '50%', //width: 120,
     height: 46,

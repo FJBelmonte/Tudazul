@@ -7,6 +7,7 @@ import configureStore from './store';
 import firebase from './services/firebase';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
+YellowBox.ignoreWarnings(['RCTRootView cancelTouches']);
 
 const {store, persistor} = configureStore();
 

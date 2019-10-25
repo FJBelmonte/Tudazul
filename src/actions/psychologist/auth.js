@@ -1,11 +1,12 @@
 import {
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  CREATE_USER_SUCCESS,
   CREATE_USER_FAIL,
-  RESET_PASSWORD_SUCCESS,
+  CREATE_USER_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
   RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_SUCCESS,
 } from '../types';
+
 import firebase from '../../services/firebase';
 
 export const signIn = ({email, password}) => async dispatch => {
@@ -125,3 +126,4 @@ export const forgotPasswordEmail = ({email}) => async dispatch => {
 };
 
 //Criar forgotPasswordCellphone
+//11G 058 047 b

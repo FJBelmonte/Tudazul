@@ -64,7 +64,8 @@ export default function Patients({navigation}) {
                       onPress={() => {
                         dispatch(actions.createPatientCode(patient));
                         Alert.alert(patient.uid);
-                      }}></Button>
+                      }}
+                    />
                   </NextQuery>
                 </View>
               );

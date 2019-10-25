@@ -9,18 +9,23 @@ export default function Main({navigation}) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.logoContainer}>
-        <Logo />
+      <View style={styles.contentContainer}>
+        <View style={styles.logoContainer}>
+          <Logo />
+        </View>
       </View>
+
       <View style={[styles.footer, {marginTop: 20}]}>
-        <Button
-          text="SOU PACIENTE"
-          onPress={() => navigation.navigate('PatientLogin')}
-        />
-        <Button
-          text="SOU PSICÓLOGO"
-          onPress={() => navigation.navigate('PsychologistLogin')}
-        />
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="SOU PACIENTE"
+            onPress={() => navigation.navigate('PatientLogin')}
+          />
+          <Button
+            text="SOU PSICÓLOGO"
+            onPress={() => navigation.navigate('PsychologistLogin')}
+          />
+        </View>
       </View>
     </View>
   );
@@ -33,6 +38,4 @@ Main.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
-  button: {backgroundColor: color.primary},
-  buttonText: {},
 });
