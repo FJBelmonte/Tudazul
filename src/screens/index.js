@@ -7,10 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export default function Main({navigation}) {
   return (
-    <View
-      style={styles.container}
-      behavior="padding"
-      enabled={Platform.OS === 'ios'}>
+    <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.logoContainer}>
         <Logo />

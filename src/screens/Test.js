@@ -19,7 +19,7 @@ export default function Main({navigation}) {
       enabled={Platform.OS === 'ios'}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={{flex: 1}}>
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{marginTop: layout.window.height * 0.025}}>
             <Box
               style={{
