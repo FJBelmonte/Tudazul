@@ -1,14 +1,14 @@
 import {Image, Slider, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {color, global} from '../constants';
+import {color, global} from '../../constants';
 
-import {Button} from '../components';
-import {Modal} from './';
-import humor1 from '../assets/images/humor/1-01.png';
-import humor2 from '../assets/images/humor/2-01.png';
-import humor3 from '../assets/images/humor/3-01.png';
-import humor4 from '../assets/images/humor/4-01.png';
-import humor5 from '../assets/images/humor/5-01.png';
+import {Button} from '../../components';
+import {Modal} from '../';
+import humor1 from '../../assets/images/humor/1-01.png';
+import humor2 from '../../assets/images/humor/2-01.png';
+import humor3 from '../../assets/images/humor/3-01.png';
+import humor4 from '../../assets/images/humor/4-01.png';
+import humor5 from '../../assets/images/humor/5-01.png';
 
 const humorArray = [humor1, humor2, humor3, humor4, humor5];
 
@@ -49,7 +49,10 @@ export default function Humor(props) {
       </View>
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
-          <Button text="SELECIONAR" onPress={humor => props.onButtonPress} />
+          <Button
+            text="SELECIONAR"
+            onPress={() => props.onButtonPress(humor)}
+          />
         </View>
       </View>
     </Modal>
@@ -57,7 +60,7 @@ export default function Humor(props) {
 }
 
 Humor.defaultProps = {
-  onPress: () => {},
+  onButtonPress: () => {},
   name: 'Paciente',
 };
 

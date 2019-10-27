@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import {layout} from '../constants';
 
@@ -32,8 +32,8 @@ export default function MiniCalendar(props) {
                       setLabel(index).getDate() === date.getDate() && {
                         backgroundColor: '#59818b',
                         position: 'absolute',
-                        width: 40,
-                        height: 40,
+                        width: 35,
+                        height: 35,
                         borderRadius: 100,
                       }
                     }

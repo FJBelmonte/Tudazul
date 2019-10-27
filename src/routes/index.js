@@ -4,6 +4,11 @@ import {
   createSwitchNavigator,
 } from 'react-navigation';
 
+import Main from '../screens';
+import PatientHome from '../screens/patient/Home';
+// PATIENT
+import PatientLogin from '../screens/patient/Login';
+import PatientSetDiary from '../screens/patient/HalfCalendar';
 // PSYCHOLOGIST
 import PsychologistCalendar from '../screens/psychologist/Calendar';
 import PsychologistForgotPassword from '../screens/psychologist/ForgotPassword';
@@ -16,11 +21,6 @@ import PsychologistNewQuestion from '../screens/psychologist/NewQuestion';
 import PsychologistPatient from '../screens/psychologist/Patient';
 import PsychologistPatients from '../screens/psychologist/Patients';
 import PsychologistSignup from '../screens/psychologist/Signup';
-// PATIENT
-import PatientLogin from '../screens/patient/Login';
-import PatientHome from '../screens/patient/Home';
-
-import Main from '../screens';
 import Test from '../screens/Test';
 
 const authStack = createStackNavigator({
@@ -47,10 +47,15 @@ const patientStack = createStackNavigator({
   PatientHome,
 });
 
+const patientDiaryStack = createStackNavigator({
+  PatientSetDiary,
+});
+
 export default createAppContainer(
   createSwitchNavigator({
     authStack,
     psychologistStack,
     patientStack,
+    patientDiaryStack,
   }),
 );

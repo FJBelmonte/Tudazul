@@ -9,6 +9,8 @@ import firebase from './services/firebase';
 YellowBox.ignoreWarnings(['Remote debugger']);
 YellowBox.ignoreWarnings(['RCTRootView cancelTouches']);
 
+YellowBox.ignoreWarnings(['Warning: Slider']);
+
 const {store, persistor} = configureStore();
 
 // com o Persistor é possível verificar se o usuário está autenticado a partir daqui. lógica não implementada para fins de desenvolvimento

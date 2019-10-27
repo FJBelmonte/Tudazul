@@ -3,11 +3,13 @@ import React, {useState} from 'react';
 
 import icoAnotacoes from '../assets/icons/ico-anotacoes.png';
 import icoCalendario from '../assets/icons/ico-calendario.png';
+import icoDiario from '../assets/icons/ico-diario.png';
 import icoExercicios from '../assets/icons/ico-exercicios.png';
+import icoHistorico from '../assets/icons/ico-historico.png';
 import icoPacientes from '../assets/icons/ico-pacientes.png';
 import {layout} from '../constants';
 
-export default function NavigationBox(props) {
+export default function NavigationBoxPatient(props) {
   return (
     <View style={styles.container}>
       <View
@@ -20,22 +22,22 @@ export default function NavigationBox(props) {
           <Text style={styles.icoLabel}>Calendário</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.onPress1()}>
-          <Image source={icoPacientes} style={styles.ico} />
-          <Text style={styles.icoLabel}>Pacientes</Text>
+          <Image source={icoHistorico} style={styles.ico} />
+          <Text style={styles.icoLabel}>Histórico</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.onPress2()}>
           <Image source={icoExercicios} style={styles.ico} />
           <Text style={styles.icoLabel}>Exercícios</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.onPress3()}>
-          <Image source={icoAnotacoes} style={styles.ico} />
-          <Text style={styles.icoLabel}>Adicione</Text>
+          <Image source={icoDiario} style={styles.ico} />
+          <Text style={styles.icoLabel}>Diário</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
-NavigationBox.defaultProps = {
+NavigationBoxPatient.defaultProps = {
   onPress0: () => {},
   onPress1: () => {},
   onPress2: () => {},

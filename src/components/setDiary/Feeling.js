@@ -1,9 +1,9 @@
-import {Button, CheckBox} from '../components';
+import {Button, CheckBox} from '../../components';
 import {Image, ScrollView, Slider, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {color, global} from '../constants';
+import {color, global} from '../../constants';
 
-import {Modal} from './';
+import {Modal} from '../';
 
 const feelingArray = [
   'Calmo',
@@ -50,7 +50,10 @@ export default function Feeling(props) {
 
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
-          <Button text="SELECIONAR" onPress={feeling => props.onButtonPress} />
+          <Button
+            text="SELECIONAR"
+            onPress={() => props.onButtonPress(feeling)}
+          />
         </View>
       </View>
     </Modal>
@@ -58,7 +61,7 @@ export default function Feeling(props) {
 }
 
 Feeling.defaultProps = {
-  onPress: () => {},
+  onButtonPress: () => {},
 };
 
 const styles = StyleSheet.create({

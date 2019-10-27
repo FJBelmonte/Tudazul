@@ -46,6 +46,7 @@ export const createPatient = ({
       anotation,
       psychologist: user.uid,
       createdAt,
+      lastAccess: 'no access',
     })
     .then(() => {
       dispatch({
@@ -62,13 +63,11 @@ export const createPatientCode = patient => async dispatch => {
   db.ref(`patients/${patient.uid}`)
     .set({uid: patient.uid, psychologist: patient.psychologist})
     .then(() => {
-      console.log('SUCESSO');
       dispatch({
         type: CREATE_PATIENT_CODE_SUCCESS,
       });
     })
     .catch(err => {
-      console.log('FALHA');
       dispatch({CREATE_PATIENT_CODE_FAIL});
     });
 };
