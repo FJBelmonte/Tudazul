@@ -5,6 +5,7 @@ import {
 } from 'react-navigation';
 
 import Main from '../screens';
+import PatientDiary from '../screens/patient/Diary';
 import PatientHome from '../screens/patient/Home';
 // PATIENT
 import PatientLogin from '../screens/patient/Login';
@@ -45,6 +46,7 @@ const psychologistStack = createStackNavigator({
 
 const patientStack = createStackNavigator({
   PatientHome,
+  PatientDiary,
 });
 
 const patientDiaryStack = createStackNavigator({

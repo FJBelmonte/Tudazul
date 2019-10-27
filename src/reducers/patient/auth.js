@@ -4,6 +4,7 @@ import {
   FETCH_PATIENT_PSYCHOLGIST,
   LOGIN_PATIENT_FAIL,
   LOGIN_PATIENT_SUCCESS,
+  SET_PATIENT_LAST_ACCESS,
 } from '../../actions/types';
 
 const INITIAL_STATE = {

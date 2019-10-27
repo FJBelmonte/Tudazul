@@ -44,13 +44,16 @@ export default function PatientHome({navigation}) {
     if (state.authPatient.user) {
       setPatient(state.authPatient.user);
       setPsychologistName(state.authPatient.psychologist.name);
-      if (state.authPatient.user.lastAccess !== todayAccess) {
-        navigation.navigate('PatientSetDiary', {
-          todayAccess,
-        });
-      }
     }
   }, [state.authPatient]);
+
+  useEffect(() => {
+    if (state.authPatient.user.lastAccess !== todayAccess) {
+      navigation.navigate('PatientSetDiary', {
+        todayAccess,
+      });
+    }
+  }, [state.authPatient.user]);
 
   return (
     <View style={styles.container}>
@@ -74,7 +77,10 @@ export default function PatientHome({navigation}) {
         </NextQuery>
       </View>
       <View style={styles.contentContainer}>
-        <NavigationBoxPatient></NavigationBoxPatient>
+        <NavigationBoxPatient
+          onPress3={() =>
+            navigation.navigate('PatientDiary')
+          }></NavigationBoxPatient>
       </View>
     </View>
   );

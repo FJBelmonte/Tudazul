@@ -1,4 +1,5 @@
 import {
+  FETCH_DIARY,
   FETCH_PATIENT_PATIENT,
   FETCH_PATIENT_PSYCHOLGIST,
   LOGIN_PATIENT_FAIL,
@@ -101,6 +102,7 @@ export const fetchDiary = ref => async dispatch => {
       dispatch({
         type: FETCH_DIARY,
         payload: {...diary},
+        createdAt: new Date().getTime(),
       });
     })
     .catch(err => console.log(err));

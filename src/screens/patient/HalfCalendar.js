@@ -45,8 +45,9 @@ export default function HalfCalendar({navigation}) {
         humor,
         feeling,
       }),
-    );
-    navigation.navigate('PatientHome');
+    ).then(() => {
+      navigation.navigate('PatientHome');
+    });
   }
 
   return (
