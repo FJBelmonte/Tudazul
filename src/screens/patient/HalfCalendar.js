@@ -36,18 +36,25 @@ export default function HalfCalendar({navigation}) {
   }, []);
 
   function HandleSubmit() {
-    dispatch(actions.setLastAccess(state.authPatient.ref, todayAccess));
-    dispatch(
-      actions.setDiary(state.authPatient.ref, todayAccess, {
-        reason,
-        thought,
-        action,
-        humor,
-        feeling,
-      }),
-    ).then(() => {
-      navigation.navigate('PatientHome');
-    });
+    dispatch(actions.setLastAccess(state.authPatient.ref, todayAccess)).then(
+      () => {
+        dispatch(
+          actions.setDiary(state.authPatient.ref, todayAccess, {
+            reason,
+            thought,
+            action,
+            humor,
+            feeling,
+          }),
+        ).then(() => {
+          dispatch(actions.fetchPatient(state.authPatient.ref)).then(() => {
+            setTimeout(() => {
+              navigation.navigate('PatientHome');
+            }, 2000);
+          });
+        });
+      },
+    );
   }
 
   return (
