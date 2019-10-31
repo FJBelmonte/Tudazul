@@ -5,3 +5,5 @@
 TEST LOGIN -> ao realizar o login de forma equivocada que pode ser feito o login, (erro no firebase)
 é gerado um estado no redux com uma mensagem de erro ... 
 ao realizar novamente essa tentativa de acesso e a mensagem estiver sido gerada a página login não dispara ação
+
+WARNING - react-native-vector-icons unliked
