@@ -6,6 +6,7 @@ import {
 
 import Main from '../screens';
 import PatientDiary from '../screens/patient/Diary';
+import PatientHistoric from '../screens/patient/Historic';
 import PatientHome from '../screens/patient/Home';
 // PATIENT
 import PatientLogin from '../screens/patient/Login';
@@ -47,6 +48,7 @@ const psychologistStack = createStackNavigator({
 const patientStack = createStackNavigator({
   PatientHome,
   PatientDiary,
+  PatientHistoric,
 });
 
 const patientDiaryStack = createStackNavigator({
