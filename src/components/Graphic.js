@@ -1,30 +1,12 @@
 import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
-import Svg, {
-  Circle,
-  ClipPath,
-  Defs,
-  Ellipse,
-  G,
-  Image,
-  Line,
-  LinearGradient,
-  Mask,
-  Path,
-  Pattern,
-  Polygon,
-  Polyline,
-  RadialGradient,
-  Rect,
-  Stop,
-  Symbol,
-  TSpan,
-  Text,
-  TextPath,
-  Use,
-} from 'react-native-svg';
+import {Grid, LineChart, XAxis, YAxis} from 'react-native-svg-charts';
 
 import React from 'react';
 import {layout} from '../constants';
+
+const data = [0, 1, 2, 3, 4, 0, 1];
+
+const contentInset = {top: 20, bottom: 20};
 
 export default function Graphic(props) {
   return (
@@ -32,31 +14,31 @@ export default function Graphic(props) {
       activeOpacity={1.0}
       style={styles.container}
       onPress={props.onPress}>
-      <View style={styles.contentContainer}></View>
-      <View
-        style={[
-          StyleSheet.absoluteFill,
-          {alignItems: 'center', justifyContent: 'center'},
-        ]}>
-        <Svg height="50%" width="50%" viewBox="0 0 100 100">
-          <Circle
-            cx="50"
-            cy="50"
-            r="45"
-            stroke="blue"
-            strokeWidth="2.5"
-            fill="green"
+      <View style={styles.contentContainer}>
+        <View
+          style={{
+            flex: 1,
+            width: layout.window.width * 0.85,
+            flexDirection: 'row',
+          }}>
+          <YAxis
+            data={data}
+            contentInset={contentInset}
+            svg={{
+              fill: 'grey',
+              fontSize: 10,
+            }}
+            numberOfTicks={5}
+            formatLabel={value => `${getFeeling(value)}`}
           />
-          <Rect
-            x="15"
-            y="15"
-            width="70"
-            height="70"
-            stroke="red"
-            strokeWidth="2"
-            fill="yellow"
-          />
-        </Svg>
+          <LineChart
+            style={{flex: 1, marginLeft: 16}}
+            data={data}
+            svg={{stroke: 'rgb(134, 65, 244)'}}
+            contentInset={contentInset}>
+            <Grid />
+          </LineChart>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -85,7 +67,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   contentContainer: {
-    flexDirection: 'row-reverse',
-    alignItems: 'flex-end',
+    flex: 1,
   },
 });
+
+function getFeeling(e) {
+  const f = ['Muito triste', 'Triste', 'Neutro', 'Feliz', 'Muito feliz'];
+  return f[e];
+}
