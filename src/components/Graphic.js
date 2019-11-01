@@ -81,5 +81,5 @@ const styles = StyleSheet.create({
 
 function getFeeling(e) {
   const f = ['Muito mal', 'Mal', 'Neutro', 'Bem', 'Muito bem'];
-  return f[e];
+  return f[e] ? f[e] : '';
 }

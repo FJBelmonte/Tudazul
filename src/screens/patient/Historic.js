@@ -59,7 +59,7 @@ export default function Historic({navigation}) {
       avg += diary.humor;
       count++;
     });
-    return parseInt(avg / count);
+    return Math.round(avg / count);
   }
 
   function getPeriod(data) {

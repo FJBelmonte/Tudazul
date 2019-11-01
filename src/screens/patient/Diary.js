@@ -49,7 +49,7 @@ export default function Diary({navigation}) {
       <View style={styles.contentContainer}>
         <View style={{flex: 1, justifyContent: 'flex-start'}}>
           <ScrollView style={{width: layout.window.width}}>
-            {_.toArray(listDiary).map(diary => {
+            {_.reverse(_.toArray(listDiary)).map(diary => {
               return (
                 <View key={diary.uid}>
                   <NextQuery

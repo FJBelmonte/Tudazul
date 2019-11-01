@@ -75,6 +75,7 @@ export default function PatientHome({navigation}) {
       </View>
       <View style={styles.contentContainer}>
         <NavigationBoxPatient
+          onPress0={() => navigation.navigate('PatientCalendar')}
           onPress1={() => navigation.navigate('PatientHistoric')}
           onPress3={() =>
             navigation.navigate('PatientDiary')
