@@ -21,7 +21,6 @@ import humor2 from '../../assets/images/humor/2-01.png';
 import humor3 from '../../assets/images/humor/3-01.png';
 import humor4 from '../../assets/images/humor/4-01.png';
 import humor5 from '../../assets/images/humor/5-01.png';
-import {interfaceDeclaration} from '@babel/types';
 
 const humorImageArray = [humor1, humor2, humor3, humor4, humor5];
 const humorTextArray = ['Muito mal', 'Mal', 'Neutro', ' Bem', ' Muito bem'];
@@ -69,7 +68,6 @@ export default function Historic({navigation}) {
       if (minDate === 0) {
         minDate = diary.createdAt;
       } else {
-        console.log(minDate);
         minDate > diary.createdAt && (minDate = diary.createdAt);
         maxDate < diary.createdAt && (maxDate = diary.createdAt);
       }
@@ -114,8 +112,10 @@ export default function Historic({navigation}) {
             <Text style={styles.boxLabelTop}>Humor médio</Text>
             <Text style={styles.boxLabelMid}>{humorTextArray[avgMood]}</Text>
             <Text style={styles.boxLabelBot}>
-              {minDate.getDate()} de {getStringMonth(minDate)} -{' '}
-              {maxDate.getDate()} de {getStringMonth(maxDate)}
+              {`${minDate.getDate()} de ` +
+                `${getStringMonth(minDate)} - ` +
+                `${maxDate.getDate()} de ` +
+                `${getStringMonth(maxDate)}`}
             </Text>
           </View>
         </Box>
