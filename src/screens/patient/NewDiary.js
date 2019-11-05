@@ -27,7 +27,7 @@ const humorTextArray = ['Muito mal', 'Mal', 'Neutro', ' Bem', ' Muito bem'];
 
 //ADICIONAR AVISO DE LISTA VAZIA
 
-export default function Diary({navigation}) {
+export default function NewDiary({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -84,7 +84,7 @@ export default function Diary({navigation}) {
     </View>
   );
 }
-Diary.navigationOptions = {
+NewDiary.navigationOptions = {
   title: 'Diário',
 };
 

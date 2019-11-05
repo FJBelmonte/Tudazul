@@ -47,25 +47,36 @@ export default function PatientHome({navigation}) {
     if (state.authPatient.user) {
       setPatient(state.authPatient.user);
       setPsychologistName(state.authPatient.psychologist.name);
+
       if (state.authPatient.user.lastAccess !== todayAccess) {
         navigation.navigate('PatientSetDiary', {
           todayAccess,
         });
       }
+
       setRandomMessage();
     }
   }, [state.authPatient]);
 
   function setRandomMessage() {
-    const globalReminder = _.toArray(state.authPatient.tudazul.global.reminder);
-    const patientReminder = _.toArray(
-      state.authPatient.tudazul.patient.reminder,
-    );
-    const globalPhrase = _.toArray(state.authPatient.tudazul.global.phrase);
-    const patientPhrase = _.toArray(state.authPatient.tudazul.patient.phrase);
-    const list = [globalReminder, patientReminder, globalPhrase, patientPhrase];
-    const choosen = list[Math.floor(Math.random() * list.length)];
-    setMessage(choosen[Math.floor(Math.random() * choosen.length)]);
+    if (state.authPatient.tudazul) {
+      const globalReminder = _.toArray(
+        state.authPatient.tudazul.global.reminder,
+      );
+      const patientReminder = _.toArray(
+        state.authPatient.tudazul.patient.reminder,
+      );
+      const globalPhrase = _.toArray(state.authPatient.tudazul.global.phrase);
+      const patientPhrase = _.toArray(state.authPatient.tudazul.patient.phrase);
+      const list = [
+        globalReminder,
+        patientReminder,
+        globalPhrase,
+        patientPhrase,
+      ];
+      const choosen = list[Math.floor(Math.random() * list.length)];
+      setMessage(choosen[Math.floor(Math.random() * choosen.length)]);
+    }
   }
 
   return (
@@ -91,8 +102,11 @@ export default function PatientHome({navigation}) {
         <NavigationBoxPatient
           onPress0={() => navigation.navigate('PatientCalendar')}
           onPress1={() => navigation.navigate('PatientHistoric')}
+          onPress2={() => {
+            navigation.navigate('PatientExercise');
+          }}
           onPress3={() =>
-            navigation.navigate('PatientDiary')
+            navigation.navigate('PatientNewDiary')
           }></NavigationBoxPatient>
       </View>
     </View>
