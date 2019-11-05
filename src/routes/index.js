@@ -6,12 +6,13 @@ import {
 
 import Main from '../screens';
 import PatientCalendar from '../screens/patient/Calendar';
+import PatientDiary from '../screens/patient/Diary';
 import PatientExercise from '../screens/patient/Exercise';
 import PatientHistoric from '../screens/patient/Historic';
 import PatientHome from '../screens/patient/Home';
+import PatientListDiary from '../screens/patient/ListDiary';
 // PATIENT
 import PatientLogin from '../screens/patient/Login';
-import PatientNewDiary from '../screens/patient/NewDiary';
 import PatientSetDiary from '../screens/patient/HalfCalendar';
 // PSYCHOLOGIST
 import PsychologistCalendar from '../screens/psychologist/Calendar';
@@ -49,10 +50,11 @@ const psychologistStack = createStackNavigator({
 
 const patientStack = createStackNavigator({
   PatientHome,
-  PatientNewDiary,
+  PatientListDiary,
   PatientHistoric,
   PatientCalendar,
   PatientExercise,
+  PatientDiary,
 });
 
 const patientDiaryStack = createStackNavigator({

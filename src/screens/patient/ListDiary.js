@@ -27,7 +27,7 @@ const humorTextArray = ['Muito mal', 'Mal', 'Neutro', ' Bem', ' Muito bem'];
 
 //ADICIONAR AVISO DE LISTA VAZIA
 
-export default function NewDiary({navigation}) {
+export default function ListDiary({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
@@ -53,7 +53,10 @@ export default function NewDiary({navigation}) {
               return (
                 <View key={diary.uid}>
                   <NextQuery
-                    date={diary.createdAt && new Date(diary.createdAt)}>
+                    date={diary.createdAt && new Date(diary.createdAt)}
+                    onPress={() => {
+                      navigation.navigate('PatientDiary', {diary});
+                    }}>
                     <View style={styles.box}>
                       <Image
                         style={[
@@ -84,7 +87,7 @@ export default function NewDiary({navigation}) {
     </View>
   );
 }
-NewDiary.navigationOptions = {
+ListDiary.navigationOptions = {
   title: 'Diário',
 };
 

@@ -6,7 +6,7 @@ import {layout} from '../constants';
 const weekLabel = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
 export default function MiniCalendar(props) {
-  const [date] = useState(new Date());
+  const date = new Date(props.date);
 
   function setLabel(index) {
     return new Date(
@@ -59,6 +59,7 @@ export default function MiniCalendar(props) {
 }
 MiniCalendar.defaultProps = {
   onPress: () => {},
+  date: new Date(),
 };
 
 const styles = StyleSheet.create({

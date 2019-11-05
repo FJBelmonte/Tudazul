@@ -106,7 +106,7 @@ export default function PatientHome({navigation}) {
             navigation.navigate('PatientExercise');
           }}
           onPress3={() =>
-            navigation.navigate('PatientNewDiary')
+            navigation.navigate('PatientListDiary')
           }></NavigationBoxPatient>
       </View>
     </View>
