@@ -7,7 +7,8 @@ import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconRedo from '../../assets/svg/redo-24px.svg';
+//import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import humor1 from '../../assets/images/humor/1-01.png';
 import humor2 from '../../assets/images/humor/2-01.png';
@@ -91,7 +92,10 @@ export default function HalfCalendar({navigation}) {
           </View>
           <View style={styles.icon}>
             <TouchableOpacity onPress={() => setModal('humor')}>
-              <Icon size={25} color={color.primary} name={'loop'} />
+              {
+                <IconRedo width={25} height={25} fill={color.primary} />
+                //<Icon size={25} color={color.primary} name={'loop'} />
+              }
             </TouchableOpacity>
           </View>
         </Box>

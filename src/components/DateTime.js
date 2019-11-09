@@ -1,10 +1,10 @@
-import {Box, Button} from '../components';
 import {StyleSheet, Text, View} from 'react-native';
 import {global, layout, linearGradient} from '../constants';
 
+import Box from '../components/Box';
+import Button from '../components/Button';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import LinearGradient from 'react-native-linear-gradient';
-import {Modal} from './';
+import Modal from './Modal';
 import React from 'react';
 
 export default function Datetime(props) {

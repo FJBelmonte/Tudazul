@@ -5,8 +5,12 @@ import {
 } from 'react-navigation';
 
 import Main from '../screens';
+import PatientCalendar from '../screens/patient/Calendar';
 import PatientDiary from '../screens/patient/Diary';
+import PatientExercise from '../screens/patient/Exercise';
+import PatientHistoric from '../screens/patient/Historic';
 import PatientHome from '../screens/patient/Home';
+import PatientListDiary from '../screens/patient/ListDiary';
 // PATIENT
 import PatientLogin from '../screens/patient/Login';
 import PatientSetDiary from '../screens/patient/HalfCalendar';
@@ -46,6 +50,10 @@ const psychologistStack = createStackNavigator({
 
 const patientStack = createStackNavigator({
   PatientHome,
+  PatientListDiary,
+  PatientHistoric,
+  PatientCalendar,
+  PatientExercise,
   PatientDiary,
 });
 

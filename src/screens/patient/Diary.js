@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, NextQuery} from '../../components';
+import {Box, Button, MiniCalendar, NextQuery} from '../../components';
 import React, {useEffect, useState} from 'react';
-import {global, layout, linearGradient} from '../../constants';
+import {colors, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,59 +25,105 @@ import humor5 from '../../assets/images/humor/5-01.png';
 const humorImageArray = [humor1, humor2, humor3, humor4, humor5];
 const humorTextArray = ['Muito mal', 'Mal', 'Neutro', ' Bem', ' Muito bem'];
 
-//ADICIONAR AVISO DE LISTA VAZIA
-
 export default function Diary({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const [listDiary, setListDiary] = useState(null);
+  const [diary, setDiary] = useState({
+    action: '',
+    createdAt: new Date().getTime(),
+    feeling: '',
+    humor: 4,
+    reason: '',
+    thought: '',
+    uid: '',
+  });
 
-  //BEGIN - ==================>
   useEffect(() => {
-    dispatch(actions.fetchDiary(state.authPatient.ref));
+    const pDiary = navigation.getParam('diary');
+    setDiary(pDiary);
   }, []);
-  // END
 
   useEffect(() => {
-    setListDiary(state.authPatient.diary);
-  }, [state.authPatient.diary]);
+    console.log(diary);
+  }, [diary]);
 
+  const {humor, feeling, action, thought, reason} = diary;
   return (
     <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />
+
       <View style={styles.contentContainer}>
+        <MiniCalendar date={diary.createdAt} />
+        <Box
+          style={{
+            container: {height: layout.window.width * 0.35},
+            contentContainer: {flexDirection: 'row'},
+          }}>
+          <View style={styles.box}>
+            <Image
+              style={[
+                styles.imageRezise,
+                layout.isSmallDevice
+                  ? {
+                      height: layout.window.width * 0.2,
+                      width: layout.window.width * 0.2,
+                    }
+                  : {},
+              ]}
+              source={humorImageArray[humor]}
+            />
+          </View>
+          <View style={styles.box2}>
+            <Text style={styles.boxLabelTop}>{humorTextArray[humor]}</Text>
+            <Text style={styles.boxLabelBot}>{feeling}</Text>
+          </View>
+        </Box>
         <View style={{flex: 1, justifyContent: 'flex-start'}}>
-          <ScrollView style={{width: layout.window.width}}>
-            {_.toArray(listDiary).map(diary => {
-              return (
-                <View key={diary.uid}>
-                  <NextQuery
-                    date={diary.createdAt && new Date(diary.createdAt)}>
-                    <View style={styles.box}>
-                      <Image
-                        style={[
-                          styles.imageRezise,
-                          layout.isSmallDevice
-                            ? {
-                                height: layout.window.width * 0.2,
-                                width: layout.window.width * 0.2,
-                              }
-                            : {},
-                        ]}
-                        source={humorImageArray[diary.humor]}
-                      />
-                    </View>
-                    <View style={styles.box2}>
-                      <Text style={styles.boxLabelTop}>
-                        {humorTextArray[diary.humor]}
-                      </Text>
-                      <Text style={styles.boxLabelBot}>{diary.feeling}</Text>
-                    </View>
-                  </NextQuery>
-                </View>
-              );
-            })}
+          <ScrollView
+            style={{width: layout.window.width}}
+            contentContainerStyle={{alignItems: 'center'}}>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}> Ação</Text>
+
+              <Text>{action !== '' ? action : 'Não foi inserido'}</Text>
+            </Box>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}>
+                Pensamento
+              </Text>
+
+              <Text>{thought !== '' ? thought : 'Não foi inserido'}</Text>
+            </Box>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}> Razão</Text>
+
+              <Text>{reason !== '' ? reason : 'Não foi inserido'}</Text>
+            </Box>
           </ScrollView>
         </View>
       </View>
@@ -90,9 +136,29 @@ Diary.navigationOptions = {
 
 const styles = StyleSheet.create({
   ...global,
+  label: {
+    fontSize: 14,
+    textAlign: 'center',
+    padding: 5,
+    color: '#59818b',
+  },
+  innerLabel: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  innerLabel2: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  innerLabelText: {
+    textAlign: 'center',
+    color: color.primary,
+  },
   imageRezise: {
-    height: layout.window.width * 0.15,
-    width: layout.window.width * 0.15,
+    height: layout.window.width * 0.225,
+    width: layout.window.width * 0.225,
   },
   box: {
     flex: 1,
@@ -105,17 +171,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   boxLabelTop: {
     color: '#59818b',
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    padding: 2,
+    padding: 5,
   },
   boxLabelBot: {
     color: '#59818b',
     fontSize: 14,
     textAlign: 'center',
-    padding: 2,
+    padding: 5,
+  },
+  icon: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 5,
+  },
+  boxContainer: {
+    height: null,
   },
 });

@@ -55,13 +55,19 @@ export default function Patient({navigation}) {
           <Box
             style={{
               container: {flex: 1},
-              contentContainer: {flex: 1, flexDirection: null},
+              contentContainer: {
+                flex: 1,
+                width: layout.window.width * 0.8,
+                flexDirection: null,
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+              },
             }}>
             <View style={[styles.labelContainer, styles.multiline]}>
               <Text style={styles.labelStyle}>Anotações</Text>
             </View>
             <ScrollView>
-              <View style={styles.textContainer}>
+              <View style={[styles.textContainer, {}]}>
                 <Text style={styles.textStyle}>{anotation}</Text>
               </View>
             </ScrollView>

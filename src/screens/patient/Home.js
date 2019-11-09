@@ -15,6 +15,7 @@ import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
+import _ from 'lodash';
 
 export default function PatientHome({navigation}) {
   const state = useSelector(state => state);
@@ -27,6 +28,7 @@ export default function PatientHome({navigation}) {
       `${('00' + new Date().getMonth()).slice(-2)}` +
       `${('00' + new Date().getDate()).slice(-2)}`,
   );
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (state.authPatient) {
@@ -37,6 +39,7 @@ export default function PatientHome({navigation}) {
   useEffect(() => {
     if (state.authPatient.ref) {
       dispatch(actions.fetchPatientPsychologist(state.authPatient.ref));
+      dispatch(actions.fetchPatientTudazul(state.authPatient.ref));
     }
   }, [state.authPatient.ref]);
 
@@ -44,13 +47,37 @@ export default function PatientHome({navigation}) {
     if (state.authPatient.user) {
       setPatient(state.authPatient.user);
       setPsychologistName(state.authPatient.psychologist.name);
+
       if (state.authPatient.user.lastAccess !== todayAccess) {
         navigation.navigate('PatientSetDiary', {
           todayAccess,
         });
       }
+
+      setRandomMessage();
     }
   }, [state.authPatient]);
+
+  function setRandomMessage() {
+    if (state.authPatient.tudazul) {
+      const globalReminder = _.toArray(
+        state.authPatient.tudazul.global.reminder,
+      );
+      const patientReminder = _.toArray(
+        state.authPatient.tudazul.patient.reminder,
+      );
+      const globalPhrase = _.toArray(state.authPatient.tudazul.global.phrase);
+      const patientPhrase = _.toArray(state.authPatient.tudazul.patient.phrase);
+      const list = [
+        globalReminder,
+        patientReminder,
+        globalPhrase,
+        patientPhrase,
+      ];
+      const choosen = list[Math.floor(Math.random() * list.length)];
+      setMessage(choosen[Math.floor(Math.random() * choosen.length)]);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -59,9 +86,7 @@ export default function PatientHome({navigation}) {
         <Text style={styles.welcomeLabelStyle}>
           Olá {patient ? patient.name : 'Paciente'}
         </Text>
-        <Text style={styles.quote}>
-          Exemplo: Não se esqueça de prestar atenção na sua respiração
-        </Text>
+        <Text style={styles.quote}>"{message.note}"</Text>
       </View>
       <View style={styles.contentContainer}>
         <NextQuery
@@ -75,8 +100,13 @@ export default function PatientHome({navigation}) {
       </View>
       <View style={styles.contentContainer}>
         <NavigationBoxPatient
+          onPress0={() => navigation.navigate('PatientCalendar')}
+          onPress1={() => navigation.navigate('PatientHistoric')}
+          onPress2={() => {
+            navigation.navigate('PatientExercise');
+          }}
           onPress3={() =>
-            navigation.navigate('PatientDiary')
+            navigation.navigate('PatientListDiary')
           }></NavigationBoxPatient>
       </View>
     </View>

@@ -1,6 +1,8 @@
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import CheckboxBlankSVG from '../assets/svg/check_box_outline_blank-24px.svg';
+import CheckboxSVG from '../assets/svg/check_box-24px.svg';
+//import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 
 const CheckBox = ({
@@ -17,19 +19,11 @@ const CheckBox = ({
     style={[styles.checkBox, style]}
     onPress={onPress}
     {...props}>
-    <Icon
-      size={size}
-      color={color}
-      name={
-        selected
-          ? !props.icon
-            ? 'radio-button-checked'
-            : props.icon.selected
-          : !props.icon
-          ? 'radio-button-unchecked'
-          : props.icon.unselected
-      }
-    />
+    {selected ? (
+      <CheckboxSVG width={size} height={size} fill={color} />
+    ) : (
+      <CheckboxBlankSVG width={size} height={size} fill={color} />
+    )}
 
     <Text style={textStyle}> {text} </Text>
   </TouchableOpacity>

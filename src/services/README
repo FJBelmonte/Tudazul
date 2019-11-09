@@ -6,7 +6,7 @@ example of firebase connection (firebase.js):
 // BEGIN EXAMPLE
 import * as firebase from "firebase";
 
-const config = {
+const firebaseConfig = {
   apiKey: "xxxxxxxxxxxxx",
   authDomain: "xxxxxxxxxxxxx.firebaseapp.com",
   databaseURL: "xxxxxxxxxxxxx.firebaseio.com",
@@ -16,7 +16,7 @@ const config = {
   appId: "xxxxxxxxxxxxx"
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 export default firebase;
 // END EXAMPLE

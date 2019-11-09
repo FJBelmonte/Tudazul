@@ -3,6 +3,7 @@ import Button from './Button';
 import Calendar from './Calendar';
 import CheckBox from './Checkbox';
 import DateTime from './DateTime';
+import Graphic from './Graphic';
 import Input from './Input';
 import Logo from './Logo';
 import MiniCalendar from './MiniCalendar';
@@ -24,4 +25,5 @@ export {
   CheckBox,
   Modal,
   NavigationBoxPatient,
+  Graphic,
 };

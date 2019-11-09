@@ -1,10 +1,11 @@
 import {
-  FETCH_DIARY,
+  FETCH_PATIENT_DIARY,
   FETCH_PATIENT_PATIENT,
   FETCH_PATIENT_PSYCHOLGIST,
+  FETCH_PATIENT_TUDAZUL,
   LOGIN_PATIENT_FAIL,
   LOGIN_PATIENT_SUCCESS,
-  SET_DIARY,
+  SET_PATIENT_DIARY,
   SET_PATIENT_LAST_ACCESS,
 } from '../types';
 
@@ -84,7 +85,7 @@ export const setDiary = (ref, lastAccess, diary) => async dispatch => {
     })
     .then(() => {
       dispatch({
-        type: SET_DIARY,
+        type: SET_PATIENT_DIARY,
       });
     })
     .catch(err => {
@@ -100,10 +101,30 @@ export const fetchDiary = ref => async dispatch => {
       const diary = snapshot.val();
 
       dispatch({
-        type: FETCH_DIARY,
+        type: FETCH_PATIENT_DIARY,
         payload: {...diary},
         createdAt: new Date().getTime(),
       });
     })
+    .catch(err => console.log(err));
+};
+
+export const fetchPatientTudazul = ref => async dispatch => {
+  let db = firebase.database();
+  db.ref(`psychologist/${ref.psychologist}/tudazul/`)
+    .once('value')
+    .then(snapshot => {
+      const global = snapshot.val();
+      db.ref(`psychologist/${ref.psychologist}/patients/${ref.uid}/tudazul`)
+        .once('value')
+        .then(snapshot => {
+          const patient = snapshot.val();
+          dispatch({
+            type: FETCH_PATIENT_TUDAZUL,
+            payload: {global, patient},
+          });
+        });
+    })
+
     .catch(err => console.log(err));
 };
