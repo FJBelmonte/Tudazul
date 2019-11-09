@@ -52,79 +52,79 @@ export default function Diary({navigation}) {
   return (
     <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={[styles.contentContainer, {justifyContent: 'flex-start'}]}>
+
+      <View style={styles.contentContainer}>
         <MiniCalendar date={diary.createdAt} />
-
-        <View style={styles.contentContainer}>
-          <Box
-            style={{
-              container: {height: layout.window.width * 0.35},
-              contentContainer: {flexDirection: 'row'},
-            }}>
-            <View style={styles.box}>
-              <Image
-                style={[
-                  styles.imageRezise,
-                  layout.isSmallDevice
-                    ? {
-                        height: layout.window.width * 0.2,
-                        width: layout.window.width * 0.2,
-                      }
-                    : {},
-                ]}
-                source={humorImageArray[humor]}
-              />
-            </View>
-            <View style={styles.box2}>
-              <Text style={styles.boxLabelTop}>{humorTextArray[humor]}</Text>
-              <Text style={styles.boxLabelBot}>{feeling}</Text>
-            </View>
-          </Box>
-          <View style={{flex: 1, justifyContent: 'flex-start'}}>
-            <ScrollView style={{width: '100%'}}>
-              <Box
-                style={{
-                  container: {...styles.boxContainer},
-                  contentContainer: {
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: 5,
-                  },
-                }}>
-                <Text style={{fontSize: 18, color: color.primary}}> Ação</Text>
-
-                <Text>{action !== '' ? action : 'Não foi inserido'}</Text>
-              </Box>
-              <Box
-                style={{
-                  container: {...styles.boxContainer},
-                  contentContainer: {
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: 5,
-                  },
-                }}>
-                <Text style={{fontSize: 18, color: color.primary}}>
-                  Pensamento
-                </Text>
-
-                <Text>{thought !== '' ? thought : 'Não foi inserido'}</Text>
-              </Box>
-              <Box
-                style={{
-                  container: {...styles.boxContainer},
-                  contentContainer: {
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: 5,
-                  },
-                }}>
-                <Text style={{fontSize: 18, color: color.primary}}> Razão</Text>
-
-                <Text>{reason !== '' ? reason : 'Não foi inserido'}</Text>
-              </Box>
-            </ScrollView>
+        <Box
+          style={{
+            container: {height: layout.window.width * 0.35},
+            contentContainer: {flexDirection: 'row'},
+          }}>
+          <View style={styles.box}>
+            <Image
+              style={[
+                styles.imageRezise,
+                layout.isSmallDevice
+                  ? {
+                      height: layout.window.width * 0.2,
+                      width: layout.window.width * 0.2,
+                    }
+                  : {},
+              ]}
+              source={humorImageArray[humor]}
+            />
           </View>
+          <View style={styles.box2}>
+            <Text style={styles.boxLabelTop}>{humorTextArray[humor]}</Text>
+            <Text style={styles.boxLabelBot}>{feeling}</Text>
+          </View>
+        </Box>
+        <View style={{flex: 1, justifyContent: 'flex-start'}}>
+          <ScrollView
+            style={{width: layout.window.width}}
+            contentContainerStyle={{alignItems: 'center'}}>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}> Ação</Text>
+
+              <Text>{action !== '' ? action : 'Não foi inserido'}</Text>
+            </Box>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}>
+                Pensamento
+              </Text>
+
+              <Text>{thought !== '' ? thought : 'Não foi inserido'}</Text>
+            </Box>
+            <Box
+              style={{
+                container: {...styles.boxContainer},
+                contentContainer: {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 5,
+                },
+              }}>
+              <Text style={{fontSize: 18, color: color.primary}}> Razão</Text>
+
+              <Text>{reason !== '' ? reason : 'Não foi inserido'}</Text>
+            </Box>
+          </ScrollView>
         </View>
       </View>
     </View>
