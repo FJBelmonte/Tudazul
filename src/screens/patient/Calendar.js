@@ -5,6 +5,7 @@ import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function PatientCalendar({navigation}) {
   const [pickedDate, setPickedDate] = useState();
@@ -14,13 +15,16 @@ export default function PatientCalendar({navigation}) {
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
-      <View style={styles.contentContainer}>
-        <CalendarComponent
-          Date={pickedDate ? pickedDate : new Date()}
-          onPress={_date => setPickedDate(_date)}
-        />
-      </View>
-      <View style={styles.contentContainer}></View>
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <CalendarComponent
+            Date={pickedDate ? pickedDate : new Date()}
+            onPress={_date => setPickedDate(_date)}
+          />
+        </View>
+
+        <View style={styles.contentContainer}></View>
+      </ScrollView>
     </View>
   );
 }

@@ -1,114 +1,93 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Calendar as CalendarWix, LocaleConfig} from 'react-native-calendars';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {color, layout} from '../constants';
 
-import {layout} from '../constants';
-
-const weekLabel = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+LocaleConfig.locales['br'] = {
+  monthNames: [
+    'Janeiro',
+    'Fervereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ],
+  monthNamesShort: [
+    'Jan.',
+    'Fer.',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul.',
+    'Ago',
+    'Set.',
+    'Out.',
+    'Nov.',
+    'Dez.',
+  ],
+  dayNames: [
+    'Domingo',
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sábado',
+  ],
+  dayNamesShort: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+  today: 'Hoje',
+};
+LocaleConfig.defaultLocale = 'br';
 
 export default function Calendar(props) {
-  const date = props.Date;
-
-  function setLabelDate(index) {
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() - date.getDay() + index,
-    );
-  }
-
-  function setColumns(index) {}
-
-  function setColumn(index) {
-    const _date = setLabelDate(index);
-    return (
-      <TouchableOpacity onPress={() => props.onPress(_date)}>
-        <View style={styles.labelContainer}>
-          <View
-            style={[
-              setLabelDate(index).getDate() === date.getDate() &&
-                date.getMonth() === setLabelDate(index).getMonth() && {
-                  backgroundColor: 'gray',
-                  position: 'absolute',
-                  width: 40,
-                  height: 40,
-                  borderRadius: 100,
-                },
-              setLabelDate(index).getDate() === new Date().getDate() &&
-                setLabelDate(index).getMonth() === new Date().getMonth() && {
-                  backgroundColor: '#59818b',
-                  position: 'absolute',
-                  width: 40,
-                  height: 40,
-                  borderRadius: 100,
-                },
-            ]}
-          />
-          <Text
-            style={[
-              styles.labelStyle,
-              {fontWeight: 'bold'},
-              setLabelDate(index).getDate() === date.getDate() &&
-                date.getMonth() === setLabelDate(index).getMonth() && {
-                  color: '#ffffff',
-                },
-              date.getMonth() !== setLabelDate(index).getMonth() && {
-                color: 'gray',
-              },
-              setLabelDate(index).getDate() === new Date().getDate() &&
-                setLabelDate(index).getMonth() === new Date().getMonth() && {
-                  color: '#ffffff',
-                },
-              {...props.labelStyle},
-            ]}>
-            {setLabelDate(index).getDate()}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-
   return (
-    <View style={[styles.container, {...props.styleContainer}]}>
-      <Text style={[styles.labelStyle, {fontWeight: 'bold', marginBottom: 5}]}>
-        {getStringMonth(date)} | {date.getFullYear()}
-      </Text>
-      <View style={styles.contentContainer}>
-        {weekLabel.map((day, index) => {
-          return (
-            <View key={index}>
-              <View style={[styles.labelContainer, {marginBottom: 10}]}>
-                <Text
-                  style={[
-                    styles.labelStyle,
-                    {fontSize: 14},
-                    {...props.labelStyle},
-                  ]}>
-                  {day}
-                </Text>
-              </View>
-
-              {setColumn(index - 14)}
-              {setColumn(index - 7)}
-              {setColumn(index)}
-              {setColumn(index + 7)}
-              {setColumn(index + 14)}
-            </View>
-          );
-        })}
-      </View>
+    <View style={styles.container}>
+      <CalendarWix
+        style={{width: '100%'}}
+        theme={{
+          backgroundColor: '#ffffff',
+          calendarBackground: 'rgb(245,245,255)',
+          textSectionTitleColor: '#b6c1cd',
+          selectedDayBackgroundColor: '#00adf5',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: 'blue',
+          dayTextColor: color.primary,
+          textDisabledColor: '#d9e1e8',
+          dotColor: '#00adf5',
+          selectedDotColor: '#ffffff',
+          arrowColor: color.primary,
+          monthTextColor: color.primary,
+          indicatorColor: color.primary,
+          //textDayFontFamily: 'Comfortaa-Regular',
+          //textMonthFontFamily: 'Comfortaa-Regular',
+          //textDayHeaderFontFamily: 'Comfortaa-Regular',
+          textDayFontWeight: 'bold',
+          //textMonthFontWeight: 'bold',
+          textDayHeaderFontWeight: 'bold',
+          textDayFontSize: 16,
+          textMonthFontSize: 18,
+          textDayHeaderFontSize: 14,
+        }}
+        markedDates={props.markedDates}
+        onDayPress={props.onDayPress}
+      />
     </View>
   );
 }
-Calendar.defaultProps = {
-  Date: new Date(),
-  onPress: () => {},
-};
+Calendar.defaultProps = {};
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 10, //IPHONE 8
     borderRadius: 10,
-    backgroundColor: 'rgba(245,245,255,0.95)',
+    backgroundColor: 'rgb(245,245,255)',
     width: layout.window.width * 0.85,
     //height: 100 * 3.5, //IPHONE 8 3.75 => 3.5
     alignItems: 'center',
@@ -122,70 +101,4 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  contentContainer: {
-    flexDirection: 'row',
-  },
-  labelContainer: {
-    width: layout.window.height * 0.05,
-    height: layout.window.height * 0.05,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  labelStyle: {
-    color: '#59818b',
-    fontSize: 14, //163
-    textAlign: 'center',
-  },
 });
-
-function getStringMonth(date) {
-  switch (date.getMonth()) {
-    case 0:
-      return 'Janeiro';
-    case 1:
-      return 'Fervereiro';
-    case 2:
-      return 'Março';
-    case 3:
-      return 'Abril';
-    case 4:
-      return 'Maio';
-    case 5:
-      return 'Junho';
-    case 6:
-      return 'Julho';
-    case 7:
-      return 'Agosto';
-    case 8:
-      return 'Setembro';
-    case 9:
-      return 'Outubro';
-    case 10:
-      return 'Novembro';
-    case 11:
-      return 'Dezembro';
-  }
-}
-
-function getMaxDaysMonth(month, year) {
-  switch (month) {
-    case 0:
-    case 2:
-    case 4:
-    case 6:
-    case 7:
-    case 11:
-      return 31;
-    case 3:
-    case 5:
-    case 8:
-    case 10:
-      return 30;
-    case 1:
-      return leapYear(year) ? 29 : 28;
-  }
-}
-
-function leapYear(year) {
-  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-}

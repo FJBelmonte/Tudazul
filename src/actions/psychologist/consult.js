@@ -34,6 +34,7 @@ export const createConsult = ({
       anotation,
       dateTime,
       createdAt,
+      patient,
     })
     .then(() => {
       dispatch({

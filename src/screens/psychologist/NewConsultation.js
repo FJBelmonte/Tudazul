@@ -225,6 +225,7 @@ export default function NewConsultation({navigation}) {
               if (verifyCamps()) {
                 setLastActionId(actionId);
                 dispatch(actions.createConsult(consult));
+                dispatch(actions.fetchPatients());
               }
             }}
           />

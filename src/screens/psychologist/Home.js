@@ -1,3 +1,5 @@
+import * as actions from '../../actions';
+
 import {
   Alert,
   Platform,
@@ -20,12 +22,26 @@ import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
+import _ from 'lodash';
 
 export default function PsychologistHome({navigation}) {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
   const user = state.auth.user;
+
+  const [listPatient, setListPatient] = useState(null);
+  const [listConsults, setListConsults] = useState([]);
+
+  useEffect(() => {
+    dispatch(actions.fetchPatients());
+  }, []);
+
+  useEffect(() => {
+    setListPatient(state.patient.patients);
+  }, [state.patient.patients]);
+
+  useEffect(() => {}, [listPatient]);
 
   //
   useEffect(() => {
@@ -37,7 +53,7 @@ export default function PsychologistHome({navigation}) {
   //
   useEffect(() => {
     if (navigation.getParam('consultationCreated')) {
-      Alert.alert('Consulta criada com sucesso'); //W
+      Alert.alert('Consulta criada com sucesso');
     }
   }, [state.consult.lastCreated]);
   //
@@ -66,7 +82,7 @@ export default function PsychologistHome({navigation}) {
       </View>
 
       <View style={styles.contentContainer}>
-        <NextQuery date={new Date()} />
+        <NextQuery date={new Date()}></NextQuery>
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.welcomeLabelStyle}>

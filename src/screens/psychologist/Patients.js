@@ -73,11 +73,15 @@ export default function Patients({navigation}) {
           </ScrollView>
         </View>
       </View>
-      <TouchableOpacity
-        style={styles.floatButton}
-        onPress={() => navigation.navigate('PsychologistNewPatient')}>
-        <Text style={styles.floatButtonLabel}>+</Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="NOVA PACIENTE"
+            onPress={() => {
+              navigation.navigate('PsychologistNewPatient');
+            }}></Button>
+        </View>
+      </View>
     </View>
   );
 }

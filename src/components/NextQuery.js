@@ -39,13 +39,13 @@ export default function NextQuery(props) {
           <View style={styles.secondaryLabelContainer}>
             {props.next ? (
               <React.Fragment>
-                <Text style={[styles.secondaryLabelStyle, {fontSize: 26}]}>
+                <Text style={[styles.secondaryLabelStyle, {fontSize: 18}]}>
                   {props.next.hour}
                 </Text>
                 <Text style={[styles.secondaryLabelStyle, {fontSize: 26}]}>
-                  {props.next.type}
+                  {props.next.type !== '' ? props.next.type : 'Normal'}
                 </Text>
-                <Text style={[styles.secondaryLabelStyle, {fontSize: 26}]}>
+                <Text style={[styles.secondaryLabelStyle, {fontSize: 18}]}>
                   {props.next.name}
                 </Text>
               </React.Fragment>
