@@ -54,7 +54,7 @@ export default function NextQuery(props) {
             ) : (
               <React.Fragment>
                 <Text style={[styles.secondaryLabelStyle, {fontSize: 18}]}>
-                  Não há compromissos marcados
+                  Sem novos compromissos marcados
                 </Text>
               </React.Fragment>
             )}

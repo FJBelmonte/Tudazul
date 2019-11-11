@@ -60,10 +60,11 @@ export default function Patients({navigation}) {
                     <Button
                       style={{width: 120}}
                       textStyle={{fontSize: 14}}
-                      text="GERAR CÓDIGO"
+                      text="GERENCIAR"
                       onPress={() => {
-                        dispatch(actions.createPatientCode(patient));
-                        Alert.alert(patient.uid);
+                        navigation.navigate('PsychologistManagerPatient', {
+                          patient,
+                        });
                       }}
                     />
                   </NextQuery>
@@ -76,7 +77,7 @@ export default function Patients({navigation}) {
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
-            text="NOVA PACIENTE"
+            text="NOVO PACIENTE"
             onPress={() => {
               navigation.navigate('PsychologistNewPatient');
             }}></Button>

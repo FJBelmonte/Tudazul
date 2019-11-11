@@ -22,6 +22,7 @@ import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
+import {ScrollView} from 'react-native-gesture-handler';
 import _ from 'lodash';
 
 export default function PsychologistHome({navigation}) {
@@ -30,7 +31,7 @@ export default function PsychologistHome({navigation}) {
 
   const user = state.auth.user;
 
-  const [listPatient, setListPatient] = useState(null);
+  const [listPatient, setListPatient] = useState([]);
   const [listConsults, setListConsults] = useState([]);
 
   useEffect(() => {
@@ -72,6 +73,45 @@ export default function PsychologistHome({navigation}) {
   }, [state.question.lastCreated]);
   //
 
+  function returnNext() {
+    return (
+      <React.Fragment>
+        {_.toArray(listPatient).map((patient, index) => {
+          let d = new Date(patient.consultation.dateTime);
+          let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+          let t = new Date();
+          let t2 = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+          console.log(d2);
+          console.log(t2);
+          if (d2.getTime() === t2.getTime()) {
+            return (
+              <View
+                style={{
+                  width: layout.window.width,
+                }}>
+                <NextQuery
+                  key={index}
+                  date={new Date()}
+                  next={{
+                    hour: patient.consultation.time,
+                    type: patient.consultation.type,
+                    name: patient.name,
+                  }}
+                />
+              </View>
+            );
+          }
+        })}
+        <View
+          style={{
+            width: layout.window.width,
+          }}>
+          <NextQuery date={new Date()} />
+        </View>
+      </React.Fragment>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
@@ -81,8 +121,18 @@ export default function PsychologistHome({navigation}) {
         />
       </View>
 
-      <View style={styles.contentContainer}>
-        <NextQuery date={new Date()}></NextQuery>
+      <View style={[styles.contentContainer, {padding: 0}]}>
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          persistentScrollbar
+          horizontal
+          pagingEnabled>
+          {returnNext()}
+        </ScrollView>
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.welcomeLabelStyle}>

@@ -12,7 +12,7 @@ export default global = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 15,
+    padding: 10,
   },
   footer: {
     justifyContent: 'flex-end',

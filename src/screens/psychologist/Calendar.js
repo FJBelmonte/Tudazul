@@ -66,12 +66,13 @@ export default function Calendar({navigation}) {
           />
         </View>
 
-        {_.toArray(state.patient.patients).map(patient => {
+        {_.toArray(state.patient.patients).map((patient, index) => {
           let d = new Date(patient.consultation.dateTime);
           let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
           if (d2.getTime() === pickedDate.getTime()) {
             return (
               <NextQuery
+                key={index}
                 date={pickedDate ? pickedDate : new Date()}
                 next={{
                   hour: patient.consultation.time,

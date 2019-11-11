@@ -27,60 +27,55 @@ export default function Patient({navigation}) {
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
       <View style={styles.contentContainer}>
-        <View style={{flex: 1, justifyContent: 'flex-start'}}>
-          <Box>
-            <View style={styles.labelContainer}>
-              <Text style={styles.labelStyle}>Nome</Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyle}>{name}</Text>
-            </View>
-          </Box>
-          <Box>
-            <View style={styles.labelContainer}>
-              <Text style={styles.labelStyle}>Idade</Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyle}>{age}</Text>
-            </View>
-          </Box>
-          <Box>
-            <View style={styles.labelContainer}>
-              <Text style={styles.labelStyle}>Gênero</Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyle}>{gender}</Text>
-            </View>
-          </Box>
+        <Box>
+          <View style={styles.labelContainer}>
+            <Text style={styles.labelStyle}>Nome</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>{name}</Text>
+          </View>
+        </Box>
+        <Box>
+          <View style={styles.labelContainer}>
+            <Text style={styles.labelStyle}>Idade</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>{age}</Text>
+          </View>
+        </Box>
+        <Box>
+          <View style={styles.labelContainer}>
+            <Text style={styles.labelStyle}>Gênero</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>{gender}</Text>
+          </View>
+        </Box>
+        <ScrollView
+          style={{width: layout.window.width}}
+          contentContainerStyle={{alignItems: 'center'}}>
           <Box
             style={{
-              container: {flex: 1},
+              container: {...styles.boxContainer},
               contentContainer: {
-                flex: 1,
-                width: layout.window.width * 0.8,
-                flexDirection: null,
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: 5,
               },
             }}>
-            <View style={[styles.labelContainer, styles.multiline]}>
-              <Text style={styles.labelStyle}>Anotações</Text>
-            </View>
-            <ScrollView>
-              <View style={[styles.textContainer, {}]}>
-                <Text style={styles.textStyle}>{anotation}</Text>
-              </View>
-            </ScrollView>
+            <Text style={styles.labelStyle}>Anotações</Text>
+
+            <Text style={styles.textStyle}>{anotation}</Text>
           </Box>
-        </View>
+        </ScrollView>
       </View>
+
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
-            text="GERAR CÓDIGO"
+            text="GERENCIAR"
             onPress={() => {
-              dispatch(actions.createPatientCode(patient));
-              Alert.alert(uid);
+              navigation.navigate('PsychologistManagerPatient', {patient});
             }}></Button>
         </View>
       </View>
@@ -119,5 +114,9 @@ const styles = StyleSheet.create({
   multiline: {
     alignSelf: 'center',
     borderRightWidth: 0,
+  },
+
+  boxContainer: {
+    height: null,
   },
 });

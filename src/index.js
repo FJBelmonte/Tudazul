@@ -8,7 +8,7 @@ import firebase from './services/firebase';
 
 YellowBox.ignoreWarnings(['Remote debugger']);
 YellowBox.ignoreWarnings(['RCTRootView cancelTouches']);
-
+YellowBox.ignoreWarnings(['Warning: componentWillReceiveProps']);
 YellowBox.ignoreWarnings(['Warning: Slider']);
 
 const {store, persistor} = configureStore();

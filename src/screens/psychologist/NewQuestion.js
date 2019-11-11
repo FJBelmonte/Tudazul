@@ -173,7 +173,7 @@ export default function NewQuestion({navigation}) {
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
-            text="CONFIRMAR"
+            text="ADICIONAR"
             onPress={() => {
               const actionId = `${uuidv4()}`;
               if (verifyCamps()) {

@@ -19,6 +19,7 @@ import PsychologistCalendar from '../screens/psychologist/Calendar';
 import PsychologistForgotPassword from '../screens/psychologist/ForgotPassword';
 import PsychologistHome from '../screens/psychologist/Home';
 import PsychologistLogin from '../screens/psychologist/Login';
+import PsychologistManagerPatient from '../screens/psychologist/ManagerPatient';
 import PsychologistNewConsultation from '../screens/psychologist/NewConsultation';
 import PsychologistNewExercise from '../screens/psychologist/NewExercise';
 import PsychologistNewPatient from '../screens/psychologist/NewPatient';
@@ -46,6 +47,7 @@ const psychologistStack = createStackNavigator({
   PsychologistPatient,
   PsychologistNewExercise,
   PsychologistNewQuestion,
+  PsychologistManagerPatient,
 });
 
 const patientStack = createStackNavigator({
