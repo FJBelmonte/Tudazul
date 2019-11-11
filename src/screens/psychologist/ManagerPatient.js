@@ -288,9 +288,10 @@ export default function ManagerPatient({navigation}) {
     </View>
   );
 }
-ManagerPatient.navigationOptions = {
-  title: 'Gerenciar paciente',
-};
+
+ManagerPatient.navigationOptions = ({navigation, screenProps}) => ({
+  title: `Gerenciar ${navigation.getParam('patient').name}`,
+});
 
 const styles = StyleSheet.create({
   ...global,

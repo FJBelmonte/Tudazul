@@ -82,9 +82,9 @@ export default function Patient({navigation}) {
     </View>
   );
 }
-Patient.navigationOptions = {
-  title: 'Paciente',
-};
+Patient.navigationOptions = ({navigation, screenProps}) => ({
+  title: `${navigation.getParam('patient').name}`,
+});
 const styles = StyleSheet.create({
   ...global,
   labelStyle: {
