@@ -1,11 +1,20 @@
 import * as actions from '../../actions';
 
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Box, Button, Graphic} from '../../components';
 import React, {useEffect, useState} from 'react';
 import {global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 
+import EditSVG from '../../assets/svg/edit-24px.svg';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import humor1 from '../../assets/images/humor/1-01.png';
@@ -136,8 +145,8 @@ export default function ManagerPatient({navigation}) {
                 <Box
                   key={index}
                   style={{
-                    container: {height: 60},
-                    contentContainer: {flexDirection: 'column'},
+                    container: {height: null},
+                    contentContainer: {alignItems: 'center'},
                   }}>
                   <View style={styles.boxTitleContainer}>
                     <Text style={styles.boxTitleLabel}>Exercício</Text>
@@ -145,6 +154,11 @@ export default function ManagerPatient({navigation}) {
                   <View style={styles.boxContentContainer}>
                     <Text style={styles.boxContentLabel}>{tudazul.note}</Text>
                   </View>
+                  <TouchableOpacity
+                    onPress={() => handleEditPress(tudazul, 'exercise')}
+                    style={{justifyContent: 'center'}}>
+                    <EditSVG width={30} height={30} fill={color.primary} />
+                  </TouchableOpacity>
                 </Box>
               );
             })}
@@ -154,8 +168,8 @@ export default function ManagerPatient({navigation}) {
                 <Box
                   key={index}
                   style={{
-                    container: {height: 60},
-                    contentContainer: {flexDirection: 'column'},
+                    container: {height: null},
+                    contentContainer: {alignItems: 'center'},
                   }}>
                   <View style={styles.boxTitleContainer}>
                     <Text style={styles.boxTitleLabel}>Frase</Text>
@@ -163,6 +177,11 @@ export default function ManagerPatient({navigation}) {
                   <View style={styles.boxContentContainer}>
                     <Text style={styles.boxContentLabel}>{tudazul.note}</Text>
                   </View>
+                  <TouchableOpacity
+                    onPress={() => handleEditPress(tudazul, 'phrase')}
+                    style={{justifyContent: 'center'}}>
+                    <EditSVG width={30} height={30} fill={color.primary} />
+                  </TouchableOpacity>
                 </Box>
               );
             })}
@@ -172,8 +191,8 @@ export default function ManagerPatient({navigation}) {
                 <Box
                   key={index}
                   style={{
-                    container: {height: 60},
-                    contentContainer: {flexDirection: 'column'},
+                    container: {height: null},
+                    contentContainer: {alignItems: 'center'},
                   }}>
                   <View style={styles.boxTitleContainer}>
                     <Text style={styles.boxTitleLabel}>Pergunta</Text>
@@ -181,6 +200,11 @@ export default function ManagerPatient({navigation}) {
                   <View style={styles.boxContentContainer}>
                     <Text style={styles.boxContentLabel}>{tudazul.note}</Text>
                   </View>
+                  <TouchableOpacity
+                    onPress={() => handleEditPress(tudazul, 'question')}
+                    style={{justifyContent: 'center'}}>
+                    <EditSVG width={30} height={30} fill={color.primary} />
+                  </TouchableOpacity>
                 </Box>
               );
             })}
@@ -190,8 +214,8 @@ export default function ManagerPatient({navigation}) {
                 <Box
                   key={index}
                   style={{
-                    container: {height: 60},
-                    contentContainer: {flexDirection: 'column'},
+                    container: {height: null},
+                    contentContainer: {alignItems: 'center'},
                   }}>
                   <View style={styles.boxTitleContainer}>
                     <Text style={styles.boxTitleLabel}>Lembrete</Text>
@@ -199,6 +223,11 @@ export default function ManagerPatient({navigation}) {
                   <View style={styles.boxContentContainer}>
                     <Text style={styles.boxContentLabel}>{tudazul.note}</Text>
                   </View>
+                  <TouchableOpacity
+                    onPress={() => handleEditPress(tudazul, 'reminder')}
+                    style={{justifyContent: 'center'}}>
+                    <EditSVG width={30} height={30} fill={color.primary} />
+                  </TouchableOpacity>
                 </Box>
               );
             })}
@@ -212,6 +241,11 @@ export default function ManagerPatient({navigation}) {
     );
   }
 
+  function handleEditPress(data, type) {
+    console.log(data);
+    console.log(type);
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={linearGradient} style={styles.background} />
@@ -221,12 +255,19 @@ export default function ManagerPatient({navigation}) {
           contentContainerStyle={{alignItems: 'center'}}>
           <Box>
             <View style={styles.labelContainer}>
-              <Text style={styles.labelStyle}>Nome</Text>
+              <Text style={styles.labelStyle}>Paciente</Text>
             </View>
 
             <View style={styles.textContainer}>
               <Text style={styles.textStyle}>{name}</Text>
             </View>
+            <TouchableOpacity
+              style={{justifyContent: 'center'}}
+              onPress={() => {
+                handleEditPress(patient, 'patient');
+              }}>
+              <EditSVG width={30} height={30} fill={color.primary} />
+            </TouchableOpacity>
           </Box>
           {returnChart()}
           {returnAverageMood()}
@@ -343,8 +384,7 @@ const styles = StyleSheet.create({
   },
   boxContentLabel: {
     color: '#59818b',
-
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
   },
 });
