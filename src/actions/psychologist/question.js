@@ -3,9 +3,27 @@ import {
   CREATE_QUESTION_ALL_SUCCESS,
   CREATE_QUESTION_ONE_FAIL,
   CREATE_QUESTION_ONE_SUCCESS,
+  FETCH_QUESTION,
 } from '../types';
 
 import firebase from '../../services/firebase';
+
+export const fetchQuestions = () => async dispatch => {
+  let user = firebase.auth().currentUser;
+  let db = firebase.database();
+
+  db.ref(`psychologist/${user.uid}/tudazul`)
+    .once('value')
+    .then(snapshot => {
+      const e = snapshot.val();
+      console.log(e);
+      dispatch({
+        type: FETCH_QUESTION,
+        payload: {question: {...e.question}, phrase: {...e.phrase}},
+      });
+    })
+    .catch(err => console.log(err));
+};
 
 export const createQuestionAll = ({
   type,

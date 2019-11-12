@@ -257,7 +257,7 @@ export default function NewExercise({navigation}) {
   );
 }
 NewExercise.navigationOptions = {
-  title: 'Exercícios',
+  title: 'Adicionar',
 };
 
 const styles = StyleSheet.create({

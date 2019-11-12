@@ -158,7 +158,6 @@ export default function PsychologistLogin({navigation}) {
           <Button
             text="ENTRAR"
             onPress={() => {
-              console.log('Login - ButtonEntrar PRESSED');
               const credentials = {email, password};
               if (verifyCamps()) {
                 dispatch(actions.signIn(credentials));
@@ -169,13 +168,11 @@ export default function PsychologistLogin({navigation}) {
             text="CADASTRAR"
             style={{backgroundColor: '#d5d5d5'}}
             onPress={() => {
-              console.log('Login - ButtonCadastrar PRESSED');
               navigation.navigate('PsychologistSignup');
             }}
           />
           <TouchableOpacity
             onPress={() => {
-              console.log('Login - TouchableOpacityForgotPassword PRESSED');
               navigation.navigate('PsychologistForgotPassword');
             }}>
             <Text style={styles.footerText}> Esqueceu sua senha ? </Text>

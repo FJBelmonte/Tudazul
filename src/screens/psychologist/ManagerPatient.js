@@ -157,7 +157,7 @@ export default function ManagerPatient({navigation}) {
                   <TouchableOpacity
                     onPress={() => handleEditPress(tudazul, 'exercise')}
                     style={{justifyContent: 'center'}}>
-                    <EditSVG width={30} height={30} fill={color.primary} />
+                    <EditSVG width={25} height={25} fill={color.primary} />
                   </TouchableOpacity>
                 </Box>
               );
@@ -180,7 +180,7 @@ export default function ManagerPatient({navigation}) {
                   <TouchableOpacity
                     onPress={() => handleEditPress(tudazul, 'phrase')}
                     style={{justifyContent: 'center'}}>
-                    <EditSVG width={30} height={30} fill={color.primary} />
+                    <EditSVG width={25} height={25} fill={color.primary} />
                   </TouchableOpacity>
                 </Box>
               );
@@ -203,7 +203,7 @@ export default function ManagerPatient({navigation}) {
                   <TouchableOpacity
                     onPress={() => handleEditPress(tudazul, 'question')}
                     style={{justifyContent: 'center'}}>
-                    <EditSVG width={30} height={30} fill={color.primary} />
+                    <EditSVG width={25} height={25} fill={color.primary} />
                   </TouchableOpacity>
                 </Box>
               );
@@ -226,7 +226,7 @@ export default function ManagerPatient({navigation}) {
                   <TouchableOpacity
                     onPress={() => handleEditPress(tudazul, 'reminder')}
                     style={{justifyContent: 'center'}}>
-                    <EditSVG width={30} height={30} fill={color.primary} />
+                    <EditSVG width={25} height={25} fill={color.primary} />
                   </TouchableOpacity>
                 </Box>
               );
@@ -266,7 +266,7 @@ export default function ManagerPatient({navigation}) {
               onPress={() => {
                 handleEditPress(patient, 'patient');
               }}>
-              <EditSVG width={30} height={30} fill={color.primary} />
+              <EditSVG width={25} height={25} fill={color.primary} />
             </TouchableOpacity>
           </Box>
           {returnChart()}
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   labelContainer: {
-    width: layout.window.width * 0.29, //width: 120,
+    width: layout.window.width * 0.29, //width: 125,
     height: 46,
     marginHorizontal: 2,
     justifyContent: 'center',

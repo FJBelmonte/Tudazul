@@ -3,9 +3,27 @@ import {
   CREATE_EXERCISE_ALL_SUCCESS,
   CREATE_EXERCISE_ONE_FAIL,
   CREATE_EXERCISE_ONE_SUCCESS,
+  FETCH_EXERCISE,
 } from '../types';
 
 import firebase from '../../services/firebase';
+
+export const fetchExercises = () => async dispatch => {
+  let user = firebase.auth().currentUser;
+  let db = firebase.database();
+
+  db.ref(`psychologist/${user.uid}/tudazul`)
+    .once('value')
+    .then(snapshot => {
+      const e = snapshot.val();
+      console.log(e);
+      dispatch({
+        type: FETCH_EXERCISE,
+        payload: {exercise: {...e.exercises}, reminder: {...e.reminder}},
+      });
+    })
+    .catch(err => console.log(err));
+};
 
 export const createExerciseAll = ({
   type,

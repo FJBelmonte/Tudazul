@@ -81,8 +81,7 @@ export default function PsychologistHome({navigation}) {
           let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
           let t = new Date();
           let t2 = new Date(t.getFullYear(), t.getMonth(), t.getDate());
-          console.log(d2);
-          console.log(t2);
+
           if (d2.getTime() === t2.getTime()) {
             return (
               <View
@@ -143,8 +142,8 @@ export default function PsychologistHome({navigation}) {
         <NavigationBox
           onPress0={() => navigation.navigate('PsychologistCalendar')}
           onPress1={() => navigation.navigate('PsychologistPatients')}
-          onPress2={() => navigation.navigate('PsychologistNewExercise')}
-          onPress3={() => navigation.navigate('PsychologistNewQuestion')}
+          onPress2={() => navigation.navigate('PsychologistExercises')}
+          onPress3={() => navigation.navigate('PsychologistQuestions')}
         />
       </View>
     </View>
