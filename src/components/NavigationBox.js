@@ -29,7 +29,7 @@ export default function NavigationBox(props) {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.onPress3()}>
           <Image source={icoAnotacoes} style={styles.ico} />
-          <Text style={styles.icoLabel}>Adicione</Text>
+          <Text style={styles.icoLabel}>Frases</Text>
         </TouchableOpacity>
       </View>
     </View>

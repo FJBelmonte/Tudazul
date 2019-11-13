@@ -36,6 +36,10 @@ export default function Exercises({navigation}) {
     setListReminder(_.toArray(state.exercise.reminders));
   }, [state.exercise]);
 
+  function handleEditPress(data, type) {
+    console.log(data);
+    console.log(type);
+  }
   return (
     <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />

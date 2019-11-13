@@ -36,6 +36,10 @@ export default function Questions({navigation}) {
     setListQuestion(_.toArray(state.question.question));
   }, [state.question]);
 
+  function handleEditPress(data, type) {
+    console.log(data);
+    console.log(type);
+  }
   return (
     <View style={[styles.container]}>
       <LinearGradient colors={linearGradient} style={styles.background} />
