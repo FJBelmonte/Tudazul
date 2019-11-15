@@ -21,17 +21,20 @@ export default function Calendar({navigation}) {
 
   useEffect(() => {
     let objMarkedDates = {};
-    _.toArray(state.patient.patients).map(({consultation}) => {
-      const date = new Date(consultation.dateTime);
-      const objName = `${date.getFullYear()}-${date.getMonth() +
-        1}-${date.getDate()}`;
+    _.toArray(state.patient.patients).map(patient => {
+      console.log('entrou');
+      if (patient.consultation) {
+        const date = new Date(patient.consultation.dateTime);
+        const objName = `${date.getFullYear()}-${date.getMonth() +
+          1}-${date.getDate()}`;
 
-      let obj = make_object_path([objName], {
-        marked: true,
-        dotColor: 'blue',
-        activeOpacity: 0,
-      });
-      Object.assign(objMarkedDates, obj);
+        let obj = make_object_path([objName], {
+          marked: true,
+          dotColor: 'blue',
+          activeOpacity: 0,
+        });
+        Object.assign(objMarkedDates, obj);
+      }
     });
     setMarkedDates(objMarkedDates);
   }, []);
@@ -67,27 +70,29 @@ export default function Calendar({navigation}) {
         </View>
 
         {_.toArray(state.patient.patients).map((patient, index) => {
-          let d = new Date(patient.consultation.dateTime);
-          let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-          if (d2.getTime() === pickedDate.getTime()) {
-            return (
-              <NextQuery
-                key={index}
-                date={pickedDate ? pickedDate : new Date()}
-                next={{
-                  hour: patient.consultation.time,
-                  type: patient.consultation.type,
-                  name: patient.name,
-                }}
-              />
-            );
+          if (patient.consultation) {
+            let d = new Date(patient.consultation.dateTime);
+            let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            if (d2.getTime() === pickedDate.getTime()) {
+              return (
+                <NextQuery
+                  key={index}
+                  date={pickedDate ? pickedDate : new Date()}
+                  next={{
+                    hour: patient.consultation.time,
+                    type: patient.consultation.type,
+                    name: patient.name,
+                  }}
+                />
+              );
+            }
           }
         })}
       </ScrollView>
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
-            text="NOVA CONSULTA"
+            text='NOVA CONSULTA'
             onPress={() => {
               navigation.navigate('PsychologistNewConsultation');
             }}></Button>

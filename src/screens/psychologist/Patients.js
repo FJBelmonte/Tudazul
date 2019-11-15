@@ -60,7 +60,7 @@ export default function Patients({navigation}) {
                     <Button
                       style={{width: 120}}
                       textStyle={{fontSize: 14}}
-                      text="GERENCIAR"
+                      text='GERENCIAR'
                       onPress={() => {
                         navigation.navigate('PsychologistManagerPatient', {
                           patient,
@@ -77,7 +77,7 @@ export default function Patients({navigation}) {
       <View style={styles.footer}>
         <View style={styles.buttonsContainer}>
           <Button
-            text="NOVO PACIENTE"
+            text='NOVO PACIENTE'
             onPress={() => {
               navigation.navigate('PsychologistNewPatient');
             }}></Button>

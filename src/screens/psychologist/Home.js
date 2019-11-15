@@ -77,28 +77,30 @@ export default function PsychologistHome({navigation}) {
     return (
       <React.Fragment>
         {_.toArray(listPatient).map((patient, index) => {
-          let d = new Date(patient.consultation.dateTime);
-          let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-          let t = new Date();
-          let t2 = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+          if (patient.consultation) {
+            let d = new Date(patient.consultation.dateTime);
+            let d2 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            let t = new Date();
+            let t2 = new Date(t.getFullYear(), t.getMonth(), t.getDate());
 
-          if (d2.getTime() === t2.getTime()) {
-            return (
-              <View
-                style={{
-                  width: layout.window.width,
-                }}>
-                <NextQuery
-                  key={index}
-                  date={new Date()}
-                  next={{
-                    hour: patient.consultation.time,
-                    type: patient.consultation.type,
-                    name: patient.name,
+            if (d2.getTime() === t2.getTime()) {
+              return (
+                <View
+                  style={{
+                    width: layout.window.width,
                   }}
-                />
-              </View>
-            );
+                  key={index}>
+                  <NextQuery
+                    date={new Date()}
+                    next={{
+                      hour: patient.consultation.time,
+                      type: patient.consultation.type,
+                      name: patient.name,
+                    }}
+                  />
+                </View>
+              );
+            }
           }
         })}
         <View
