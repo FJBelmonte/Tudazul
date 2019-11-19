@@ -1,21 +1,18 @@
 import * as actions from '../../actions';
-
 import {Box, Button, CheckBox, Input, Modal} from '../../components';
 import {Picker, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {color, global, layout, linearGradient} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
-
-//import Icon from 'react-native-vector-icons/MaterialIcons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import dropDownIcon from '../../assets/icons/ico-drop-arrow.png';
 
 export default function EditTudazul({navigation}) {
+
   const state = useSelector(state => state);
   const dispatch = useDispatch();
-
   const [checkBoxReminderQuestion, setCheckBoxReminderQuestion] = useState(
     false,
   );
@@ -49,7 +46,6 @@ export default function EditTudazul({navigation}) {
     });
   });
 
-  // BEGIN - REDIRECT TO HOME SCREEN WITH PARAMS
   useEffect(() => {
     if (state.question.lastCreated) {
       if (state.question.lastCreated === lastActionId) {
@@ -57,7 +53,6 @@ export default function EditTudazul({navigation}) {
       }
     }
   }, [state.question.lastCreated]);
-  // END
 
   function verifyCamps() {
     let errorInput = {...inputError};

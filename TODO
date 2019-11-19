@@ -1,0 +1,4 @@
+- Paciente -> Primeiro acesso do paciente é disparado novamente após dar entrada nos dados caso o
+acesso da internet esteja lento
+
+- Paciente -> Random message muda duas vezes no primeiro acesso 
