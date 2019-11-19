@@ -86,14 +86,16 @@ export default function PatientHome({navigation}) {
         <Text style={styles.welcomeLabelStyle}>
           Olá {patient ? patient.name : 'Paciente'}
         </Text>
-        <Text style={styles.quote}>"{message.note}"</Text>
+        <Text style={styles.quote}>{message && message.note}</Text>
       </View>
       <View style={styles.contentContainer}>
         <NextQuery
           date={
             patient.consultation && new Date(patient.consultation.dateTime)
           }>
-          <Text style={styles.NextQueryTop}>{patient.consultation.time}</Text>
+          <Text style={styles.NextQueryTop}>
+            {patient.consultation && patient.consultation.time}
+          </Text>
           <Text style={styles.NextQueryMid}>Consulta</Text>
           <Text style={styles.NextQueryBot}>Dr(a). {psychologistName}</Text>
         </NextQuery>
